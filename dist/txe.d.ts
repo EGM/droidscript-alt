@@ -1,0 +1,34 @@
+import View from "./view";
+export default class Txe extends View {
+    constructor(id: string);
+    clearHistory(): void;
+    getCursorLine(): number;
+    getCursorPos(): number;
+    getHtml(): string;
+    getLineCount(): number;
+    getLineStart(line: number): number;
+    getLineTop(line: number): number;
+    getMaxLines(): number;
+    getSelectedText(): string;
+    getSelectionEnd(): number;
+    getSelectionStart(): number;
+    getText(): string;
+    getTextSize(mode?: string): number;
+    getType(): string;
+    insertText(text: number, start: number): void;
+    redo(): void;
+    replaceText(text: string, start: number, end: number): void;
+    setCursorColor(color: string): Txe;
+    setCursorPos(position: number): Txe;
+    setHint(text: string): Txe;
+    setHtml(html: string): Txe;
+    setOnChange(callback: Function): Txe;
+    setOnEnter(callback: Function): Txe;
+    setOnFocus(callback: Function): Txe;
+    setOnTouch(callback: Function): Txe;
+    setSelection(start: number, stop: number): Txe;
+    setText(txt: string): Txe;
+    setTextColor(color: string): Txe;
+    setTextSize(size: number, mode?: string): Txe;
+    undo(): void;
+}
