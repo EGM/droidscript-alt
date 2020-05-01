@@ -166,10 +166,12 @@ export var alt;
     };
     alt.addTextEdit = function (lay, text, width, height, options) {
         const ret = prompt(lay ? lay.id : null, `App.AddTextEdit(${text}\f${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Txe(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.addToggle = function (lay, text, width, height, options) {
         const ret = prompt(lay ? lay.id : null, `App.AddToggle(${text}\f${width}\f${height}\f${options}`);
@@ -361,8 +363,9 @@ export var alt;
         }
     };
     alt.createCrypt = function (options) {
-        if (_crp)
+        if (_crp) {
             _crp.Release();
+        }
         const ret = prompt("#", `App.CreateCrypt(\f${options}`);
         if (ret) {
             _crp = new Crp(ret);
@@ -432,9 +435,9 @@ export var alt;
                   }
                   return glv;
               }
-    
+  
               function createGame(file, orient) { return new _Game(file, orient) }
-    
+  
               function createGameView(width, height, options) {
                   if (options) options = options.toLowerCase(); else options = "";
                   if (options.indexOf("gles") > -1) {
@@ -539,19 +542,22 @@ export var alt;
     //	function createNxt() { var nxtHelp = new _NxtHelp(); return nxtHelp.nxt_CreateNxt(); }
     // function createNxtRemote() { var ret = prompt("#", `App.CreateNxtRemote(`); if (ret) return new Nxt(ret, null); else return null; }
     alt.createObject = function (name, type) {
-        if (!type)
+        if (!type) {
             try {
-                return eval(`new ${name}()`);
+                return JSON.parse(`new ${name}()`);
             }
             catch (e) {
                 return null;
             }
+        }
         else {
             const ret = prompt("#", `_Obj(\f${type}\f${name}`);
-            if (ret)
+            if (ret) {
                 return new Component(ret);
-            else
+            }
+            else {
                 return null;
+            }
         }
     };
     alt.createOverlay = function (options) {
@@ -609,24 +615,30 @@ export var alt;
     };
     alt.createSeekBar = function (width, height, options) {
         const ret = prompt("#", `App.CreateSeekBar(${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Skb(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createSensor = function (type, options) {
         const ret = prompt("#", `App.CreateSensor(${type}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Sns(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createService = function (packageName, className, callback, options) {
         const ret = prompt("#", `App.CreateService(\f${packageName}\f${className}\f${options}\f${_Cbm(callback)}`);
-        if (ret)
+        if (ret) {
             return new Svc(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createShortcut = function (name, iconFile, file, options) {
         prompt("#", `App.CreateShortcut(\f${name}\f${iconFile}\f${file}\f${options}`);
@@ -641,35 +653,44 @@ export var alt;
                                               }
                                               */
     alt.createSpeechRec = function (options) {
-        if (_spr)
+        if (_spr) {
             _spr.Release();
+        }
         const ret = prompt("#", `App.CreateSpeechRec(\f${options}`);
-        if (ret)
+        if (ret) {
             _spr = new Spr(ret);
-        else
+        }
+        else {
             _spr = null;
+        }
         return _spr;
     };
     alt.createSpinner = function (list, width, height, options) {
         const ret = prompt("#", `App.CreateSpinner(${list}\f${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Spn(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createSynth = function (type) {
         const ret = prompt("#", `App.CreateSynth(${type}`);
-        if (ret)
+        if (ret) {
             return new Syn(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createSysProc = function (cmd, env, dir, options) {
         const ret = prompt("#", `App.CreateSysProc(\f${cmd}\f${env}\f${dir}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Sys(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     /*
                                                 function createTabs(list, width, height, options) {
@@ -678,62 +699,79 @@ export var alt;
                                               */
     alt.createText = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateText(${text}\f${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Txt(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createTextEdit = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateTextEdit(${text}\f${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Txe(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createTheme = function (baseTheme) {
         const ret = prompt("#", `App.CreateTheme(\f${baseTheme}`);
-        if (ret)
+        if (ret) {
             return new Thm(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createToggle = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateToggle(${text}\f${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Tgl(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createUSBSerial = function (baudRate, dataBits, stopBits, parity, device) {
         const ret = prompt("#", `App.CreateUSBSerial(\f${baudRate}\f${dataBits}\f${stopBits}\f${parity}\f${device}`);
-        if (ret)
+        if (ret) {
             return new Usb(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createVideoView = function (width, height, options) {
         const ret = prompt("#", `App.CreateVideoView(\f${width}\f${height}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Vid(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createWallpaper = function (options) {
-        if (_wpr)
+        if (_wpr) {
             _wpr.Release();
+        }
         const ret = prompt("#", `App.CreateWallpaper(\f${options}`);
-        if (ret)
+        if (ret) {
             _wpr = new Wpr(ret);
-        else
+        }
+        else {
             _wpr = null;
+        }
         return _wpr;
     };
     alt.createWebServer = function (port, options) {
         const ret = prompt("#", `App.CreateWebServer(${port}\f${options}`);
-        if (ret)
+        if (ret) {
             return new Wbs(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.createWebSocket = function (id, ip, port, options) {
         return new _WebSock(id, ip, port, options);
@@ -752,21 +790,26 @@ export var alt;
                                                 function createWizard(title, width, height, callback, options) { return new _Wizard(title, width, height, callback, options) }
                                                 */
     alt.createYesNoDialog = function (message, options) {
-        if (_ynd)
+        if (_ynd) {
             _ynd.Release();
+        }
         const ret = prompt("#", `App.CreateYesNoDialog(\f${message}\f${options}`);
-        if (ret)
+        if (ret) {
             _ynd = new Ynd(ret);
-        else
+        }
+        else {
             _ynd = null;
+        }
         return _ynd;
     };
     alt.createZipUtil = function (mode) {
         const ret = prompt("#", `App.CreateZipUtil(\f${mode}`);
-        if (ret)
+        if (ret) {
             return new Zip(ret);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.debug = function (message) {
         prompt("#", `App.Debug(\f${message}`);
@@ -912,10 +955,12 @@ export var alt;
     };
     alt.getFileDate = function (file) {
         const d = parseInt(prompt("#", `App.GetFileDate(\f${file}`));
-        if (d)
+        if (d) {
             return new Date(d);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getFileSize = function (file) {
         return parseInt(prompt("#", `App.GetFileSize(\f${file}`));
@@ -931,10 +976,12 @@ export var alt;
     };
     alt.getIntent = function () {
         const s = prompt("#", `App.GetIntent(`);
-        if (s.length)
+        if (s.length) {
             return JSON.parse(s);
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getInternalFolder = function () {
         return prompt("#", `App.GetInternalFolder(`);
@@ -956,31 +1003,39 @@ export var alt;
     };
     alt.getLastButton = function () {
         const ret = prompt("#", `App.GetLastButton(`);
-        if (ret)
+        if (ret) {
             return _map[ret];
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getLastCheckBox = function () {
         const ret = prompt("#", `App.GetLastCheckBox(`);
-        if (ret)
+        if (ret) {
             return _map[ret];
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getLastImage = function () {
         const ret = prompt("#", `App.GetLastImage(`);
-        if (ret)
+        if (ret) {
             return _map[ret];
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getLastToggle = function () {
         const ret = prompt("#", `App.GetLastToggle(`);
-        if (ret)
+        if (ret) {
             return _map[ret];
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getMacAddress = function () {
         return prompt("#", `App.GetMacAddress(`);
@@ -1063,16 +1118,18 @@ export var alt;
     };
     alt.getSharedFiles = function () {
         const s = prompt("#", `App.GetSharedFiles(`);
-        if (s.length)
+        if (s.length) {
             return s.split(", ");
-        else
+        }
+        else {
             return null;
+        }
     };
     alt.getSharedText = function (index) {
         return prompt("#", `App.GetSharedText(${index}`);
     };
     alt.getSpeakerPhone = function () {
-        return prompt("#", `App.GetSpeakerPhone(`) == "true";
+        return prompt("#", `App.GetSpeakerPhone(`) === "true";
     };
     alt.getSpecialFolder = function (name) {
         return prompt("#", `App.GetSpecialFolder(\f${name}`);
@@ -1198,10 +1255,12 @@ export var alt;
         prompt("#", `App.KillApp(${procId}`);
     };
     alt.language2Code = function (name) {
-        if (name)
+        if (name) {
             return _languages.codes[name.toLowerCase()];
-        else
+        }
+        else {
             return _curLang;
+        }
     };
     alt.listFolder = function (path, filter, limit, options) {
         return JSON.parse(prompt("#", `App.ListFolder(\f${path}\f${filter}\f${limit}\f${options}`));
@@ -1236,16 +1295,16 @@ export var alt;
                                                     _LoadScriptSync("/Sys/cp.js`);
                                                     _LoadScriptSync("/Sys/sql.js`);
                                                     _CreateCP("sqliteplugin`);
-    
+  
                                                     var db = sqlitePlugin.openDatabase(name);
                                                     db.name = name;
-    
+  
                                                     db.GetType = function () { return "Database"; }
                                                     db.GetName = function () { return db.name; }
                                                     db.ExecuteSql = function (sql, params, success, error) {
                                                         if (!success) success = null;
                                                         if (!error) error = _Err;
-    
+  
                                                         db.transaction(function (tx) {
                                                             tx.executeSql(sql, params,
                                                                 function (tx, res) { if (success) success.apply(db, [res]) },
@@ -1524,7 +1583,7 @@ export var alt;
         prompt("#", `App.SimulateTouch(\f${obj.id}\f${x}\f${y}\f${dir}`);
     };
     alt.start = function () {
-        if (typeof OnStart == "function") {
+        if (typeof OnStart === "function") {
             OnStart();
             prompt("#", "_Start");
             _started = true;

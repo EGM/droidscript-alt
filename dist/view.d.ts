@@ -3,7 +3,7 @@ export default class View implements DSObject {
     id: string;
     _left: number;
     _top: number;
-    _parent: DSObject;
+    _parent: View;
     constructor(id: string);
     adjustColor(hue: number, saturation: number, brightness: number, contrast: number): void;
     animate(type: string, callback: Function, time: number): void;

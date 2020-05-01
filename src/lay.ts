@@ -7,7 +7,9 @@ export default class Lay extends View {
 
   addChild(child: View, order?: number): Lay {
     prompt(this.id, `Lay.AddChild(\f${child ? child.id : null}\f${order}`);
-    if (child) child._parent = this;
+    if (child) {
+      child._parent = this;
+    }
     return this;
   }
 
@@ -17,7 +19,9 @@ export default class Lay extends View {
 
   destroyChild(child: View): void {
     prompt(this.id, `Lay.DestroyChild(${child ? child.id : null}`);
-    if (child) child._parent = null;
+    if (child) {
+      child._parent = null;
+    }
   }
 
   getChildOrder(child: DSObject): number {
@@ -32,7 +36,9 @@ export default class Lay extends View {
 
   removeChild(child: View): void {
     prompt(this.id, `Lay.RemoveChild(${child ? child.id : null}`);
-    if (child) child._parent = null;
+    if (child) {
+      child._parent = null;
+    }
   }
 
   setCornerRadius(radius: number): Lay {

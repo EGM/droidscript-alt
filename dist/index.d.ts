@@ -45,16 +45,16 @@ import Wpr from "./wpr";
 import Ynd from "./ynd";
 import Zip from "./zip";
 import DSObject from "./dsobject";
-declare type Activity = {
+export declare type ActivityType = {
     labelName: any;
     packageName: any;
     className: any;
 };
-declare type BTDevice = {
+export declare type BTDeviceType = {
     name: any;
     address: any;
 };
-declare type InstalledApp = {
+export declare type InstalledAppType = {
     packageName: any;
     className: any;
     uid: any;
@@ -64,33 +64,36 @@ declare type InstalledApp = {
     publicSourceDir: any;
     nativeLibraryDir: any;
 };
-declare type Intent = {
+export declare type IntentType = {
     action: any;
     type: any;
     data: any;
     flags: any;
     extras: any;
 };
-declare type MemoryInfo = {
+export declare type LayoutType = "Linear" | "Absolute" | "Frame" | "Card";
+/** "TouchThrough" | "TouchSpy" | "Left" | "Top" | "Right" | "Bottom" | "Center" | "H/VCenter" | "Wrap" | "Horizontal" | "Vertical" | "FillX/Y" */
+export declare type LayoutOptionsType = string;
+export declare type MemoryInfoType = {
     avail: any;
     low: any;
     threshold: any;
     total: any;
 };
-declare type RunningApp = {
+export declare type RunningAppType = {
     user: any;
     pid: any;
     name: any;
     foreground: any;
 };
-declare type Side = "Left" | "Right";
+export declare type SideType = "Left" | "Right";
 export declare namespace alt {
     const addAdView: (lay: Lay, unitId: string, testId: string, width?: number, height?: number, options?: string) => Adv;
     const addButton: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Btn;
     const addCameraView: (lay: Lay, width?: number, height?: number, options?: string) => Cam;
     const addCheckBox: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Chk;
     const addCodeEdit: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Cde;
-    const addDrawer: (layout: Lay, side: Side, width?: number, grabWidth?: number) => void;
+    const addDrawer: (layout: Lay, side: SideType, width?: number, grabWidth?: number) => void;
     const addImage: (lay: Lay, file?: string, width?: number, height?: number, options?: string, w?: number, h?: number) => Img;
     const addLayout: (layout: Lay, type?: string, options?: string) => Lay;
     const addList: (lay: Lay, list?: string, width?: number, height?: number, options?: number, delim?: string) => Lst;
@@ -116,7 +119,7 @@ export declare namespace alt {
     const clearCookies: (session?: string) => void;
     const clearData: (file?: string) => void;
     const clearValue: (name: string, file?: string) => void;
-    const closeDrawer: (side: Side) => void;
+    const closeDrawer: (side: SideType) => void;
     const copyFile: (src: string, dest: string) => void;
     const copyFolder: (src: string, dest: string, overwrite?: boolean, filter?: string) => void;
     const createAdView: (unitId: string, testId: string, width?: string, height?: string, options?: string) => Adv;
@@ -135,7 +138,7 @@ export declare namespace alt {
     const createEmail: (account: string, password: string) => EMAIL;
     const createFile: (file?: string, mode?: string) => Fil;
     const createImage: (file?: string, width?: number, height?: number, options?: string, w?: string, h?: string) => Img;
-    const createLayout: (type: string, options?: string) => Lay;
+    const createLayout: (type: LayoutType, options?: string) => Lay;
     const createList: (list?: string, width?: number, height?: number, options?: string, delim?: string) => Lst;
     const createListDialog: (title?: string, list?: string, options?: string) => Ldg;
     const createLocator: (type: string, options?: string) => Loc;
@@ -188,7 +191,7 @@ export declare namespace alt {
     const fileExists: (file: string) => boolean;
     const folderExists: (folder: string) => boolean;
     const getAccounts: () => string;
-    const getActivities: () => Activity[];
+    const getActivities: () => ActivityType[];
     const getAppName: () => string;
     const getAppPath: () => string;
     const getBatteryLevel: () => number;
@@ -207,15 +210,15 @@ export declare namespace alt {
     const getDeviceId: () => string;
     const getDisplayHeight: () => number;
     const getDisplayWidth: () => number;
-    const getDrawerState: (side: Side) => string;
+    const getDrawerState: (side: SideType) => string;
     const getEnv: (name: string) => string;
     const getExternalFolder: () => string;
     const getFileDate: (file: string) => Date;
     const getFileSize: (file: string) => number;
     const getFreeSpace: (mode: string) => number;
     const getIPAddress: () => string;
-    const getInstalledApps: () => InstalledApp[];
-    const getIntent: () => Intent;
+    const getInstalledApps: () => InstalledAppType[];
+    const getIntent: () => IntentType;
     const getInternalFolder: () => string;
     const getJoystickName: (id: string) => string;
     const getJoystickState: (id: string, key: string) => number;
@@ -228,7 +231,7 @@ export declare namespace alt {
     const getLastToggle: () => DSObject;
     const getMacAddress: () => string;
     const getMediaFile: (appName: string, ext?: string) => string;
-    const getMemoryInfo: () => MemoryInfo;
+    const getMemoryInfo: () => MemoryInfoType;
     const getMetadata: (file: string, keys?: string) => string;
     const getModel: () => string;
     const getName: () => string;
@@ -238,7 +241,7 @@ export declare namespace alt {
     const getOptions: () => string;
     const getOrientation: () => string;
     const getPackageName: () => string;
-    const getPairedBtDevices: () => BTDevice[];
+    const getPairedBtDevices: () => BTDeviceType[];
     const getPath: () => string;
     const getPermission: (type: string, callback: Function) => void;
     const getPrivateFolder: (name: string) => string;
@@ -246,7 +249,7 @@ export declare namespace alt {
     const getResourceId: (name: string, options?: string) => number;
     const getRingerMode: () => string;
     const getRotation: () => number;
-    const getRunningApps: () => RunningApp[];
+    const getRunningApps: () => RunningAppType[];
     const getRunningServices: () => {
         user: any;
         pid: any;
@@ -308,9 +311,9 @@ export declare namespace alt {
     const loadScript: (url: string, callback?: Function) => void;
     const loadText: (name: string, dflt?: string, file?: string) => string;
     const lock: () => void;
-    const lockDrawer: (side: Side) => void;
+    const lockDrawer: (side: SideType) => void;
     const makeFolder: (folder: any) => void;
-    const openDrawer: (side: Side) => void;
+    const openDrawer: (side: SideType) => void;
     const openFile: (file: string, type: string, choose: string) => void;
     const openUrl: (url: string, type: string, choose: string) => void;
     const pairBtDevice: (address: string, callback: Function) => void;
@@ -322,7 +325,7 @@ export declare namespace alt {
     const quit: (message?: string, title?: string, options?: string) => void;
     const readFile: (file: string, encoding?: string) => string;
     const redirectAssets: (dir: string) => void;
-    const removeDrawer: (side: Side) => void;
+    const removeDrawer: (side: SideType) => void;
     const removeLayout: (layout: Lay) => void;
     const renameFile: (src: string, dest: string) => void;
     const renameFolder: (src: string, dest: string) => void;
@@ -409,7 +412,7 @@ export declare namespace alt {
     const toFront: () => void;
     const translate: (cancel: string, ok: string) => void;
     const unlock: () => void;
-    const unlockDrawer: (side: Side) => void;
+    const unlockDrawer: (side: SideType) => void;
     const unpairBtDevice: (address: string, callback: Function) => void;
     const unzipFile: (src: string, dest: string) => void;
     const updateProgressBar: (percent: number) => void;
@@ -424,4 +427,3 @@ export declare namespace alt {
     const zipFile: (src: string, dest: string) => void;
     const zipFolder: (src: string, dest: string) => void;
 }
-export {};

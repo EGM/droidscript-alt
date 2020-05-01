@@ -1,5 +1,6 @@
 import View from "./view";
 import Lay from "./lay";
+
 export default class Dlg extends View {
   constructor(id: string) {
     super(id);

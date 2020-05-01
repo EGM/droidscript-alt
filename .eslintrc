@@ -23,6 +23,16 @@
                 "args": "after-used",
                 "ignoreRestSiblings": false
             }
+        ],
+        "curly": [
+            "error"
+        ],
+        "no-eval": [
+            "error"
+        ],
+        "eqeqeq": [
+            2,
+            "allow-null"
         ]
     }
 }

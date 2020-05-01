@@ -1,5 +1,6 @@
 import View from "./view";
 import DSObject from "./dsobject";
+
 export default class Scr extends View {
   constructor(id: string) {
     super(id);

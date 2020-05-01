@@ -5,8 +5,9 @@ export default class Lay extends View {
     }
     addChild(child, order) {
         prompt(this.id, `Lay.AddChild(\f${child ? child.id : null}\f${order}`);
-        if (child)
+        if (child) {
             child._parent = this;
+        }
         return this;
     }
     childToFront(child) {
@@ -14,8 +15,9 @@ export default class Lay extends View {
     }
     destroyChild(child) {
         prompt(this.id, `Lay.DestroyChild(${child ? child.id : null}`);
-        if (child)
+        if (child) {
             child._parent = null;
+        }
     }
     getChildOrder(child) {
         return parseInt(prompt(this.id, `Lay.GetChildOrder(\f${child ? child.id : null}`));
@@ -25,8 +27,9 @@ export default class Lay extends View {
     }
     removeChild(child) {
         prompt(this.id, `Lay.RemoveChild(${child ? child.id : null}`);
-        if (child)
+        if (child) {
             child._parent = null;
+        }
     }
     setCornerRadius(radius) {
         prompt(this.id, `Lay.SetCornerRadius(\f${radius}`);

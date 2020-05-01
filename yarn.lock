@@ -723,10 +723,6 @@ path-key@^2.0.1:
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
   integrity sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=
 
-"phonegap-plugin-fast-canvas@https://github.com/phonegap/phonegap-plugin-fast-canvas":
-  version "0.0.0"
-  resolved "https://github.com/phonegap/phonegap-plugin-fast-canvas#2a91875b96485d35db189b80d105e5c572cfa0f4"
-
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"

@@ -1,4 +1,5 @@
 import View from "./view";
+
 export default class Chk extends View {
   constructor(id: string) {
     super(id);

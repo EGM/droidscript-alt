@@ -1,4 +1,5 @@
 import Component from "./component";
+
 export default class Crp extends Component {
   constructor(id: string) {
     super(id);

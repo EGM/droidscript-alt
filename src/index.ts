@@ -48,9 +48,9 @@ import DSObject from "./dsobject";
 import Component from "./component";
 
 // Types
-type Activity = { labelName; packageName; className };
-type BTDevice = { name; address };
-type InstalledApp = {
+export type ActivityType = { labelName; packageName; className };
+export type BTDeviceType = { name; address };
+export type InstalledAppType = {
   packageName;
   className;
   uid;
@@ -60,10 +60,13 @@ type InstalledApp = {
   publicSourceDir;
   nativeLibraryDir;
 };
-type Intent = { action; type; data; flags; extras };
-type MemoryInfo = { avail; low; threshold; total };
-type RunningApp = { user; pid; name; foreground };
-type Side = "Left" | "Right";
+export type IntentType = { action; type; data; flags; extras };
+export type LayoutType = "Linear" | "Absolute" | "Frame" | "Card";
+/** "TouchThrough" | "TouchSpy" | "Left" | "Top" | "Right" | "Bottom" | "Center" | "H/VCenter" | "Wrap" | "Horizontal" | "Vertical" | "FillX/Y" */
+export type LayoutOptionsType = string;
+export type MemoryInfoType = { avail; low; threshold; total };
+export type RunningAppType = { user; pid; name; foreground };
+export type SideType = "Left" | "Right";
 
 // eslint-disable-next-line
 export namespace alt {
@@ -159,7 +162,7 @@ export namespace alt {
 
   export const addDrawer = function (
     layout: Lay,
-    side: Side,
+    side: SideType,
     width?: number,
     grabWidth?: number
   ): void {
@@ -309,8 +312,11 @@ export namespace alt {
       lay ? lay.id : null,
       `App.AddTextEdit(${text}\f${width}\f${height}\f${options}`
     );
-    if (ret) return new Txe(ret);
-    else return null;
+    if (ret) {
+      return new Txe(ret);
+    } else {
+      return null;
+    }
   };
 
   export const addToggle = function (
@@ -378,7 +384,7 @@ export namespace alt {
   export const animate = function (callback: Function, fps = 30): void {
     _cbAnimate = callback;
     // eslint-disable-next-line
-		_anim_t = new Date().getTime();
+    _anim_t = new Date().getTime();
     if (_isV8) {
       _fps = fps;
       if (_cbAnimate) {
@@ -471,7 +477,7 @@ export namespace alt {
     prompt("#", `App.ClearValue(\f${name}\f${file}`);
   };
 
-  export const closeDrawer = function (side: Side): void {
+  export const closeDrawer = function (side: SideType): void {
     prompt("#", `App.CloseDrawer(\f${side}`);
   };
 
@@ -619,7 +625,9 @@ export namespace alt {
   };
 
   export const createCrypt = function (options?: string): Crp {
-    if (_crp) _crp.Release();
+    if (_crp) {
+      _crp.Release();
+    }
     const ret = prompt("#", `App.CreateCrypt(\f${options}`);
     if (ret) {
       _crp = new Crp(ret);
@@ -693,9 +701,9 @@ export namespace alt {
 				}
 				return glv;
 			}
-  
+
 			function createGame(file, orient) { return new _Game(file, orient) }
-  
+
 			function createGameView(width, height, options) {
 				if (options) options = options.toLowerCase(); else options = "";
 				if (options.indexOf("gles") > -1) {
@@ -732,7 +740,10 @@ export namespace alt {
     }
   };
 
-  export const createLayout = function (type: string, options?: string): Lay {
+  export const createLayout = function (
+    type: LayoutType,
+    options?: LayoutOptionsType
+  ): Lay {
     const ret = prompt("#", `App.CreateLayout(${type}\f${options}`);
     if (ret) {
       return new Lay(ret);
@@ -829,16 +840,19 @@ export namespace alt {
   // function createNxtRemote() { var ret = prompt("#", `App.CreateNxtRemote(`); if (ret) return new Nxt(ret, null); else return null; }
 
   export const createObject = function (name: string, type: string): DSObject {
-    if (!type)
+    if (!type) {
       try {
-        return eval(`new ${name}()`);
+        return JSON.parse(`new ${name}()`);
       } catch (e) {
         return null;
       }
-    else {
+    } else {
       const ret = prompt("#", `_Obj(\f${type}\f${name}`);
-      if (ret) return new Component(ret);
-      else return null;
+      if (ret) {
+        return new Component(ret);
+      } else {
+        return null;
+      }
     }
   };
 
@@ -911,14 +925,20 @@ export namespace alt {
       "#",
       `App.CreateSeekBar(${width}\f${height}\f${options}`
     );
-    if (ret) return new Skb(ret);
-    else return null;
+    if (ret) {
+      return new Skb(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createSensor = function (type: string, options?: string): Sns {
     const ret = prompt("#", `App.CreateSensor(${type}\f${options}`);
-    if (ret) return new Sns(ret);
-    else return null;
+    if (ret) {
+      return new Sns(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createService = function (
@@ -933,8 +953,11 @@ export namespace alt {
         callback
       )}`
     );
-    if (ret) return new Svc(ret);
-    else return null;
+    if (ret) {
+      return new Svc(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createShortcut = function (
@@ -960,10 +983,15 @@ export namespace alt {
 											*/
 
   export const createSpeechRec = function (options?: string): Spr {
-    if (_spr) _spr.Release();
+    if (_spr) {
+      _spr.Release();
+    }
     const ret = prompt("#", `App.CreateSpeechRec(\f${options}`);
-    if (ret) _spr = new Spr(ret);
-    else _spr = null;
+    if (ret) {
+      _spr = new Spr(ret);
+    } else {
+      _spr = null;
+    }
     return _spr;
   };
 
@@ -972,14 +1000,20 @@ export namespace alt {
       "#",
       `App.CreateSpinner(${list}\f${width}\f${height}\f${options}`
     );
-    if (ret) return new Spn(ret);
-    else return null;
+    if (ret) {
+      return new Spn(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createSynth = function (type: string): Syn {
     const ret = prompt("#", `App.CreateSynth(${type}`);
-    if (ret) return new Syn(ret);
-    else return null;
+    if (ret) {
+      return new Syn(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createSysProc = function (
@@ -992,8 +1026,11 @@ export namespace alt {
       "#",
       `App.CreateSysProc(\f${cmd}\f${env}\f${dir}\f${options}`
     );
-    if (ret) return new Sys(ret);
-    else return null;
+    if (ret) {
+      return new Sys(ret);
+    } else {
+      return null;
+    }
   };
   /*
 											  function createTabs(list, width, height, options) {
@@ -1010,8 +1047,11 @@ export namespace alt {
       "#",
       `App.CreateText(${text}\f${width}\f${height}\f${options}`
     );
-    if (ret) return new Txt(ret);
-    else return null;
+    if (ret) {
+      return new Txt(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createTextEdit = function (
@@ -1024,14 +1064,20 @@ export namespace alt {
       "#",
       `App.CreateTextEdit(${text}\f${width}\f${height}\f${options}`
     );
-    if (ret) return new Txe(ret);
-    else return null;
+    if (ret) {
+      return new Txe(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createTheme = function (baseTheme?: string): Thm {
     const ret = prompt("#", `App.CreateTheme(\f${baseTheme}`);
-    if (ret) return new Thm(ret);
-    else return null;
+    if (ret) {
+      return new Thm(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createToggle = function (
@@ -1044,8 +1090,11 @@ export namespace alt {
       "#",
       `App.CreateToggle(${text}\f${width}\f${height}\f${options}`
     );
-    if (ret) return new Tgl(ret);
-    else return null;
+    if (ret) {
+      return new Tgl(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createUSBSerial = function (
@@ -1059,8 +1108,11 @@ export namespace alt {
       "#",
       `App.CreateUSBSerial(\f${baudRate}\f${dataBits}\f${stopBits}\f${parity}\f${device}`
     );
-    if (ret) return new Usb(ret);
-    else return null;
+    if (ret) {
+      return new Usb(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createVideoView = function (
@@ -1072,15 +1124,23 @@ export namespace alt {
       "#",
       `App.CreateVideoView(\f${width}\f${height}\f${options}`
     );
-    if (ret) return new Vid(ret);
-    else return null;
+    if (ret) {
+      return new Vid(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createWallpaper = function (options?: string): Wpr {
-    if (_wpr) _wpr.Release();
+    if (_wpr) {
+      _wpr.Release();
+    }
     const ret = prompt("#", `App.CreateWallpaper(\f${options}`);
-    if (ret) _wpr = new Wpr(ret);
-    else _wpr = null;
+    if (ret) {
+      _wpr = new Wpr(ret);
+    } else {
+      _wpr = null;
+    }
     return _wpr;
   };
 
@@ -1089,8 +1149,11 @@ export namespace alt {
     options?: number
   ): Wbs {
     const ret = prompt("#", `App.CreateWebServer(${port}\f${options}`);
-    if (ret) return new Wbs(ret);
-    else return null;
+    if (ret) {
+      return new Wbs(ret);
+    } else {
+      return null;
+    }
   };
 
   export const createWebSocket = function (
@@ -1128,17 +1191,25 @@ export namespace alt {
     message?: string,
     options?: string
   ): Ynd {
-    if (_ynd) _ynd.Release();
+    if (_ynd) {
+      _ynd.Release();
+    }
     const ret = prompt("#", `App.CreateYesNoDialog(\f${message}\f${options}`);
-    if (ret) _ynd = new Ynd(ret);
-    else _ynd = null;
+    if (ret) {
+      _ynd = new Ynd(ret);
+    } else {
+      _ynd = null;
+    }
     return _ynd;
   };
 
   export const createZipUtil = function (mode?: string): Zip {
     const ret = prompt("#", `App.CreateZipUtil(\f${mode}`);
-    if (ret) return new Zip(ret);
-    else return null;
+    if (ret) {
+      return new Zip(ret);
+    } else {
+      return null;
+    }
   };
 
   export const debug = function (message: string): void {
@@ -1271,7 +1342,7 @@ export namespace alt {
     return prompt("#", `App.GetAccounts(`);
   };
 
-  export const getActivities = function (): Activity[] {
+  export const getActivities = function (): ActivityType[] {
     return JSON.parse(prompt("#", `App.GetActivities(`));
   };
 
@@ -1347,7 +1418,7 @@ export namespace alt {
     return parseFloat(prompt("#", `App.GetDisplayWidth(`));
   };
 
-  export const getDrawerState = function (side: Side): string {
+  export const getDrawerState = function (side: SideType): string {
     return prompt("#", `App.GetDrawerState(\f${side}`);
   };
 
@@ -1361,8 +1432,11 @@ export namespace alt {
 
   export const getFileDate = function (file: string): Date {
     const d = parseInt(prompt("#", `App.GetFileDate(\f${file}`));
-    if (d) return new Date(d);
-    else return null;
+    if (d) {
+      return new Date(d);
+    } else {
+      return null;
+    }
   };
 
   export const getFileSize = function (file: string): number {
@@ -1377,14 +1451,17 @@ export namespace alt {
     return prompt("#", `App.GetIPAddress(`);
   };
 
-  export const getInstalledApps = function (): InstalledApp[] {
+  export const getInstalledApps = function (): InstalledAppType[] {
     return JSON.parse(prompt("#", `App.GetInstalledApps(\f`));
   };
 
-  export const getIntent = function (): Intent {
+  export const getIntent = function (): IntentType {
     const s = prompt("#", `App.GetIntent(`);
-    if (s.length) return JSON.parse(s);
-    else return null;
+    if (s.length) {
+      return JSON.parse(s);
+    } else {
+      return null;
+    }
   };
 
   export const getInternalFolder = function (): string {
@@ -1413,26 +1490,38 @@ export namespace alt {
 
   export const getLastButton = function (): DSObject {
     const ret = prompt("#", `App.GetLastButton(`);
-    if (ret) return _map[ret];
-    else return null;
+    if (ret) {
+      return _map[ret];
+    } else {
+      return null;
+    }
   };
 
   export const getLastCheckBox = function (): DSObject {
     const ret = prompt("#", `App.GetLastCheckBox(`);
-    if (ret) return _map[ret];
-    else return null;
+    if (ret) {
+      return _map[ret];
+    } else {
+      return null;
+    }
   };
 
   export const getLastImage = function (): DSObject {
     const ret = prompt("#", `App.GetLastImage(`);
-    if (ret) return _map[ret];
-    else return null;
+    if (ret) {
+      return _map[ret];
+    } else {
+      return null;
+    }
   };
 
   export const getLastToggle = function (): DSObject {
     const ret = prompt("#", `App.GetLastToggle(`);
-    if (ret) return _map[ret];
-    else return null;
+    if (ret) {
+      return _map[ret];
+    } else {
+      return null;
+    }
   };
 
   export const getMacAddress = function (): string {
@@ -1443,7 +1532,7 @@ export namespace alt {
     return prompt("#", `App.GetMediaFile(\f${appName}\f${ext}`);
   };
 
-  export const getMemoryInfo = function (): MemoryInfo {
+  export const getMemoryInfo = function (): MemoryInfoType {
     return JSON.parse(prompt("#", `App.GetMemoryInfo(\f`));
   };
 
@@ -1467,7 +1556,7 @@ export namespace alt {
     return parseInt(prompt("#", `App.GetBuildNum(`));
   };
   // eslint-disable-next-line
-	export const getObjects = function (): any {
+  export const getObjects = function (): any {
     return _map;
   };
 
@@ -1483,7 +1572,7 @@ export namespace alt {
     return prompt("#", `App.GetPackageName(`);
   };
 
-  export const getPairedBtDevices = function (): BTDevice[] {
+  export const getPairedBtDevices = function (): BTDeviceType[] {
     return JSON.parse(prompt("#", `App.GetPairedBTDevices(\f`));
   };
 
@@ -1521,7 +1610,7 @@ export namespace alt {
     return parseInt(prompt("#", `App.GetRotation(`));
   };
 
-  export const getRunningApps = function (): RunningApp[] {
+  export const getRunningApps = function (): RunningAppType[] {
     return JSON.parse(prompt("#", `App.GetRunningApps(\f`));
   };
 
@@ -1547,8 +1636,11 @@ export namespace alt {
 
   export const getSharedFiles = function (): string[] {
     const s = prompt("#", `App.GetSharedFiles(`);
-    if (s.length) return s.split(", ");
-    else return null;
+    if (s.length) {
+      return s.split(", ");
+    } else {
+      return null;
+    }
   };
 
   export const getSharedText = function (index: number): string {
@@ -1556,7 +1648,7 @@ export namespace alt {
   };
 
   export const getSpeakerPhone = function (): boolean {
-    return prompt("#", `App.GetSpeakerPhone(`) == "true";
+    return prompt("#", `App.GetSpeakerPhone(`) === "true";
   };
 
   export const getSpecialFolder = function (name: string): string {
@@ -1741,8 +1833,11 @@ export namespace alt {
   };
 
   export const language2Code = function (name: string): string {
-    if (name) return _languages.codes[name.toLowerCase()];
-    else return _curLang;
+    if (name) {
+      return _languages.codes[name.toLowerCase()];
+    } else {
+      return _curLang;
+    }
   };
 
   export const listFolder = function (
@@ -1792,7 +1887,7 @@ export namespace alt {
     prompt("#", `App.Lock(`);
   };
 
-  export const lockDrawer = function (side: Side): void {
+  export const lockDrawer = function (side: SideType): void {
     prompt("#", `App.LockDrawer(\f${side}`);
   };
 
@@ -1806,16 +1901,16 @@ export namespace alt {
 												  _LoadScriptSync("/Sys/cp.js`);
 												  _LoadScriptSync("/Sys/sql.js`);
 												  _CreateCP("sqliteplugin`);
-  
+
 												  var db = sqlitePlugin.openDatabase(name);
 												  db.name = name;
-  
+
 												  db.GetType = function () { return "Database"; }
 												  db.GetName = function () { return db.name; }
 												  db.ExecuteSql = function (sql, params, success, error) {
 													  if (!success) success = null;
 													  if (!error) error = _Err;
-  
+
 													  db.transaction(function (tx) {
 														  tx.executeSql(sql, params,
 															  function (tx, res) { if (success) success.apply(db, [res]) },
@@ -1830,7 +1925,7 @@ export namespace alt {
 											  }
 											  */
 
-  export const openDrawer = function (side: Side): void {
+  export const openDrawer = function (side: SideType): void {
     prompt("#", `App.OpenDrawer(\f${side}`);
   };
 
@@ -1880,7 +1975,7 @@ export namespace alt {
     args: string,
     sort: string
     // eslint-disable-next-line
-	): any {
+  ): any {
     return JSON.parse(
       prompt(
         "#",
@@ -1905,7 +2000,7 @@ export namespace alt {
     prompt("#", `App.RedirectAssets(\f${dir}`);
   };
 
-  export const removeDrawer = function (side: Side): void {
+  export const removeDrawer = function (side: SideType): void {
     prompt("#", `App.RemoveDrawer(\f${side}`);
   };
 
@@ -2377,7 +2472,7 @@ export namespace alt {
   };
 
   export const start = function (): void {
-    if (typeof OnStart == "function") {
+    if (typeof OnStart === "function") {
       OnStart();
       prompt("#", "_Start");
       _started = true;
@@ -2460,7 +2555,7 @@ export namespace alt {
     prompt("#", `App.Unlock(`);
   };
 
-  export const unlockDrawer = function (side: Side): void {
+  export const unlockDrawer = function (side: SideType): void {
     prompt("#", `App.UnlockDrawer(\f${side}`);
   };
 

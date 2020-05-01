@@ -91,10 +91,12 @@ export default class Cam extends View {
         return this;
     }
     setParameter(name, value) {
-        if (typeof value === "string")
+        if (typeof value === "string") {
             prompt(this.id, `Cam.SetParam(\f${name}\f${value}`);
-        else
+        }
+        else {
             prompt(this.id, `Cam.SetParamNum(\f${name}\f${value}`);
+        }
         return this;
     }
     setPictureSize(width, height) {

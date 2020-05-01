@@ -1,5 +1,7 @@
 import View from "./view";
+
 type Item = { title: string; body: string; image: string };
+
 export default class Lst extends View {
   constructor(id: string) {
     super(id);

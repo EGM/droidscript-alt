@@ -3,7 +3,7 @@ export default class View implements DSObject {
   id: string;
   _left: number;
   _top: number;
-  _parent: DSObject;
+  _parent: View;
   constructor(id: string) {
     this.id = id;
     this._left = 0;

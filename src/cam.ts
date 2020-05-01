@@ -152,9 +152,11 @@ export default class Cam extends View {
   }
 
   setParameter(name: string, value: string | number): Cam {
-    if (typeof value === "string")
+    if (typeof value === "string") {
       prompt(this.id, `Cam.SetParam(\f${name}\f${value}`);
-    else prompt(this.id, `Cam.SetParamNum(\f${name}\f${value}`);
+    } else {
+      prompt(this.id, `Cam.SetParamNum(\f${name}\f${value}`);
+    }
     return this;
   }
 

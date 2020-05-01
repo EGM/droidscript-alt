@@ -1,6 +1,6 @@
 {
   "name": "droidscript-alt",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "An alternative to app.* in DroidScript",
   "main": "dist/index.js",
   "author": "John LaDuke <themonkeylikescheese@gmail.com>",
@@ -19,7 +19,5 @@
     "lint": "eslint . --ext .ts --fix",
     "build": "tsc"
   },
-  "dependencies": {
-    "phonegap-plugin-fast-canvas": "https://github.com/phonegap/phonegap-plugin-fast-canvas"
-  }
+  "dependencies": {}
 }
