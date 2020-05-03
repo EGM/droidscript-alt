@@ -45,6 +45,7 @@ import Wpr from "./wpr";
 import Ynd from "./ynd";
 import Zip from "./zip";
 import Component from "./component";
+import { sqlitePlugin } from "./sql";
 // eslint-disable-next-line
 export var alt;
 (function (alt) {
@@ -1289,35 +1290,42 @@ export var alt;
     alt.makeFolder = function (folder) {
         prompt("#", `App.MakeFolder(${folder}`);
     };
-    /*X*/
-    /*
-                                                function openDatabase(name) {
-                                                    _LoadScriptSync("/Sys/cp.js`);
-                                                    _LoadScriptSync("/Sys/sql.js`);
-                                                    _CreateCP("sqliteplugin`);
-  
-                                                    var db = sqlitePlugin.openDatabase(name);
-                                                    db.name = name;
-  
-                                                    db.GetType = function () { return "Database"; }
-                                                    db.GetName = function () { return db.name; }
-                                                    db.ExecuteSql = function (sql, params, success, error) {
-                                                        if (!success) success = null;
-                                                        if (!error) error = _Err;
-  
-                                                        db.transaction(function (tx) {
-                                                            tx.executeSql(sql, params,
-                                                                function (tx, res) { if (success) success.apply(db, [res]) },
-                                                                function (t, e) { error.apply(db, [e.message]); }
-                                                            );
-                                                        }, error
-                                                        );
-                                                    }
-                                                    db.Close = function () { db.close(_Log, _Err); }
-                                                    db.Delete = function () { sqlitePlugin.deleteDatabase(db.name, _Log, _Err); }
-                                                    return db;
-                                                }
-                                                */
+    // eslint-disable-next-line
+    alt.openDatabase = function (name) {
+        _CreateCP("sqliteplugin");
+        const db = sqlitePlugin.openDatabase(name);
+        db.name = name;
+        db.GetType = function () {
+            return "Database";
+        };
+        db.GetName = function () {
+            return db.name;
+        };
+        db.ExecuteSql = function (sql, params, success, error) {
+            if (!success) {
+                success = null;
+            }
+            if (!error) {
+                error = _Err;
+            }
+            db.transaction(function (tx) {
+                tx.executeSql(sql, params, function (tx, res) {
+                    if (success) {
+                        success.apply(db, [res]);
+                    }
+                }, function (t, e) {
+                    error.apply(db, [e.message]);
+                });
+            }, error);
+        };
+        db.Close = function () {
+            db.close(_Log, _Err);
+        };
+        db.Delete = function () {
+            sqlitePlugin.deleteDatabase(db.name, _Log, _Err);
+        };
+        return db;
+    };
     alt.openDrawer = function (side) {
         prompt("#", `App.OpenDrawer(\f${side}`);
     };

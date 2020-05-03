@@ -46,6 +46,8 @@ import Ynd from "./ynd";
 import Zip from "./zip";
 import DSObject from "./dsobject";
 import Component from "./component";
+import { sqlitePlugin } from "./sql";
+//import { cordova } from "./cp";
 
 // Types
 export type ActivityType = { labelName; packageName; className };
@@ -1895,35 +1897,49 @@ export namespace alt {
     prompt("#", `App.MakeFolder(${folder}`);
   };
 
-  /*X*/
-  /*
-											  function openDatabase(name) {
-												  _LoadScriptSync("/Sys/cp.js`);
-												  _LoadScriptSync("/Sys/sql.js`);
-												  _CreateCP("sqliteplugin`);
+  // eslint-disable-next-line
+  export const openDatabase = function (name): any {
+    _CreateCP("sqliteplugin");
+    const db = sqlitePlugin.openDatabase(name);
+    db.name = name;
 
-												  var db = sqlitePlugin.openDatabase(name);
-												  db.name = name;
+    db.GetType = function (): string {
+      return "Database";
+    };
+    db.GetName = function (): string {
+      return db.name;
+    };
+    db.ExecuteSql = function (sql, params, success, error): void {
+      if (!success) {
+        success = null;
+      }
+      if (!error) {
+        error = _Err;
+      }
 
-												  db.GetType = function () { return "Database"; }
-												  db.GetName = function () { return db.name; }
-												  db.ExecuteSql = function (sql, params, success, error) {
-													  if (!success) success = null;
-													  if (!error) error = _Err;
-
-													  db.transaction(function (tx) {
-														  tx.executeSql(sql, params,
-															  function (tx, res) { if (success) success.apply(db, [res]) },
-															  function (t, e) { error.apply(db, [e.message]); }
-														  );
-													  }, error
-													  );
-												  }
-												  db.Close = function () { db.close(_Log, _Err); }
-												  db.Delete = function () { sqlitePlugin.deleteDatabase(db.name, _Log, _Err); }
-												  return db;
-											  }
-											  */
+      db.transaction(function (tx) {
+        tx.executeSql(
+          sql,
+          params,
+          function (tx, res) {
+            if (success) {
+              success.apply(db, [res]);
+            }
+          },
+          function (t, e) {
+            error.apply(db, [e.message]);
+          }
+        );
+      }, error);
+    };
+    db.Close = function (): void {
+      db.close(_Log, _Err);
+    };
+    db.Delete = function (): void {
+      sqlitePlugin.deleteDatabase(db.name, _Log, _Err);
+    };
+    return db;
+  };
 
   export const openDrawer = function (side: SideType): void {
     prompt("#", `App.OpenDrawer(\f${side}`);

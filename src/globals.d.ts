@@ -8,6 +8,11 @@ declare function _Tween(): void
 declare function _Cbm(callback: Function): string;
 declare function _CheckList(title?: string, list?: string, callback?: Function,
     width?: number, height?: number, options?: string): void;
+declare function _CreateCP(service): any;
+declare function _Log(msg): void;
+declare function _Err(msg): void;
+
+declare function _ExecCP(callbackId, service, action, argsJson): void;
 declare function _LoadScript(str: string, cb?: Function): void;
 declare function _LoadScriptSync(str: string): void;
 declare function _PlaySound(str: string): void;

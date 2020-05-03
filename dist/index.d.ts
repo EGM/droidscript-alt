@@ -313,6 +313,7 @@ export declare namespace alt {
     const lock: () => void;
     const lockDrawer: (side: SideType) => void;
     const makeFolder: (folder: any) => void;
+    const openDatabase: (name: any) => any;
     const openDrawer: (side: SideType) => void;
     const openFile: (file: string, type: string, choose: string) => void;
     const openUrl: (url: string, type: string, choose: string) => void;

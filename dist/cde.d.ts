@@ -1,4 +1,37 @@
 import View from "./view";
 export default class Cde extends View {
     constructor(id: string);
+    ClearHistory(): void;
+    Copy(): void;
+    Cut(): void;
+    GetCursorLine(): number;
+    GetCursorPos(): number;
+    GetLineStart(line: any): number;
+    GetSelectedText(): string;
+    GetSelectMode(): boolean;
+    GetText(): string;
+    GetType(): string;
+    HighlightLine(line: any): void;
+    InsertText(text: any, start: any): void;
+    Paste(): void;
+    Redo(): void;
+    Replace(text: string): void;
+    ReplaceAll(text: string, newText: string, matchCase?: boolean, wholeWord?: boolean): void;
+    ReplaceText(text: string, start: number, end: number): void;
+    Search(text: string, direction?: string, matchCase?: boolean, wholeWord?: boolean): void;
+    SelectAll(): void;
+    SetColorScheme(scheme: string): Cde;
+    SetCursorPos(position: number): Cde;
+    SetHtml(html: string): Cde;
+    SetLanguage(ext: string): Cde;
+    SetOnChange(callback: Function): Cde;
+    SetOnDoubleTap(callback: Function): Cde;
+    SetOnKey(callback: Function): Cde;
+    SetNavigationMethod(method: string): Cde;
+    SetSelection(start: number, stop: number): Cde;
+    SetText(text: string): Cde;
+    SetTextColor(color: string): Cde;
+    SetTextSize(size: number, mode?: string): Cde;
+    SetUseKeyboard(onOff: boolean): Cde;
+    Undo(): void;
 }
