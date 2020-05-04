@@ -4,11 +4,11 @@ export default class Wpr extends Component {
     super(id);
   }
 
-  GetType(): string {
+  getType(): string {
     return "Wallpaper";
   }
 
-  IsVisible(): boolean {
+  isVisible(): boolean {
     return prompt(this.id, "Wpr.IsVisible\f") === "true";
   }
 }

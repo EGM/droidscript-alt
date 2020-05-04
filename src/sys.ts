@@ -4,34 +4,34 @@ export default class Sys extends Component {
     super(id);
   }
 
-  Destroy(): void {
+  destroy(): void {
     prompt(this.id, "Sys.Destroy(");
     _map[this.id] = null;
   }
-  Err(maxLines: number, options?: string): string {
+  err(maxLines: number, options?: string): string {
     return prompt(this.id, `Sys.Err(\f${maxLines}\f${options}`);
   }
-  GetType(): string {
+  getType(): string {
     return "SysProc";
   }
-  In(maxLines: number, options?: string): string {
+  in(maxLines: number, options?: string): string {
     return prompt(this.id, `Sys.In(\f${maxLines}\f${options}`);
   }
-  Out(cmd: string): void {
+  out(cmd: string): void {
     prompt(this.id, `Sys.Out(\f${cmd}`);
   }
-  ReadFileAsByte(file: string): number {
+  readFileAsByte(file: string): number {
     return parseInt(prompt(this.id, `Sys.ReadFileAsByte(\f${file}`));
   }
-  SetOnError(callback: Function): Sys {
+  setOnError(callback: Function): Sys {
     prompt(this.id, `Sys.SetOnError(\f${_Cbm(callback)}`);
     return this;
   }
-  SetOnInput(callback: Function): Sys {
+  setOnInput(callback: Function): Sys {
     prompt(this.id, `Sys.SetOnInput(\f${_Cbm(callback)}`);
     return this;
   }
-  WriteToFile(file: string, data: string): void {
+  writeToFile(file: string, data: string): void {
     prompt(this.id, `Sys.WriteToFile(\f${file}\f${data}`);
   }
 }

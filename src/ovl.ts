@@ -5,10 +5,10 @@ export default class Ovl extends Component {
     super(id);
   }
 
-  GetType(): string {
+  getType(): string {
     return "Overlay";
   }
-  AddLayout(layout: Lay, left?: number, top?: number, options?: string): Ovl {
+  addLayout(layout: Lay, left?: number, top?: number, options?: string): Ovl {
     prompt(
       this.id,
       `Ovl.AddLayout(\f${
@@ -17,10 +17,10 @@ export default class Ovl extends Component {
     );
     return this;
   }
-  RemoveLayout(layout: Lay): void {
+  removeLayout(layout: Lay): void {
     prompt(this.id, `Ovl.RemoveLayout(\f${layout ? layout.id : null}`);
   }
-  SetPosition(layout: Lay, left?: number, top?: number, options?: string): Ovl {
+  setPosition(layout: Lay, left?: number, top?: number, options?: string): Ovl {
     prompt(
       this.id,
       `Ovl.SetPosition(\f${

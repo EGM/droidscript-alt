@@ -4,52 +4,52 @@ export default class Cde extends View {
     super(id);
   }
 
-  ClearHistory(): void {
+  clearHistory(): void {
     prompt(this.id, "Cde.ClearHistory(");
   }
-  Copy(): void {
+  copy(): void {
     prompt(this.id, "Cde.Copy(");
   }
-  Cut(): void {
+  cut(): void {
     prompt(this.id, "Cde.Cut(");
   }
-  GetCursorLine(): number {
+  getCursorLine(): number {
     return parseInt(prompt(this.id, "Cde.GetCursorLine("));
   }
-  GetCursorPos(): number {
+  getCursorPos(): number {
     return parseInt(prompt(this.id, "Cde.GetCursorPos("));
   }
-  GetLineStart(line): number {
+  getLineStart(line): number {
     return parseInt(prompt(this.id, `Cde.GetLineStart(${line}`));
   }
-  GetSelectedText(): string {
+  getSelectedText(): string {
     return prompt(this.id, "Cde.GetSelectedText(");
   }
-  GetSelectMode(): boolean {
+  getSelectMode(): boolean {
     return prompt(this.id, "Cde.GetSelectMode(") === "true";
   }
-  GetText(): string {
+  getText(): string {
     return prompt(this.id, "Cde.GetText(");
   }
-  GetType(): string {
+  getType(): string {
     return "CodeEdit";
   }
-  HighlightLine(line): void {
+  highlightLine(line): void {
     prompt(this.id, `Cde.HighlightLine(\f${line}`);
   }
-  InsertText(text, start): void {
+  insertText(text, start): void {
     prompt(this.id, `Cde.InsertText(\f${text}\f${start}`);
   }
-  Paste(): void {
+  paste(): void {
     prompt(this.id, "Cde.Paste(");
   }
-  Redo(): void {
+  redo(): void {
     prompt(this.id, "Cde.Redo(");
   }
-  Replace(text: string): void {
+  replace(text: string): void {
     prompt(this.id, `Cde.Replace(\f${text}`);
   }
-  ReplaceAll(
+  replaceAll(
     text: string,
     newText: string,
     matchCase?: boolean,
@@ -60,10 +60,10 @@ export default class Cde extends View {
       `Cde.ReplaceAll(\f${text}\f${newText}\f${matchCase}\f${wholeWord}`
     );
   }
-  ReplaceText(text: string, start: number, end: number): void {
+  replaceText(text: string, start: number, end: number): void {
     prompt(this.id, `Cde.ReplaceText(\f${text}\f${start}\f${end}`);
   }
-  Search(
+  search(
     text: string,
     direction?: string,
     matchCase?: boolean,
@@ -74,62 +74,62 @@ export default class Cde extends View {
       `Cde.Search(\f${text}\f${direction}\f${matchCase}\f${wholeWord}`
     );
   }
-  SelectAll(): void {
+  selectAll(): void {
     prompt(this.id, "Cde.SelectAll(");
   }
-  SetColorScheme(scheme: string): Cde {
+  setColorScheme(scheme: string): Cde {
     prompt(this.id, `Cde.SetColorScheme(\f${scheme}`);
     return this;
   }
-  SetCursorPos(position: number): Cde {
+  setCursorPos(position: number): Cde {
     prompt(this.id, `Cde.SetCursorPos(${position}`);
     return this;
   }
-  SetHtml(html: string): Cde {
+  setHtml(html: string): Cde {
     prompt(this.id, `Cde.SetText(\f${html}`);
     return this;
   }
-  SetLanguage(ext: string): Cde {
+  setLanguage(ext: string): Cde {
     prompt(this.id, `Cde.SetLanguage(\f${ext}`);
     return this;
   }
-  SetOnChange(callback: Function): Cde {
+  setOnChange(callback: Function): Cde {
     prompt(this.id, `Cde.SetOnChange(\f${_Cbm(callback)}`);
     return this;
   }
-  SetOnDoubleTap(callback: Function): Cde {
+  setOnDoubleTap(callback: Function): Cde {
     prompt(this.id, `Cde.SetOnDoubleTap(\f${_Cbm(callback)}`);
     return this;
   }
-  SetOnKey(callback: Function): Cde {
+  setOnKey(callback: Function): Cde {
     prompt(this.id, `Cde.SetOnKey(\f${_Cbm(callback)}`);
     return this;
   }
-  SetNavigationMethod(method: string): Cde {
+  setNavigationMethod(method: string): Cde {
     prompt(this.id, `Cde.SetNavigationMethod(\f${method}`);
     return this;
   }
-  SetSelection(start: number, stop: number): Cde {
+  setSelection(start: number, stop: number): Cde {
     prompt(this.id, `Cde.SetSelection(\f${start}\f${stop}`);
     return this;
   }
-  SetText(text: string): Cde {
+  setText(text: string): Cde {
     prompt(this.id, `Cde.SetText(\f${text}`);
     return this;
   }
-  SetTextColor(color: string): Cde {
+  setTextColor(color: string): Cde {
     prompt(this.id, `Cde.SetTextColor(\f${color}`);
     return this;
   }
-  SetTextSize(size: number, mode?: string): Cde {
+  setTextSize(size: number, mode?: string): Cde {
     prompt(this.id, `Cde.SetTextSize(\f${size}\f${mode}`);
     return this;
   }
-  SetUseKeyboard(onOff: boolean): Cde {
+  setUseKeyboard(onOff: boolean): Cde {
     prompt(this.id, `Cde.SetUseKeyboard(\f${onOff}`);
     return this;
   }
-  Undo(): void {
+  undo(): void {
     prompt(this.id, "Cde.Undo(");
   }
 }

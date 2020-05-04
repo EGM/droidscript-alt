@@ -6,10 +6,10 @@ export default class Svc extends Component {
     super(id);
   }
 
-  GetType(): string {
+  getType(): string {
     return "Service";
   }
-  Stop(): void {
+  stop(): void {
     prompt(this.id, "Svc.Stop(");
   }
   private _Send(
@@ -30,14 +30,14 @@ export default class Svc extends Component {
   private _SendImg(cmd: string, img: Img): void {
     prompt(this.id, `Svc.SendImg(\f${cmd}\f${img ? img.id : null}`);
   }
-  SendMessage(message: string): void {
+  sendMessage(message: string): void {
     prompt(this.id, `Svc.SendMsg(\f${message}`);
   }
-  SetOnMessage(callback: Function): Svc {
+  setOnMessage(callback: Function): Svc {
     prompt(this.id, `Svc.SetOnMessage(\f${_Cbm(callback)}`);
     return this;
   }
-  SetInForeground(
+  setInForeground(
     title?: string,
     text?: string,
     largeIcon?: string,
@@ -49,7 +49,7 @@ export default class Svc extends Component {
       `Svc.SetInForeground(\f${title}\f${text}\f${largeIcon}\f${smallIcon}\f${importance}`
     );
   }
-  SetInBackground(): void {
+  setInBackground(): void {
     prompt(this.id, "Svc.SendMsg(\f_background");
   }
 }

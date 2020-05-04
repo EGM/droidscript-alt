@@ -8,7 +8,7 @@ export default class Plg extends Component {
     super(id);
   }
 
-  CreateObj(
+  createObj(
     type: string,
     p1?: string,
     p2?: string,
@@ -24,13 +24,13 @@ export default class Plg extends Component {
       `Plg.CreateObj\f${type}\f${typeof p1}\f${p1}\f${typeof p2}\f${p2}\f${typeof p3}\f${p3}\f${typeof p4}\f${p4}\f${typeof p5}\f${p5}\f${typeof p6}\f${p6}\f${typeof p7}\f${p7}\f${typeof p8}\f${p8}`
     );
   }
-  Destroy(): void {
+  destroy(): void {
     prompt(this.id, "Plg.Destroy");
   }
-  GetType(): string {
+  getType(): string {
     return "Plugin";
   }
-  Send(
+  send(
     cmd: string,
     p1?: string,
     p2?: string,
@@ -46,16 +46,16 @@ export default class Plg extends Component {
       `Plg.Send\f${cmd}\f${typeof p1}\f${p1}\f${typeof p2}\f${p2}\f${typeof p3}\f${p3}\f${typeof p4}\f${p4}\f${typeof p5}\f${p5}\f${typeof p6}\f${p6}\f${typeof p7}\f${p7}\f${typeof p8}\f${p8}`
     );
   }
-  SendCam(cmd: string, cam: Cam): string {
+  sendCam(cmd: string, cam: Cam): string {
     return prompt(this.id, `Plg.SendCam\f${cmd}\f${cam ? cam.id : null}`);
   }
-  SendImg(cmd: string, img: Img, width?: number, height?: number): string {
+  sendImg(cmd: string, img: Img, width?: number, height?: number): string {
     return prompt(
       this.id,
       `Plg.SendImg\f${cmd}\f${img ? img.id : null}\f${width}\f${height}`
     );
   }
-  SendObj(
+  sendObj(
     cmd: string,
     ob: DSObject,
     p1?: string,
