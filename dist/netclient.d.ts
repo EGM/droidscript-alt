@@ -1,0 +1,34 @@
+import Component from "./component";
+import Image from "./image";
+declare type ByteModeType = "Int" | "Hex";
+declare type ModeType = "US-ASCII" | "UTF-8" | "UTF-16LE" | "UTF-16BE" | "UTF-16";
+export default class NetClient extends Component {
+    constructor(id: string);
+    autoReceive(server: string, port: number, mode?: string): string;
+    clear(): void;
+    close(): void;
+    connect(address: string, port: number): boolean;
+    disconnect(): void;
+    downloadFile(file: string): string;
+    getBroadcastAddress(): string;
+    getType(): string;
+    isConnected(): boolean;
+    receiveBytes(mode: ByteModeType): string;
+    receiveDatagram(mode: ModeType, port: number, timeout: number): string;
+    receiveDatagrams(port: any, mode: ModeType): void;
+    receiveFile(file: string, wait: number): string;
+    receiveText(mode: ModeType): string;
+    receiveVideoStream(port: number, img: Image): void;
+    sendBytes(data: string, mode: ByteModeType): void;
+    sendData(text: string, encoding: ModeType): void;
+    sendDatagram(data: string, mode: ModeType, address: string, port: number, options?: "Text" | "Hex" | "Bytes"): void;
+    sendText(text: string, mode: ModeType): void;
+    setDataMode(mode: string): NetClient;
+    setOnConnect(callback: Function): NetClient;
+    setOnDownload(callback: Function): NetClient;
+    setOnReceive(callback: Function): NetClient;
+    setSplitMode(mode: "End" | "Start-End" | "Size", p2: number | string, p3: number | string): NetClient;
+    setTimeout(secs: number): NetClient;
+    wakeOnLan(ip: string, mac: string): void;
+}
+export {};

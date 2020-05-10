@@ -1,4 +1,4 @@
-import { cordova } from "./cp";
+import { cordova } from "./cordova-plugin";
 
 // eslint-disable-next-line
 const root = this;

@@ -1,49 +1,49 @@
-import Adv from "./adv";
-import Aud from "./aud";
-import Btl from "./btl";
-import Btn from "./btn";
-import Bts from "./bts";
-import Cam from "./cam";
-import Cde from "./cde";
-import Chk from "./chk";
-import Cld from "./cld";
-import Crp from "./crp";
-import Dlg from "./dlg";
-import Dwn from "./dwn";
-import EMAIL from "./email";
-import Fil from "./fil";
-import Img from "./img";
-import Lay from "./lay";
-import Ldg from "./ldg";
-import Loc from "./loc";
-import Lst from "./lst";
-import Med from "./med";
-import Net from "./net";
-import Not from "./not";
-import Ovl from "./ovl";
-import Ply from "./ply";
-import Pst from "./pst";
-import Rec from "./rec";
-import Scr from "./scr";
-import Skb from "./skb";
+import AdView from "./adview";
+import MediaPlayer from "./mediaplayer";
+import BluetoothList from "./bluetoothlist";
+import Button from "./button";
+import BluetoothSerial from "./bluetoothserial";
+import CameraView from "./cameraview";
+import CodeEdit from "./codeedit";
+import CheckBox from "./checkbox";
+import CloudStore from "./cloudstore";
+import Crypt from "./crypt";
+import Dialog from "./dialog";
+import Downloader from "./downloader";
+import Email from "./email";
+import File from "./file";
+import Image from "./image";
+import Layout from "./layout";
+import ListDialog from "./listdialog";
+import Locator from "./locator";
+import List from "./list";
+import MediaStore from "./mediastore";
+import NetClient from "./netclient";
+import Notification from "./notification";
+import Overlay from "./overlay";
+import PlayStore from "./playstore";
+import Pst from "./phonestate";
+import AudioRecorder from "./audiorecorder";
+import Scroller from "./scroller";
+import Seekbar from "./seekbar";
 import SMS from "./sms";
-import Sns from "./sns";
-import Spn from "./spn";
-import Spr from "./spr";
-import Svc from "./svc";
-import Syn from "./syn";
-import Sys from "./sys";
-import Thm from "./thm";
-import Tgl from "./tgl";
-import Txe from "./txe";
-import Txt from "./txt";
-import Usb from "./usb";
-import Vid from "./vid";
-import Wbs from "./wbs";
-import Web from "./web";
-import Wpr from "./wpr";
-import Ynd from "./ynd";
-import Zip from "./zip";
+import Sensor from "./sensor";
+import Spinner from "./spinner";
+import SpeechRec from "./speechrec";
+import Service from "./service";
+import Synth from "./synth";
+import SysProc from "./sysproc";
+import Theme from "./theme";
+import Toggle from "./toggle";
+import TextEdit from "./textedit";
+import Text from "./text";
+import USBSerial from "./usbserial";
+import VideoView from "./videoview";
+import WebServer from "./webserver";
+import WebView from "./webview";
+import Wallpaper from "./wallpaper";
+import YesNoDialog from "./yesnodialog";
+import ZipUtil from "./ziputil";
 import DSObject from "./dsobject";
 export declare type ActivityType = {
     labelName: any;
@@ -87,96 +87,165 @@ export declare type RunningAppType = {
     foreground: any;
 };
 export declare type SideType = "Left" | "Right";
+export declare type Permissions = "Camera" | "Storage" | "ExtSDcard" | "Network" | "Location" | "SMS" | "Calendar" | "Body" | "Contacts" | "Record" | "Phone" | "Accounts" | "License";
+export declare type ContactType = "Phone" | "Email";
+/** Namespace for DroidScript commands. */
 export declare namespace alt {
-    const addAdView: (lay: Lay, unitId: string, testId: string, width?: number, height?: number, options?: string) => Adv;
-    const addButton: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Btn;
-    const addCameraView: (lay: Lay, width?: number, height?: number, options?: string) => Cam;
-    const addCheckBox: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Chk;
-    const addCodeEdit: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Cde;
-    const addDrawer: (layout: Lay, side: SideType, width?: number, grabWidth?: number) => void;
-    const addImage: (lay: Lay, file?: string, width?: number, height?: number, options?: string, w?: number, h?: number) => Img;
-    const addLayout: (layout: Lay, type?: string, options?: string) => Lay;
-    const addList: (lay: Lay, list?: string, width?: number, height?: number, options?: number, delim?: string) => Lst;
-    const addScroller: (lay: Lay, width?: number, height?: number, options?: string) => Scr;
-    const addSeekBar: (lay: Lay, width?: number, height?: number, options?: string) => Skb;
-    const addSpinner: (lay: Lay, list?: string, width?: number, height?: number, options?: string) => Spn;
-    const addText: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Txt;
-    const addTextEdit: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Txe;
-    const addToggle: (lay: Lay, text?: string, width?: number, height?: number, options?: string) => Tgl;
-    const addVideoView: (lay: Lay, width?: number, height?: number, options?: number) => Vid;
-    const addWebView: (lay: Lay, width?: number, height?: number, options?: string, zoom?: number) => Web;
+    /** Creates and adds a AdView to a Layout. */
+    const addAdView: (layout: Layout, unitId: string, testId: string, width?: number, height?: number, options?: string) => AdView;
+    /** Creates and adds a Button to a Layout. */
+    const addButton: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => Button;
+    /** Creates and adds a CameraView to a Layout. */
+    const addCameraView: (layout: Layout, width?: number, height?: number, options?: string) => CameraView;
+    /** Creates and adds a CheckBox to a Layout. */
+    const addCheckBox: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => CheckBox;
+    /** Creates and adds a CodeEdit to a Layout. */
+    const addCodeEdit: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => CodeEdit;
+    /** AddDrawer adds layout as drawer on a given side. */
+    const addDrawer: (layout: Layout, side: SideType, width?: number, grabWidth?: number) => void;
+    /** Creates and adds a Image to a Layout. */
+    const addImage: (layout: Layout, file?: string, width?: number, height?: number, options?: string, w?: number, h?: number) => Image;
+    /** AddLayout adds a layout to the screen so that it is visible (if not hidden with setVisibility) */
+    const addLayout: (layout: Layout, type?: string, options?: string) => Layout;
+    /** Creates and adds a List to a Layout. */
+    const addList: (layout: Layout, list?: string, width?: number, height?: number, options?: number, delimiter?: string) => List;
+    /** Creates and adds a Scroller to a Layout. */
+    const addScroller: (layout: Layout, width?: number, height?: number, options?: string) => Scroller;
+    /** Creates and adds a SeekBar to a Layout. */
+    const addSeekBar: (layout: Layout, width?: number, height?: number, options?: string) => Seekbar;
+    /** Creates and adds a Spinner to a Layout. */
+    const addSpinner: (layout: Layout, list?: string, width?: number, height?: number, options?: string) => Spinner;
+    /** Creates and adds a Text to a Layout. */
+    const addText: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => Text;
+    /** Creates and adds a TextEdit to a Layout. */
+    const addTextEdit: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => TextEdit;
+    /** Creates and adds a Toggle to a Layout. */
+    const addToggle: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => Toggle;
+    /** Creates and adds a VideoView to a Layout. */
+    const addVideoView: (layout: Layout, width?: number, height?: number, options?: number) => VideoView;
+    /** Creates and adds a WebView to a Layout. */
+    const addWebView: (layout: Layout, width?: number, height?: number, options?: string, zoom?: number) => WebView;
+    /**
+     * Shows a simple text dialog with a colored title and a 'Ok' button to exit.
+     *
+     * If title was not given the dialog looks like a normal alert box.
+     *
+     * Without the `NoDim` option the background behind the dialog will be darkened.
+     */
     const alert: (message?: string, title?: string, options?: string, hue?: number) => void;
+    /** `animate` calls a function repeatedly like `setInterval()` but with the
+     * current time (`Date.getTime()`) and the difference to the last call in
+     * milliseconds as parameter. */
     const animate: (callback: Function, fps?: number) => void;
+    /** Used for broadcasting messages between DroidScript apps. */
     const broadcast: (type: string, message: string) => void;
-    const broadcastIntent: (action: any, category: any, data: any, type: any, extras: any, options: any) => void;
+    /**
+     * Send a broadcasting intent with a custom action.
+     * @param action The general action to be performed, such as ACTION_VIEW,
+     * ACTION_EDIT, ACTION_MAIN, etc.
+     * @param category Gives additional information about the action to execute.
+     * For example, CATEGORY_LAUNCHER means it should appear in the Launcher as a
+     * top-level application, while CATEGORY_ALTERNATIVE means it should be included
+     * in a list of alternative actions the user can perform on a piece of data.
+     * @param data The data to operate on, such as a person record in the contacts
+     * database, expressed as a Uri.
+     * @param type MIMETYPE of data
+     * @param extras This is a Bundle of any additional information. This can be
+     * used to provide extended information to the component. For example, if we
+     * have a action to send an e-mail message, we could also include extra pieces
+     * of data here to supply a subject, body, etc.
+     * @param options Comma seperated list.
+     */
+    const broadcastIntent: (action: string, category: string, data: string, type: string, extras: string, options?: string) => void;
+    /** Call is used to call the given phone number. */
     const call: (number: string) => void;
+    /** Checks if the app is licensed with Google Play. */
     const checkLicense: (key: string) => void;
-    const checkPermission: (type: string) => string;
+    /** CheckPermission checks whether the permission of a particular component
+     * has been granted. */
+    const checkPermission: (type: Permissions) => string;
+    /** Opens an Android dialog and allows the user to select one of his
+     * registered Google/Gmail accounts or add one. */
     const chooseAccount: (callback: Function) => void;
-    const chooseContact: (type: string, callback: Function) => void;
+    /** Opens the Contacts app so that the user can select the name and either the
+     * phone number or email address of a user. */
+    const chooseContact: (type: ContactType, callback: Function) => void;
+    /**
+     * Opens a file picker for user to select a file.
+     * @param message Message to display.
+     * @param type Comma delimited list of mimetypes.
+     * @param callback Function to call with resulting path.
+     * @param folder Starting folder.
+     */
     const chooseFile: (message?: string, type?: string, callback?: Function, folder?: string) => void;
+    /**
+     * Opens the photo gallery for user to select an image.
+     * @param options Comma "," separated: "" or "internal" or "external".
+     * @param callback Function to call with resulting path.
+     */
     const chooseImage: (options?: string, callback?: Function) => void;
+    const chooseWifi: (title1: any, title2: any, callback: any, options: any, extra: any) => void;
     const clearCookies: (session?: string) => void;
     const clearData: (file?: string) => void;
     const clearValue: (name: string, file?: string) => void;
     const closeDrawer: (side: SideType) => void;
     const copyFile: (src: string, dest: string) => void;
     const copyFolder: (src: string, dest: string, overwrite?: boolean, filter?: string) => void;
-    const createAdView: (unitId: string, testId: string, width?: string, height?: string, options?: string) => Adv;
-    const createAudioRecorder: () => Rec;
-    const createBluetoothList: (filter?: string) => Btl;
-    const createBluetoothSerial: (mode: string) => Bts;
-    const createButton: (text?: string, width?: string, height?: string, options?: string) => Btn;
-    const createCameraView: (width?: number, height?: number, options?: string) => Cam;
-    const createCheckBox: (text?: string, width?: number, height?: number, options?: string) => Chk;
-    const createCloudStore: (apiKey: string) => Cld;
-    const createCodeEdit: (text?: string, width?: number, height?: number, options?: string) => Cde;
-    const createCrypt: (options?: string) => Crp;
+    const createAdView: (unitId: string, testId: string, width?: string, height?: string, options?: string) => AdView;
+    const createAudioRecorder: () => AudioRecorder;
+    const createBluetoothList: (filter?: string) => BluetoothList;
+    const createBluetoothSerial: (mode: string) => BluetoothSerial;
+    const createButton: (text?: string, width?: string, height?: string, options?: string) => Button;
+    const createCameraView: (width?: number, height?: number, options?: string) => CameraView;
+    const createCheckBox: (text?: string, width?: number, height?: number, options?: string) => CheckBox;
+    const createCloudStore: (apiKey: string) => CloudStore;
+    const createCodeEdit: (text?: string, width?: number, height?: number, options?: string) => CodeEdit;
+    const createCrypt: (options?: string) => Crypt;
     const createDebug: () => void;
-    const createDialog: (title?: string, options?: string) => Dlg;
-    const createDownloader: (options?: string) => Dwn;
-    const createEmail: (account: string, password: string) => EMAIL;
-    const createFile: (file?: string, mode?: string) => Fil;
-    const createImage: (file?: string, width?: number, height?: number, options?: string, w?: string, h?: string) => Img;
-    const createLayout: (type: LayoutType, options?: string) => Lay;
-    const createList: (list?: string, width?: number, height?: number, options?: string, delim?: string) => Lst;
-    const createListDialog: (title?: string, list?: string, options?: string) => Ldg;
-    const createLocator: (type: string, options?: string) => Loc;
-    const createMediaPlayer: () => Aud;
-    const createMediaStore: () => Med;
-    const createNetClient: (type: string) => Net;
-    const createNotification: (options?: string) => Not;
+    const createDialog: (title?: string, options?: string) => Dialog;
+    const createDownloader: (options?: string) => Downloader;
+    const createEmail: (account: string, password: string) => Email;
+    const createFile: (file?: string, mode?: string) => File;
+    const createImage: (file?: string, width?: number, height?: number, options?: string, w?: string, h?: string) => Image;
+    const createLayout: (type: LayoutType, options?: string) => Layout;
+    const createList: (list?: string, width?: number, height?: number, options?: string, delim?: string) => List;
+    const createListDialog: (title?: string, list?: string, options?: string) => ListDialog;
+    const createLocator: (type: string, options?: string) => Locator;
+    const createMediaPlayer: () => MediaPlayer;
+    const createMediaStore: () => MediaStore;
+    const createNetClient: (type: string) => NetClient;
+    const createNotification: (options?: string) => Notification;
     const createObject: (name: string, type: string) => DSObject;
-    const createOverlay: (options?: string) => Ovl;
+    const createOverlay: (options?: string) => Overlay;
     const createPhoneState: (types: string) => Pst;
-    const createPlayStore: () => Ply;
+    const createPlayStore: () => PlayStore;
     const createSMS: () => SMS;
-    const createScroller: (width?: number, height?: number, options?: string) => Scr;
-    const createSeekBar: (width?: number, height?: number, options?: string) => Skb;
-    const createSensor: (type: string, options?: string) => Sns;
-    const createService: (packageName: string, className?: string, callback?: Function, options?: string) => Svc;
+    const createScroller: (width?: number, height?: number, options?: string) => Scroller;
+    const createSeekBar: (width?: number, height?: number, options?: string) => Seekbar;
+    const createSensor: (type: string, options?: string) => Sensor;
+    const createService: (packageName: string, className?: string, callback?: Function, options?: string) => Service;
     const createShortcut: (name: string, iconFile: string, file: string, options?: string) => void;
-    const createSpeechRec: (options?: string) => Spr;
-    const createSpinner: (list: any, width: any, height: any, options: any) => Spn;
-    const createSynth: (type: string) => Syn;
-    const createSysProc: (cmd: string, env?: string, dir?: string, options?: string) => Sys;
-    const createText: (text?: string, width?: number, height?: number, options?: string) => Txt;
-    const createTextEdit: (text?: string, width?: number, height?: number, options?: string) => Txe;
-    const createTheme: (baseTheme?: string) => Thm;
-    const createToggle: (text?: string, width?: number, height?: number, options?: string) => Tgl;
-    const createUSBSerial: (baudRate: number, dataBits: number, stopBits: number, parity: string, device: string) => Usb;
-    const createVideoView: (width?: number, height?: number, options?: string) => Vid;
-    const createWallpaper: (options?: string) => Wpr;
-    const createWebServer: (port?: number, options?: number) => Wbs;
+    const createSpeechRec: (options?: string) => SpeechRec;
+    const createSpinner: (list: any, width: any, height: any, options: any) => Spinner;
+    const createSynth: (type: string) => Synth;
+    const createSysProc: (cmd: string, env?: string, dir?: string, options?: string) => SysProc;
+    const createText: (text?: string, width?: number, height?: number, options?: string) => Text;
+    const createTextEdit: (text?: string, width?: number, height?: number, options?: string) => TextEdit;
+    const createTheme: (baseTheme?: string) => Theme;
+    const createToggle: (text?: string, width?: number, height?: number, options?: string) => Toggle;
+    const createUSBSerial: (baudRate: number, dataBits: number, stopBits: number, parity: string, device: string) => USBSerial;
+    const createVideoView: (width?: number, height?: number, options?: string) => VideoView;
+    const createWallpaper: (options?: string) => Wallpaper;
+    const createWebServer: (port?: number, options?: number) => WebServer;
     const createWebSocket: (id: string, ip: string, port: number, options: string) => DSObject;
-    const createWebView: (width?: number, height?: number, options?: string, zoom?: number) => Web;
-    const createYesNoDialog: (message?: string, options?: string) => Ynd;
-    const createZipUtil: (mode?: string) => Zip;
+    const createWebView: (width?: number, height?: number, options?: string, zoom?: number) => WebView;
+    const createYesNoDialog: (message?: string, options?: string) => YesNoDialog;
+    const createZipUtil: (mode?: string) => ZipUtil;
     const debug: (message: string) => void;
     const deleteDatabase: (name: string) => void;
     const deleteFile: (file: string) => void;
     const deleteFolder: (folder: string) => void;
-    const destroyLayout: (layout: Lay) => void;
+    const destroyLayout: (layout: Layout) => void;
     const disableKeys: (keyList: string) => void;
     const disableTouch: (disable: boolean) => void;
     const discoverBtDevices: (filter: string, onFound: Function, onComplete: Function) => void;
@@ -327,7 +396,7 @@ export declare namespace alt {
     const readFile: (file: string, encoding?: string) => string;
     const redirectAssets: (dir: string) => void;
     const removeDrawer: (side: SideType) => void;
-    const removeLayout: (layout: Lay) => void;
+    const removeLayout: (layout: Layout) => void;
     const renameFile: (src: string, dest: string) => void;
     const renameFolder: (src: string, dest: string) => void;
     const replaceInFile: (file: string, text: string, replace: string, options?: string) => void;
@@ -380,7 +449,7 @@ export declare namespace alt {
     const setSharedApp: (name: string) => void;
     const setSpeakerPhone: (on: boolean) => void;
     const setStatusBarColor: (color: string) => void;
-    const setTheme: (theme: Thm) => void;
+    const setTheme: (theme: Theme) => void;
     const setTitle: (title: string) => void;
     const setUserAgent: (agent: string) => void;
     const setUserCreds: (name: string, password: string) => void;

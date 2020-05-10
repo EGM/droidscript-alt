@@ -1,10 +1,13 @@
 import DSObject from "./dsobject";
+
 export default class View implements DSObject {
+  data: {};
   id: string;
   _left: number;
   _top: number;
   _parent: View;
   constructor(id: string) {
+    this.data = {};
     this.id = id;
     this._left = 0;
     this._top = 0;
@@ -56,7 +59,7 @@ export default class View implements DSObject {
     return parseFloat(prompt(this.id, `Obj.GetLeft(\f${options}`));
   }
 
-  getParent(): DSObject {
+  getParent() {
     return this._parent;
   }
 
@@ -112,12 +115,12 @@ export default class View implements DSObject {
     _map[this.id] = null;
   }
 
-  setBackAlpha(alpha: number): DSObject {
+  setBackAlpha(alpha: number) {
     prompt(this.id, `Obj.SetBackAlpha(\f${alpha}`);
     return this;
   }
 
-  setBackColor(color: string): DSObject {
+  setBackColor(color: string) {
     prompt(this.id, `Obj.SetBackColor(\f${color}`);
     return this;
   }
@@ -127,7 +130,7 @@ export default class View implements DSObject {
     color2?: string,
     color3?: string,
     options?: string
-  ): DSObject {
+  ) {
     prompt(
       this.id,
       `Obj.SetBackGradient(Linear\f${color1}\f${color2}\f${color3}\f${options}\f${null}\f${null}\f${null}`
@@ -143,7 +146,7 @@ export default class View implements DSObject {
     color2?: number,
     color3?: number,
     options?: string
-  ): DSObject {
+  ) {
     prompt(
       this.id,
       `Obj.SetBackGradient(Radial\f${x}\f${y}\f${radius}\f${color1}\f${color2}\f${color3}\f${options}`
@@ -151,17 +154,17 @@ export default class View implements DSObject {
     return this;
   }
 
-  setBackground(file: string, options?: string): DSObject {
+  setBackground(file: string, options?: string) {
     prompt(this.id, `Obj.SetBackground(${file}\f${options}`);
     return this;
   }
 
-  setColorFilter(color: string, mode?: string): DSObject {
+  setColorFilter(color: string, mode?: string) {
     prompt(this.id, `Obj.SetColorFilter(\f${color}\f${mode}`);
     return this;
   }
 
-  setEnabled(enable: boolean): DSObject {
+  setEnabled(enable: boolean) {
     prompt(this.id, `Obj.SetEnabled(\f${enable}`);
     return this;
   }
@@ -172,7 +175,7 @@ export default class View implements DSObject {
     right: number,
     bottom: number,
     mode?: string
-  ): DSObject {
+  ) {
     prompt(
       this.id,
       `Obj.SetMargins(\f${left}\f${top}\f${right}\f${bottom}\f${mode}`
@@ -186,7 +189,7 @@ export default class View implements DSObject {
     right: number,
     bottom: number,
     mode?: string
-  ): DSObject {
+  ) {
     prompt(
       this.id,
       `Obj.SetPadding(\f${left}\f${top}\f${right}\f${bottom}\f${mode}`
@@ -200,7 +203,7 @@ export default class View implements DSObject {
     width?: number,
     height?: number,
     options?: string
-  ): DSObject {
+  ) {
     prompt(
       this.id,
       `Obj.SetPosition(\f${left}\f${top}\f${width}\f${height}\f${options}`
@@ -210,17 +213,17 @@ export default class View implements DSObject {
     return this;
   }
 
-  setScale(x: number, y: number): DSObject {
+  setScale(x: number, y: number) {
     prompt(this.id, `Obj.SetScale(\f${x}\f${y}`);
     return this;
   }
 
-  setSize(width: number, height: number, options?: string): DSObject {
+  setSize(width: number, height: number, options?: string) {
     prompt(this.id, `Obj.SetSize(\f${width}\f${height}\f${options}`);
     return this;
   }
 
-  setVisibility(mode: string): DSObject {
+  setVisibility(mode: string) {
     prompt(this.id, `Obj.SetVisibility(${mode}`);
     return this;
   }

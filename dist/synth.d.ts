@@ -1,0 +1,38 @@
+import Component from "./component";
+export default class Synth extends Component {
+    constructor(id: string);
+    getType(): string;
+    playMidiTune(tune: string): void;
+    playNote(note: number): void;
+    playTone(frequency: number, duration: number): void;
+    setDelay(ms: number): Synth;
+    setDelayEnabled(enable: boolean): Synth;
+    setFeedback(feedback: number): Synth;
+    setFrequency(frequency: number): Synth;
+    setNoteLength(duration: number): Synth;
+    setPhaser(drywet: number, rate: number, range: number, feedback: number): Synth;
+    setPhaserDryWet(drywet: number): Synth;
+    setPhaserEnabled(enable: boolean): Synth;
+    setPhaserFeedback(feedback: number): Synth;
+    setPhaserRange(range: number): Synth;
+    setPhaserRate(rate: number): Synth;
+    setVca(attack: number, decay: number, sustain: number, release: number): Synth;
+    setVcaAttack(attack: number): Synth;
+    setVcaDecay(decay: number): Synth;
+    setVcaEnabled(enable: number): Synth;
+    setVcaRelease(release: number): Synth;
+    setVcaSustain(sustain: number): Synth;
+    setVcf(attack: number, decay: number, sustain: number, release: number, cuttoff: number, resonance: number, depth: number): Synth;
+    setVcfAttack(attack: number): Synth;
+    setVcfCutoff(cuttoff: number): Synth;
+    setVcfDecay(decay: number): Synth;
+    setVcfDepth(depth: number): Synth;
+    setVcfEnabled(enable: number): Synth;
+    setVcfRelease(release: number): Synth;
+    setVcfResonance(resonance: number): Synth;
+    setVcfSustain(sustain: number): Synth;
+    setVolume(left: number, right: number): Synth;
+    setWaveShape(shape: number): Synth;
+    start(): void;
+    stop(): void;
+}

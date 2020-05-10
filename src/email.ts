@@ -1,5 +1,6 @@
 import Component from "./component";
-export default class EMAIL extends Component {
+
+export default class Email extends Component {
   constructor(id: string) {
     super(id);
   }
@@ -25,22 +26,22 @@ export default class EMAIL extends Component {
     );
   }
 
-  setIMAP(server: string, port: number): EMAIL {
+  setIMAP(server: string, port: number): Email {
     prompt(this.id, `EML.SetIMAP(${server}\f${port}`);
     return this;
   }
 
-  setOnMessage(callback: Function): EMAIL {
+  setOnMessage(callback: Function): Email {
     prompt(this.id, `EML.SetOnMessage(${_Cbm(callback)}`);
     return this;
   }
 
-  setOnStatus(callback: Function): EMAIL {
+  setOnStatus(callback: Function): Email {
     prompt(this.id, `EML.SetOnStatus(${_Cbm(callback)}`);
     return this;
   }
 
-  setSMTP(server: string, port: number): EMAIL {
+  setSMTP(server: string, port: number): Email {
     prompt(this.id, `EML.SetSMTP(${server}\f${port}`);
     return this;
   }

@@ -1,0 +1,37 @@
+import View from "./view";
+export default class CodeEdit extends View {
+    constructor(id: string);
+    clearHistory(): void;
+    copy(): void;
+    cut(): void;
+    getCursorLine(): number;
+    getCursorPos(): number;
+    getLineStart(line: any): number;
+    getSelectedText(): string;
+    getSelectMode(): boolean;
+    getText(): string;
+    getType(): string;
+    highlightLine(line: any): void;
+    insertText(text: any, start: any): void;
+    paste(): void;
+    redo(): void;
+    replace(text: string): void;
+    replaceAll(text: string, newText: string, matchCase?: boolean, wholeWord?: boolean): void;
+    replaceText(text: string, start: number, end: number): void;
+    search(text: string, direction?: string, matchCase?: boolean, wholeWord?: boolean): void;
+    selectAll(): void;
+    setColorScheme(scheme: string): CodeEdit;
+    setCursorPos(position: number): CodeEdit;
+    setHtml(html: string): CodeEdit;
+    setLanguage(ext: string): CodeEdit;
+    setOnChange(callback: Function): CodeEdit;
+    setOnDoubleTap(callback: Function): CodeEdit;
+    setOnKey(callback: Function): CodeEdit;
+    setNavigationMethod(method: string): CodeEdit;
+    setSelection(start: number, stop: number): CodeEdit;
+    setText(text: string): CodeEdit;
+    setTextColor(color: string): CodeEdit;
+    setTextSize(size: number, mode?: string): CodeEdit;
+    setUseKeyboard(onOff: boolean): CodeEdit;
+    undo(): void;
+}

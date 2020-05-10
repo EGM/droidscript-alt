@@ -1,6 +1,6 @@
 // objects from somewhere else
 declare function OnStart(): void;
-declare function _WifiScan(title1, title2, callback, options, extra);
+//declare function _WifiScan(title1, title2, callback, options, extra);
 declare function _WebSock(id, ip, port, options): void
 declare function _Tween(): void
 

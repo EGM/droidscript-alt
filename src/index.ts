@@ -1,53 +1,53 @@
-import Adv from "./adv";
-import Aud from "./aud";
-import Btl from "./btl";
-import Btn from "./btn";
-import Bts from "./bts";
-import Cam from "./cam";
-import Cde from "./cde";
-import Chk from "./chk";
-import Cld from "./cld";
-import Crp from "./crp";
-import Dlg from "./dlg";
-import Dwn from "./dwn";
-import EMAIL from "./email";
-import Fil from "./fil";
-import Img from "./img";
-import Lay from "./lay";
-import Ldg from "./ldg";
-import Loc from "./loc";
-import Lst from "./lst";
-import Med from "./med";
-import Net from "./net";
-import Not from "./not";
-import Ovl from "./ovl";
-import Ply from "./ply";
-import Pst from "./pst";
-import Rec from "./rec";
-import Scr from "./scr";
-import Skb from "./skb";
+import AdView from "./adview";
+import MediaPlayer from "./mediaplayer";
+import BluetoothList from "./bluetoothlist";
+import Button from "./button";
+import BluetoothSerial from "./bluetoothserial";
+import CameraView from "./cameraview";
+import CodeEdit from "./codeedit";
+import CheckBox from "./checkbox";
+import CloudStore from "./cloudstore";
+import Crypt from "./crypt";
+import Dialog from "./dialog";
+import Downloader from "./downloader";
+import Email from "./email";
+import File from "./file";
+import Image from "./image";
+import Layout from "./layout";
+import ListDialog from "./listdialog";
+import Locator from "./locator";
+import List from "./list";
+import MediaStore from "./mediastore";
+import NetClient from "./netclient";
+import Notification from "./notification";
+import Overlay from "./overlay";
+import PlayStore from "./playstore";
+import Pst from "./phonestate";
+import AudioRecorder from "./audiorecorder";
+import Scroller from "./scroller";
+import Seekbar from "./seekbar";
 import SMS from "./sms";
-import Sns from "./sns";
-import Spn from "./spn";
-import Spr from "./spr";
-import Svc from "./svc";
-import Syn from "./syn";
-import Sys from "./sys";
-import Thm from "./thm";
-import Tgl from "./tgl";
-import Txe from "./txe";
-import Txt from "./txt";
-import Usb from "./usb";
-import Vid from "./vid";
-import Wbs from "./wbs";
-import Web from "./web";
-import Wpr from "./wpr";
-import Ynd from "./ynd";
-import Zip from "./zip";
+import Sensor from "./sensor";
+import Spinner from "./spinner";
+import SpeechRec from "./speechrec";
+import Service from "./service";
+import Synth from "./synth";
+import SysProc from "./sysproc";
+import Theme from "./theme";
+import Toggle from "./toggle";
+import TextEdit from "./textedit";
+import Text from "./text";
+import USBSerial from "./usbserial";
+import VideoView from "./videoview";
+import WebServer from "./webserver";
+import WebView from "./webview";
+import Wallpaper from "./wallpaper";
+import { _WifiScan } from "./wifiscan";
+import YesNoDialog from "./yesnodialog";
+import ZipUtil from "./ziputil";
 import DSObject from "./dsobject";
 import Component from "./component";
 import { sqlitePlugin } from "./sql";
-//import { cordova } from "./cp";
 
 // Types
 export type ActivityType = { labelName; packageName; className };
@@ -69,101 +69,126 @@ export type LayoutOptionsType = string;
 export type MemoryInfoType = { avail; low; threshold; total };
 export type RunningAppType = { user; pid; name; foreground };
 export type SideType = "Left" | "Right";
+export type Permissions =
+  | "Camera"
+  | "Storage"
+  | "ExtSDcard"
+  | "Network"
+  | "Location"
+  | "SMS"
+  | "Calendar"
+  | "Body"
+  | "Contacts"
+  | "Record"
+  | "Phone"
+  | "Accounts"
+  | "License";
+export type ContactType = "Phone" | "Email";
 
+/** DroidScript commands. */
 // eslint-disable-next-line
 export namespace alt {
+  /** Creates and adds an AdView to a Layout.
+   * @requires Premium subscription.
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateAdView.htm|Alex's Docs} for further information.
+   */
   export const addAdView = function (
-    lay: Lay,
+    layout: Layout,
     unitId: string,
     testId: string,
     width?: number,
     height?: number,
     options?: string
-  ): Adv {
+  ): AdView {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddAdView(\f${unitId}\f${testId}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Adv(ret);
+      return new AdView(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a Button to a Layout. */
   export const addButton = function (
-    lay: Lay,
+    layout: Layout,
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Btn {
+  ): Button {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddButton(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Btn(ret);
+      return new Button(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a CameraView to a Layout. */
   export const addCameraView = function (
-    lay: Lay,
+    layout: Layout,
     width?: number,
     height?: number,
     options?: string
-  ): Cam {
+  ): CameraView {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddCameraView(${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Cam(ret);
+      return new CameraView(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a CheckBox to a Layout. */
   export const addCheckBox = function (
-    lay: Lay,
+    layout: Layout,
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Chk {
+  ): CheckBox {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddCheckBox(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Chk(ret);
+      return new CheckBox(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a CodeEdit to a Layout. */
   export const addCodeEdit = function (
-    lay: Lay,
+    layout: Layout,
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Cde {
+  ): CodeEdit {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddCodeEdit(\f${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Cde(ret);
+      return new CodeEdit(ret);
     } else {
       return null;
     }
   };
 
+  /** AddDrawer adds layout as drawer on a given side. */
   export const addDrawer = function (
-    layout: Lay,
+    layout: Layout,
     side: SideType,
     width?: number,
     grabWidth?: number
@@ -174,31 +199,33 @@ export namespace alt {
     );
   };
 
+  /** Creates and adds a Image to a Layout. */
   export const addImage = function (
-    lay: Lay,
+    layout: Layout,
     file?: string,
     width?: number,
     height?: number,
     options?: string,
     w?: number,
     h?: number
-  ): Img {
+  ): Image {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddImage(${file}\f${width}\f${height}\f${options}\f${w}\f${h}`
     );
     if (ret) {
-      return new Img(ret);
+      return new Image(ret);
     } else {
       return null;
     }
   };
 
+  /** AddLayout adds a layout to the screen so that it is visible (if not hidden with setVisibility) */
   export const addLayout = function (
-    layout: Lay,
+    layout: Layout,
     type?: string,
     options?: string
-  ): Lay {
+  ): Layout {
     if (!type) {
       prompt("#", `App.AddLayout(${layout.id}`);
     } else {
@@ -207,173 +234,189 @@ export namespace alt {
         `App.AddLayout(${type}\f${options}`
       );
       if (ret) {
-        return new Lay(ret);
+        return new Layout(ret);
       } else {
         return null;
       }
     }
   };
 
+  /** Creates and adds a List to a Layout. */
   export const addList = function (
-    lay: Lay,
+    layout: Layout,
     list?: string,
     width?: number,
     height?: number,
     options?: number,
-    delim?: string
-  ): Lst {
+    delimiter?: string
+  ): List {
     const ret = prompt(
-      lay ? lay.id : null,
-      `App.AddList(\f${list}\f${width}\f${height}\f${options}\f${delim}`
+      layout ? layout.id : null,
+      `App.AddList(\f${list}\f${width}\f${height}\f${options}\f${delimiter}`
     );
     if (ret) {
-      return new Lst(ret);
+      return new List(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a Scroller to a Layout. */
   export const addScroller = function (
-    lay: Lay,
+    layout: Layout,
     width?: number,
     height?: number,
     options?: string
-  ): Scr {
+  ): Scroller {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddScroller(${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Scr(ret);
+      return new Scroller(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a SeekBar to a Layout. */
   export const addSeekBar = function (
-    lay: Lay,
+    layout: Layout,
     width?: number,
     height?: number,
     options?: string
-  ): Skb {
+  ): Seekbar {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddSeekBar(${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Skb(ret);
+      return new Seekbar(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a Spinner to a Layout. */
   export const addSpinner = function (
-    lay: Lay,
+    layout: Layout,
     list?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Spn {
+  ): Spinner {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddSpinner(${list}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Spn(ret);
+      return new Spinner(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a Text to a Layout. */
   export const addText = function (
-    lay: Lay,
+    layout: Layout,
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Txt {
+  ): Text {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddText(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Txt(ret);
+      return new Text(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a TextEdit to a Layout. */
   export const addTextEdit = function (
-    lay: Lay,
+    layout: Layout,
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Txe {
+  ): TextEdit {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddTextEdit(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Txe(ret);
+      return new TextEdit(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a Toggle to a Layout. */
   export const addToggle = function (
-    lay: Lay,
+    layout: Layout,
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Tgl {
+  ): Toggle {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddToggle(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Tgl(ret);
+      return new Toggle(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a VideoView to a Layout. */
   export const addVideoView = function (
-    lay: Lay,
+    layout: Layout,
     width?: number,
     height?: number,
     options?: number
-  ): Vid {
+  ): VideoView {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddVideoView(\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Vid(ret);
+      return new VideoView(ret);
     } else {
       return null;
     }
   };
 
+  /** Creates and adds a WebView to a Layout. */
   export const addWebView = function (
-    lay: Lay,
+    layout: Layout,
     width?: number,
     height?: number,
     options?: string,
     zoom?: number
-  ): Web {
+  ): WebView {
     const ret = prompt(
-      lay ? lay.id : null,
+      layout ? layout.id : null,
       `App.AddWeb(\f${width}\f${height}\f${options}\f${zoom}`
     );
     if (ret) {
-      return new Web(ret);
+      return new WebView(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Shows a simple text dialog with a colored title and a 'Ok' button to exit.
+   *
+   * If title was not given the dialog looks like a normal alert box.
+   *
+   * Without the `NoDim` option the background behind the dialog will be darkened.
+   */
   export const alert = function (
     message?: string,
     title?: string,
@@ -383,6 +426,9 @@ export namespace alt {
     prompt("#", `App.Alert(\f${message}\f${title}\f${options}\f${hue}`);
   };
 
+  /** `animate` calls a function repeatedly like `setInterval()` but with the
+   * current time (`Date.getTime()`) and the difference to the last call in
+   * milliseconds as parameter. */
   export const animate = function (callback: Function, fps = 30): void {
     _cbAnimate = callback;
     // eslint-disable-next-line
@@ -400,17 +446,35 @@ export namespace alt {
     }
   };
 
+  /** Used for broadcasting messages between DroidScript apps. */
   export const broadcast = function (type: string, message: string): void {
     prompt("#", `App.Broadcast(${type}\f${message}`);
   };
 
+  /**
+   * Send a broadcasting intent with a custom action.
+   * @param action The general action to be performed, such as ACTION_VIEW,
+   * ACTION_EDIT, ACTION_MAIN, etc.
+   * @param category Gives additional information about the action to execute.
+   * For example, CATEGORY_LAUNCHER means it should appear in the Launcher as a
+   * top-level application, while CATEGORY_ALTERNATIVE means it should be included
+   * in a list of alternative actions the user can perform on a piece of data.
+   * @param data The data to operate on, such as a person record in the contacts
+   * database, expressed as a Uri.
+   * @param type MIMETYPE of data
+   * @param extras This is a Bundle of any additional information. This can be
+   * used to provide extended information to the component. For example, if we
+   * have a action to send an e-mail message, we could also include extra pieces
+   * of data here to supply a subject, body, etc.
+   * @param options Comma seperated list.
+   */
   export const broadcastIntent = function (
-    action,
-    category,
-    data,
-    type,
-    extras,
-    options
+    action: string,
+    category: string,
+    data: string,
+    type: string,
+    extras: string,
+    options?: string
   ): void {
     prompt(
       "#",
@@ -418,29 +482,44 @@ export namespace alt {
     );
   };
 
+  /** Call is used to call the given phone number. */
   export const call = function (number: string): void {
     prompt("#", `App.Call(\f${number}`);
   };
 
+  /** Checks if the app is licensed with Google Play. */
   export const checkLicense = function (key: string): void {
     prompt("#", `App.CheckLicense(\f${key}`);
   };
 
-  export const checkPermission = function (type: string): string {
+  /** CheckPermission checks whether the permission of a particular component
+   * has been granted. */
+  export const checkPermission = function (type: Permissions): string {
     return prompt("#", `App.CheckPermission(\f${type}`);
   };
 
+  /** Opens an Android dialog and allows the user to select one of his
+   * registered Google/Gmail accounts or add one. */
   export const chooseAccount = function (callback: Function): void {
     prompt("#", `App.ChooseAccount(\f${_Cbm(callback)}`);
   };
 
+  /** Opens the Contacts app so that the user can select the name and either the
+   * phone number or email address of a user. */
   export const chooseContact = function (
-    type: string,
+    type: ContactType,
     callback: Function
   ): void {
     prompt("#", `App.ChooseContact(\f${type}\f${_Cbm(callback)}`);
   };
 
+  /**
+   * Opens a file picker for user to select a file.
+   * @param message Message to display.
+   * @param type Comma delimited list of mimetypes.
+   * @param callback Function to call with resulting path.
+   * @param folder Starting folder.
+   */
   export const chooseFile = function (
     message?: string,
     type?: string,
@@ -453,6 +532,11 @@ export namespace alt {
     );
   };
 
+  /**
+   * Opens the photo gallery for user to select an image.
+   * @param options Comma "," separated: "" or "internal" or "external".
+   * @param callback Function to call with resulting path.
+   */
   export const chooseImage = function (
     options?: string,
     callback?: Function
@@ -460,227 +544,330 @@ export namespace alt {
     prompt("#", `App.ChooseImage(\f${options}\f${_Cbm(callback)}`);
   };
 
-  /*
-																											function chooseWifi(title1, title2, callback, options, extra) {
-																												var wifi = new _WifiScan(title1, title2, callback, options, extra);
-																												wifi.Select();
-																											}
-																										*/
+  export const chooseWifi = function (
+    title1,
+    title2,
+    callback,
+    options,
+    extra
+  ): void {
+    const wifi = new _WifiScan(title1, title2, callback, options, extra);
+    wifi.Select();
+  };
 
+  /** Clears the saved cookies for webviews or html apps. */
   export const clearCookies = function (session?: string): void {
     prompt("#", `App.ClearCookies(\f${session}`);
   };
 
+  /**
+   * Deletes variables saved via alt.save*().
+   * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+   */
   export const clearData = function (file?: string): void {
     prompt("#", `App.ClearData(\f${file}`);
   };
 
+  /**
+   * Deletes a variable saved via app.Save*().
+   * @param name value key
+   * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+   * @see saveText, SaveNumber, SaveBoolean
+   */
   export const clearValue = function (name: string, file?: string): void {
     prompt("#", `App.ClearValue(\f${name}\f${file}`);
   };
 
+  /**
+   * Closes the drawer layout on the given side with slide animation.
+   * @param side "Left" or "Right"
+   */
   export const closeDrawer = function (side: SideType): void {
     prompt("#", `App.CloseDrawer(\f${side}`);
   };
 
-  export const copyFile = function (src: string, dest: string): void {
-    prompt("#", `App.CopyFile(${src}\f${dest}`);
+  /**
+   * Copies a file to a given destination.
+   * @param source path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param destination path to file or folder ( “/absolute/...” or “relative/...” )
+   *
+   * The target must locate to the actual target file, not the folder. An existing file will be overridden.
+   */
+  export const copyFile = function (source: string, destination: string): void {
+    prompt("#", `App.CopyFile(${source}\f${destination}`);
   };
 
+  /**
+   * Copies a folder to a given destination.
+   * @param source path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param destination path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param overwrite True to overwrite folder. If override is false and the folder already exists in the destination, it will not be copied.
+   * @param filter “pattern”
+   */
   export const copyFolder = function (
-    src: string,
-    dest: string,
+    source: string,
+    destination: string,
     overwrite?: boolean,
     filter?: string
   ): void {
-    prompt("#", `App.CopyFolder(\f${src}\f${dest}\f${overwrite}\f${filter}`);
+    prompt("#", `App.CopyFolder(\f${source}\f${destination}\f${overwrite}\f${filter}`);
   };
 
+  /** Creates an AdView.
+   * @requires Premium subscription.
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateAdView.htm|Alex's Docs} for further information.
+   */
   export const createAdView = function (
     unitId: string,
     testId: string,
     width?: string,
     height?: string,
     options?: string
-  ): Adv {
+  ): AdView {
     const ret = prompt(
       "#",
       `App.CreateAdView(\f#${unitId}\f${testId}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Adv(ret);
+      return new AdView(ret);
     } else {
       return null;
     }
   };
 
-  export const createAudioRecorder = function (): Rec {
+  /**
+   * Creates object that can be used to listen for sound and record it to a file.
+   */
+  export const createAudioRecorder = function (): AudioRecorder {
     if (_rec) {
       _rec.Release();
     }
     const ret = prompt("#", `App.CreateAudioRecorder(`);
     if (ret) {
-      _rec = new Rec(ret);
+      _rec = new AudioRecorder(ret);
     } else {
       _rec = null;
       return _rec;
     }
   };
 
-  export const createBluetoothList = function (filter?: string): Btl {
+  /**
+   * Shows an Android dialog which allows the user to select a Bluetooth device from paired and discovered devices.
+   * @param filter
+   */
+  export const createBluetoothList = function (filter?: string): BluetoothList {
     if (_btl) {
       _btl.Release();
     }
     const ret = prompt("#", `App.CreateBluetoothList(${filter}`);
     if (ret) {
-      _btl = new Btl(ret);
+      _btl = new BluetoothList(ret);
     } else {
       _btl = null;
       return _btl;
     }
   };
 
-  export const createBluetoothSerial = function (mode: string): Bts {
+  /**
+   * Creates object used for communicating with other Bluetooth devices.
+   * @param mode  “Text” (default) or “Int” or “Hex”
+   */
+  export const createBluetoothSerial = function (
+    mode: string = "Text"
+  ): BluetoothSerial {
     const ret = prompt("#", `App.CreateBluetoothSerial(\f${mode}`);
     if (ret) {
-      return new Bts(ret);
+      return new BluetoothSerial(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Creates user interface button.
+   * @param text Text to display on button.
+   * @param width decimal (0..1)
+   * @param height decimal (0..1)
+   * @param options comma “,” separated: “FontAwesome”, “Html”, “Monospace”, “Normal” or “Aluminium” or “Gray” or “Lego”, “SingleLine”, “Custom”, “NoPad”, “FillX/Y”, “NoSound”
+   */
   export const createButton = function (
     text?: string,
     width?: string,
     height?: string,
     options?: string
-  ): Btn {
+  ): Button {
     const ret = prompt(
       "#",
       `App.CreateButton(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Btn(ret);
+      return new Button(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Used to access the device camera.
+   * @param width decimal (0..1)
+   * @param height decimal (0..1)
+   * @param options comma “,” separated: “Front”, “UseBitmap”, “UseABGR”, “NoRotate”, “CIF” or “QVGA” or “SVGA” or “VGA” or “XGA” or “UXGA”
+   */
   export const createCameraView = function (
     width?: number,
     height?: number,
     options?: string
-  ): Cam {
+  ): CameraView {
     const ret = prompt(
       "#",
       `App.CreateCameraView(${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Cam(ret);
+      return new CameraView(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Creates user interface checkbox.
+   * @param text Text to display.
+   * @param width decimal (0..1)
+   * @param height decimal (0..1)
+   * @param options comma “,” separated: “FillX/Y”, “NoSound”
+   */
   export const createCheckBox = function (
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Chk {
+  ): CheckBox {
     const ret = prompt(
       "#",
       `App.CreateCheckBox(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Chk(ret);
+      return new CheckBox(ret);
     } else {
       return null;
     }
   };
 
-  /*X*/
-  export const createCloudStore = function (apiKey: string): Cld {
+  /**
+   * This component allows you to easily store and retrieve app data from the cloud.
+   * @requires Premium subscription.
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateCloudStore.htm|Alex's Docs} for further information.
+   */
+  export const createCloudStore = function (apiKey: string): CloudStore {
     const ret = prompt("#", `App.CreateCloudStore(\f${apiKey}`);
     if (ret) {
-      return new Cld(ret);
+      return new CloudStore(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Like TextEdit with premium features.
+   * @requires Premium subscription.
+   * @see TextEdit
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateCodeEdit.htm|Alex's Docs} for further information.
+   */
   export const createCodeEdit = function (
     text?: string,
     width?: number,
     height?: number,
     options?: string
-  ): Cde {
+  ): CodeEdit {
     const ret = prompt(
       "#",
       `App.CreateCodeEdit(\f${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Cde(ret);
+      return new CodeEdit(ret);
     } else {
       return null;
     }
   };
 
-  export const createCrypt = function (options?: string): Crp {
+  /**
+   * Used to encrypt or decrypt a string with a given key or to create a hash of it.
+   * @param options @todo Add options.
+   */
+  export const createCrypt = function (options?: string): Crypt {
     if (_crp) {
       _crp.Release();
     }
     const ret = prompt("#", `App.CreateCrypt(\f${options}`);
     if (ret) {
-      _crp = new Crp(ret);
+      _crp = new Crypt(ret);
     } else {
       _crp = null;
     }
     return _crp;
   };
 
+  /** Used to show the console as overlay above the app in order to see the debug logs. */
   export const createDebug = function (): void {
     prompt("#", `App.CreateDebug(`);
   };
 
-  export const createDialog = function (title?: string, options?: string): Dlg {
+  /**
+   * Creates customizable dialog.
+   * @param title Title to display.
+   * @param options comma “,” separated: “AutoCancel” or “NoCancel”, “NoTitle”, “NoFocus”, “NoDim”, “NoKeys”, “TouchModal”, “NoTouch”, “Modal”, “Kiosk”, “Old”
+   */
+  export const createDialog = function (
+    title?: string,
+    options?: string
+  ): Dialog {
     const ret = prompt("#", `App.CreateDialog(\f${title}\f${options}`);
     if (ret) {
-      return new Dlg(ret);
+      return new Dialog(ret);
     } else {
       return null;
     }
   };
 
-  export const createDownloader = function (options?: string): Dwn {
+  /**
+   * Used to download a file straight from the internet to your phone or tablet's local storage.
+   * @param options comma “,” separated: “NoDialog” or “Light”
+   */
+  export const createDownloader = function (options?: string): Downloader {
     const ret = prompt("#", `App.CreateDownloader(\f${options}`);
     if (ret) {
-      return new Dwn(ret);
+      return new Downloader(ret);
     } else {
       return null;
     }
   };
 
+  /** Component to send and receive emails without user interaction. */
   export const createEmail = function (
     account: string,
     password: string
-  ): EMAIL {
+  ): Email {
     if (_eml) {
       _eml.Release();
     }
     const ret = prompt("#", `App.CreateEmail(${account}\f${password}`);
     if (ret) {
-      _eml = new EMAIL(ret);
+      _eml = new Email(ret);
     } else {
       _eml = null;
     }
     return _eml;
   };
 
-  export const createFile = function (file?: string, mode?: string): Fil {
+  /**
+   * Creates a File object.
+   * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param mode “r” or “w” or “rw”
+   */
+  export const createFile = function (file?: string, mode?: string): File {
     const ret = prompt("#", `App.CreateFile(\f${file}\f${mode}`);
     if (ret) {
-      return new Fil(ret);
+      return new File(ret);
     } else {
       return null;
     }
@@ -723,6 +910,16 @@ export namespace alt {
 		*/
   /*~~~~~X*/
 
+  /**
+   * Used to display images such like png, jpg or gif.
+   * @param file path to file ( “/absolute/...” or “relative/...” ) or "null".
+   * @param width Decimal (0..1)
+   * @param height Decimal (0..1)
+   * @param options comma “,” separated: “fix”, “alias”, “px”, “Button”, “ScaleCenter”, “async”, “FontAwesome”, “Resize”, “TouchThrough”, “Icon”, “wallpaper”, “NoPlay”
+   * @param w Pixel width.
+   * @param h Pixel height.
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateImage.htm|Alex's Docs} for more information.
+   */
   export const createImage = function (
     file?: string,
     width?: number,
@@ -730,53 +927,68 @@ export namespace alt {
     options?: string,
     w?: string,
     h?: string
-  ): Img {
+  ): Image {
     const ret = prompt(
       "#",
       `App.CreateImage(${file}\f${width}\f${height}\f${options}\f${w}\f${h}`
     );
     if (ret) {
-      return new Img(ret);
+      return new Image(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Create container object used to visually organize graphical objects (controls).
+   * @param type “Linear” or “Absolute” or “Frame” or “Card”
+   * @param options comma “,” separated: “TouchThrough”, “TouchSpy”, “Left” or “Top” or “Right” or “Bottom” or “Center” or “H/VCenter”, “Wrap”, “Horizontal” or “Vertical”, “FillX/Y”
+   */
   export const createLayout = function (
     type: LayoutType,
-    options?: LayoutOptionsType
-  ): Lay {
+    options?: string
+  ): Layout {
     const ret = prompt("#", `App.CreateLayout(${type}\f${options}`);
     if (ret) {
-      return new Lay(ret);
+      return new Layout(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Creates List control.
+   * @param options comma “,” separated: “bold” or “Expand”, “Menu”, “Horiz”, “html”, “FontAwesome”, “monospace”, “Normal”, “WhiteGrad” or “BlackGrad” or “AlumButton” or “GreenButton” or “OrangeButton”, “NoSound”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateList.htm|Alex's Docs} for more information.
+   */
   export const createList = function (
     list?: string,
     width?: number,
     height?: number,
     options?: string,
     delim?: string
-  ): Lst {
+  ): List {
     const ret = prompt(
       "#",
       `App.CreateList(\f${list}\f${width}\f${height}\f${options}\f${delim}`
     );
     if (ret) {
-      return new Lst(ret);
+      return new List(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Select one or more than one item from a dialog.
+   * @param options comma “,” separated: “Multi” or “?”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateListDialog.htm|Alex's Docs} for more information.
+   */
   export const createListDialog = function (
     title?: string,
     list?: string,
     options?: string
-  ): Ldg {
+  ): ListDialog {
     if (_ldg) {
       _ldg.Release();
     }
@@ -785,53 +997,80 @@ export namespace alt {
       `App.CreateListDialog(\f${title}\f${list}\f${options}`
     );
     if (ret) {
-      _ldg = new Ldg(ret);
+      _ldg = new ListDialog(ret);
     } else {
       _ldg = null;
     }
     return _ldg;
   };
 
-  export const createLocator = function (type: string, options?: string): Loc {
+  /**
+   * Used to find your latitude and longitude using your device's GPS or information from your network.
+   * @param type comma “,” separated: “GPS”, “Network”
+   * @param options @todo look this up
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateLocator.htm|Alex's Docs} for more information.
+   */
+  export const createLocator = function (
+    type: string,
+    options?: string
+  ): Locator {
     const ret = prompt("#", `App.CreateLocator(${type}\f${options}`);
     if (ret) {
-      return new Loc(ret);
+      return new Locator(ret);
     } else {
       return null;
     }
   };
 
-  export const createMediaPlayer = function (): Aud {
+  /**
+   * Used to play sound files.
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateMediaPlayer.htm|Alex's Docs} for more information.
+   */
+  export const createMediaPlayer = function (): MediaPlayer {
     const ret = prompt("#", `App.CreateMediaPlayer(`);
     if (ret) {
-      return new Aud(ret);
+      return new MediaPlayer(ret);
     } else {
       return null;
     }
   };
 
-  export const createMediaStore = function (): Med {
+  /**
+   * Used to query audio information from the android provider or from the device in the “/sdcard/Music” folder.
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateMediaStore.htm|Alex's Docs} for more information.
+   */
+  export const createMediaStore = function (): MediaStore {
     const ret = prompt("#", `App.CreateMediaStore(`);
     if (ret) {
-      return new Med(ret);
+      return new MediaStore(ret);
     } else {
       return null;
     }
   };
 
-  export const createNetClient = function (type: string): Net {
+  /**
+   * Used to communicate with servers on the web.
+   * @param type  “UDP” or “TCP”, “Raw”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateNetClient.htm|Alex's Docs} for more information.
+   */
+  export const createNetClient = function (type: string): NetClient {
     const ret = prompt("#", `App.CreateNetClient(${type}`);
     if (ret) {
-      return new Net(ret);
+      return new NetClient(ret);
     } else {
       return null;
     }
   };
 
-  export const createNotification = function (options?: string): Not {
+  /**
+   * Used to put messages in the notification drawer.
+   * @param options comma “,” separated: “Ongoing”, “AutoCancel”, “FullScreen”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateNotification.htm|Alex's Docs} for more information.
+   */
+  export const createNotification = function (options?: string): Notification {
     const ret = prompt("#", `App.CreateNotification(\f${options}`);
     if (ret) {
-      return new Not(ret);
+      return new Notification(ret);
     } else {
       return null;
     }
@@ -858,15 +1097,25 @@ export namespace alt {
     }
   };
 
-  export const createOverlay = function (options?: string): Ovl {
+  /**
+   * Overlays are displayed above everything on the screen - even on the home screen or above other applications.
+   * @requires Premium Subscription
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateOverlay.htm|Alex's Docs} for more information.
+   */
+  export const createOverlay = function (options?: string): Overlay {
     const ret = prompt("#", `App.CreateOverlay(\f${options}`);
     if (ret) {
-      return new Ovl(ret);
+      return new Overlay(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Detect phone state changes.
+   * @param types “CellLocation”, “DataConnection”, “DataActivity”, “CallState”, “ServiceState”, “SignalStrength”, “CallForwarding”, “MessageWaiting”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreatePhoneState.htm|Alex's Doc} for more information.
+   */
   export const createPhoneState = function (types: string): Pst {
     if (_pst) {
       _pst.Release();
@@ -880,15 +1129,25 @@ export namespace alt {
     return _pst;
   };
 
-  export const createPlayStore = function (): Ply {
+  /**
+   * Creates a new PlayStore instance for retreiving informations or purchasing items.
+   * @requires Premium Subscription
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreatePlayStore.htm|Alex's Docs} for more information.
+   */
+  export const createPlayStore = function (): PlayStore {
     const ret = prompt("#", `App.CreatePlayStore(`);
     if (ret) {
-      return new Ply(ret);
+      return new PlayStore(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Object to send and retreive SMS messages.
+   * @requires DS X-Version
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSMS.htm|Alex's Docs} for more information.
+   */
   export const createSMS = function (): SMS {
     if (_sms) {
       _sms.Release();
@@ -902,42 +1161,58 @@ export namespace alt {
     return _sms;
   };
 
+  /**
+   * Creates scrollable layout container.
+   * @param width Decimal (0..1)
+   * @param height Decimal (0..1)
+   * @param options comma “,” separated: “FillX” or “FillY” or “FillXY”, “Horizontal” or “Vertical”, “NoScrollBar”, “ScrollFade”
+   */
   export const createScroller = function (
     width?: number,
     height?: number,
     options?: string
-  ): Scr {
+  ): Scroller {
     const ret = prompt(
       "#",
       `App.CreateScroller(${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Scr(ret);
+      return new Scroller(ret);
     } else {
       return null;
     }
   };
 
+  /**
+   * Create user input bars with a moveable pointer.
+   * @param width
+   * @param height
+   * @param options comma “,” separated: “FillX/Y”
+   * @see addSeekBar
+   */
   export const createSeekBar = function (
     width?: number,
     height?: number,
     options?: string
-  ): Skb {
+  ): Seekbar {
     const ret = prompt(
       "#",
       `App.CreateSeekBar(${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Skb(ret);
+      return new Seekbar(ret);
     } else {
       return null;
     }
   };
 
-  export const createSensor = function (type: string, options?: string): Sns {
+  export const createSensor = function (
+    type: string,
+    options?: string
+  ): Sensor {
     const ret = prompt("#", `App.CreateSensor(${type}\f${options}`);
     if (ret) {
-      return new Sns(ret);
+      return new Sensor(ret);
     } else {
       return null;
     }
@@ -948,7 +1223,7 @@ export namespace alt {
     className?: string,
     callback?: Function,
     options?: string
-  ): Svc {
+  ): Service {
     const ret = prompt(
       "#",
       `App.CreateService(\f${packageName}\f${className}\f${options}\f${_Cbm(
@@ -956,7 +1231,7 @@ export namespace alt {
       )}`
     );
     if (ret) {
-      return new Svc(ret);
+      return new Service(ret);
     } else {
       return null;
     }
@@ -984,35 +1259,40 @@ export namespace alt {
 											}
 											*/
 
-  export const createSpeechRec = function (options?: string): Spr {
+  export const createSpeechRec = function (options?: string): SpeechRec {
     if (_spr) {
       _spr.Release();
     }
     const ret = prompt("#", `App.CreateSpeechRec(\f${options}`);
     if (ret) {
-      _spr = new Spr(ret);
+      _spr = new SpeechRec(ret);
     } else {
       _spr = null;
     }
     return _spr;
   };
 
-  export const createSpinner = function (list, width, height, options): Spn {
+  export const createSpinner = function (
+    list,
+    width,
+    height,
+    options
+  ): Spinner {
     const ret = prompt(
       "#",
       `App.CreateSpinner(${list}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Spn(ret);
+      return new Spinner(ret);
     } else {
       return null;
     }
   };
 
-  export const createSynth = function (type: string): Syn {
+  export const createSynth = function (type: string): Synth {
     const ret = prompt("#", `App.CreateSynth(${type}`);
     if (ret) {
-      return new Syn(ret);
+      return new Synth(ret);
     } else {
       return null;
     }
@@ -1023,13 +1303,13 @@ export namespace alt {
     env?: string,
     dir?: string,
     options?: string
-  ): Sys {
+  ): SysProc {
     const ret = prompt(
       "#",
       `App.CreateSysProc(\f${cmd}\f${env}\f${dir}\f${options}`
     );
     if (ret) {
-      return new Sys(ret);
+      return new SysProc(ret);
     } else {
       return null;
     }
@@ -1044,13 +1324,13 @@ export namespace alt {
     width?: number,
     height?: number,
     options?: string
-  ): Txt {
+  ): Text {
     const ret = prompt(
       "#",
       `App.CreateText(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Txt(ret);
+      return new Text(ret);
     } else {
       return null;
     }
@@ -1061,22 +1341,22 @@ export namespace alt {
     width?: number,
     height?: number,
     options?: string
-  ): Txe {
+  ): TextEdit {
     const ret = prompt(
       "#",
       `App.CreateTextEdit(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Txe(ret);
+      return new TextEdit(ret);
     } else {
       return null;
     }
   };
 
-  export const createTheme = function (baseTheme?: string): Thm {
+  export const createTheme = function (baseTheme?: string): Theme {
     const ret = prompt("#", `App.CreateTheme(\f${baseTheme}`);
     if (ret) {
-      return new Thm(ret);
+      return new Theme(ret);
     } else {
       return null;
     }
@@ -1087,13 +1367,13 @@ export namespace alt {
     width?: number,
     height?: number,
     options?: string
-  ): Tgl {
+  ): Toggle {
     const ret = prompt(
       "#",
       `App.CreateToggle(${text}\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Tgl(ret);
+      return new Toggle(ret);
     } else {
       return null;
     }
@@ -1105,13 +1385,13 @@ export namespace alt {
     stopBits: number,
     parity: string,
     device: string
-  ): Usb {
+  ): USBSerial {
     const ret = prompt(
       "#",
       `App.CreateUSBSerial(\f${baudRate}\f${dataBits}\f${stopBits}\f${parity}\f${device}`
     );
     if (ret) {
-      return new Usb(ret);
+      return new USBSerial(ret);
     } else {
       return null;
     }
@@ -1121,25 +1401,25 @@ export namespace alt {
     width?: number,
     height?: number,
     options?: string
-  ): Vid {
+  ): VideoView {
     const ret = prompt(
       "#",
       `App.CreateVideoView(\f${width}\f${height}\f${options}`
     );
     if (ret) {
-      return new Vid(ret);
+      return new VideoView(ret);
     } else {
       return null;
     }
   };
 
-  export const createWallpaper = function (options?: string): Wpr {
+  export const createWallpaper = function (options?: string): Wallpaper {
     if (_wpr) {
       _wpr.Release();
     }
     const ret = prompt("#", `App.CreateWallpaper(\f${options}`);
     if (ret) {
-      _wpr = new Wpr(ret);
+      _wpr = new Wallpaper(ret);
     } else {
       _wpr = null;
     }
@@ -1149,10 +1429,10 @@ export namespace alt {
   export const createWebServer = function (
     port?: number,
     options?: number
-  ): Wbs {
+  ): WebServer {
     const ret = prompt("#", `App.CreateWebServer(${port}\f${options}`);
     if (ret) {
-      return new Wbs(ret);
+      return new WebServer(ret);
     } else {
       return null;
     }
@@ -1172,13 +1452,13 @@ export namespace alt {
     height?: number,
     options?: string,
     zoom?: number
-  ): Web {
+  ): WebView {
     const ret = prompt(
       "#",
       `App.CreateWeb(\f${width}\f${height}\f${options}\f${zoom}`
     );
     if (ret) {
-      return new Web(ret);
+      return new WebView(ret);
     } else {
       return null;
     }
@@ -1192,23 +1472,23 @@ export namespace alt {
   export const createYesNoDialog = function (
     message?: string,
     options?: string
-  ): Ynd {
+  ): YesNoDialog {
     if (_ynd) {
       _ynd.Release();
     }
     const ret = prompt("#", `App.CreateYesNoDialog(\f${message}\f${options}`);
     if (ret) {
-      _ynd = new Ynd(ret);
+      _ynd = new YesNoDialog(ret);
     } else {
       _ynd = null;
     }
     return _ynd;
   };
 
-  export const createZipUtil = function (mode?: string): Zip {
+  export const createZipUtil = function (mode?: string): ZipUtil {
     const ret = prompt("#", `App.CreateZipUtil(\f${mode}`);
     if (ret) {
-      return new Zip(ret);
+      return new ZipUtil(ret);
     } else {
       return null;
     }
@@ -1230,7 +1510,7 @@ export namespace alt {
     prompt("#", `App.DeleteFolder(${folder}`);
   };
 
-  export const destroyLayout = function (layout: Lay): void {
+  export const destroyLayout = function (layout: Layout): void {
     prompt("#", `App.DestroyLayout(${layout.id}`);
   };
 
@@ -2020,7 +2300,7 @@ export namespace alt {
     prompt("#", `App.RemoveDrawer(\f${side}`);
   };
 
-  export const removeLayout = function (layout: Lay): void {
+  export const removeLayout = function (layout: Layout): void {
     prompt("#", `App.RemoveLayout(${layout.id}`);
   };
 
@@ -2061,6 +2341,12 @@ export namespace alt {
     prompt("#", `App.SaveNumber(${name}\f${value}\f${file}`);
   };
 
+  /**
+   * Save a text value to remember variable values between multiple app starts.
+   * @param name
+   * @param value
+   * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+   */
   export const saveText = function (
     name: string,
     value: string,
@@ -2343,7 +2629,7 @@ export namespace alt {
     prompt("#", `App.SetStatusBarColor(\f${color}`);
   };
 
-  export const setTheme = function (theme: Thm): void {
+  export const setTheme = function (theme: Theme): void {
     prompt("#", `App.SetTheme(\f${theme ? theme.id : null}`);
   };
 

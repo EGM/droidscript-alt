@@ -1,0 +1,34 @@
+import View from "./view";
+export default class TextEdit extends View {
+    constructor(id: string);
+    clearHistory(): void;
+    getCursorLine(): number;
+    getCursorPos(): number;
+    getHtml(): string;
+    getLineCount(): number;
+    getLineStart(line: number): number;
+    getLineTop(line: number): number;
+    getMaxLines(): number;
+    getSelectedText(): string;
+    getSelectionEnd(): number;
+    getSelectionStart(): number;
+    getText(): string;
+    getTextSize(mode?: string): number;
+    getType(): string;
+    insertText(text: number, start: number): void;
+    redo(): void;
+    replaceText(text: string, start: number, end: number): void;
+    setCursorColor(color: string): TextEdit;
+    setCursorPos(position: number): TextEdit;
+    setHint(text: string): TextEdit;
+    setHtml(html: string): TextEdit;
+    setOnChange(callback: Function): TextEdit;
+    setOnEnter(callback: Function): TextEdit;
+    setOnFocus(callback: Function): TextEdit;
+    setOnTouch(callback: Function): TextEdit;
+    setSelection(start: number, stop: number): TextEdit;
+    setText(txt: string): TextEdit;
+    setTextColor(color: string): TextEdit;
+    setTextSize(size: number, mode?: string): TextEdit;
+    undo(): void;
+}

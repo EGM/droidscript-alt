@@ -1,5 +1,6 @@
 import DSObject from "./dsobject";
 export default class View implements DSObject {
+    data: {};
     id: string;
     _left: number;
     _top: number;

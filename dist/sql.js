@@ -1,4 +1,4 @@
-import { cordova } from "./cp";
+import { cordova } from "./cordova-plugin";
 // eslint-disable-next-line
 const root = this;
 const READ_ONLY_REGEX = /^\s*(?:drop|delete|insert|update|create)\s/i;

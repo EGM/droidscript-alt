@@ -1,5 +1,5 @@
 import Component from "./component";
-export default class EMAIL extends Component {
+export default class Email extends Component {
     constructor(id) {
         super(id);
     }

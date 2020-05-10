@@ -1,111 +1,121 @@
-import Adv from "./adv";
-import Aud from "./aud";
-import Btl from "./btl";
-import Btn from "./btn";
-import Bts from "./bts";
-import Cam from "./cam";
-import Cde from "./cde";
-import Chk from "./chk";
-import Cld from "./cld";
-import Crp from "./crp";
-import Dlg from "./dlg";
-import Dwn from "./dwn";
-import EMAIL from "./email";
-import Fil from "./fil";
-import Img from "./img";
-import Lay from "./lay";
-import Ldg from "./ldg";
-import Loc from "./loc";
-import Lst from "./lst";
-import Med from "./med";
-import Net from "./net";
-import Not from "./not";
-import Ovl from "./ovl";
-import Ply from "./ply";
-import Pst from "./pst";
-import Rec from "./rec";
-import Scr from "./scr";
-import Skb from "./skb";
+import AdView from "./adview";
+import MediaPlayer from "./mediaplayer";
+import BluetoothList from "./bluetoothlist";
+import Button from "./button";
+import BluetoothSerial from "./bluetoothserial";
+import CameraView from "./cameraview";
+import CodeEdit from "./codeedit";
+import CheckBox from "./checkbox";
+import CloudStore from "./cloudstore";
+import Crypt from "./crypt";
+import Dialog from "./dialog";
+import Downloader from "./downloader";
+import Email from "./email";
+import File from "./file";
+import Image from "./image";
+import Layout from "./layout";
+import ListDialog from "./listdialog";
+import Locator from "./locator";
+import List from "./list";
+import MediaStore from "./mediastore";
+import NetClient from "./netclient";
+import Notification from "./notification";
+import Overlay from "./overlay";
+import PlayStore from "./playstore";
+import Pst from "./phonestate";
+import AudioRecorder from "./audiorecorder";
+import Scroller from "./scroller";
+import Seekbar from "./seekbar";
 import SMS from "./sms";
-import Sns from "./sns";
-import Spn from "./spn";
-import Spr from "./spr";
-import Svc from "./svc";
-import Syn from "./syn";
-import Sys from "./sys";
-import Thm from "./thm";
-import Tgl from "./tgl";
-import Txe from "./txe";
-import Txt from "./txt";
-import Usb from "./usb";
-import Vid from "./vid";
-import Wbs from "./wbs";
-import Web from "./web";
-import Wpr from "./wpr";
-import Ynd from "./ynd";
-import Zip from "./zip";
+import Sensor from "./sensor";
+import Spinner from "./spinner";
+import SpeechRec from "./speechrec";
+import Service from "./service";
+import Synth from "./synth";
+import SysProc from "./sysproc";
+import Theme from "./theme";
+import Toggle from "./toggle";
+import TextEdit from "./textedit";
+import Text from "./text";
+import USBSerial from "./usbserial";
+import VideoView from "./videoview";
+import WebServer from "./webserver";
+import WebView from "./webview";
+import Wallpaper from "./wallpaper";
+import { _WifiScan } from "./wifiscan";
+import YesNoDialog from "./yesnodialog";
+import ZipUtil from "./ziputil";
 import Component from "./component";
 import { sqlitePlugin } from "./sql";
+/** Namespace for DroidScript commands. */
 // eslint-disable-next-line
 export var alt;
 (function (alt) {
-    alt.addAdView = function (lay, unitId, testId, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddAdView(\f${unitId}\f${testId}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a AdView to a Layout. */
+    alt.addAdView = function (layout, unitId, testId, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddAdView(\f${unitId}\f${testId}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Adv(ret);
+            return new AdView(ret);
         }
         else {
             return null;
         }
     };
-    alt.addButton = function (lay, text, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddButton(${text}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a Button to a Layout. */
+    alt.addButton = function (layout, text, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddButton(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Btn(ret);
+            return new Button(ret);
         }
         else {
             return null;
         }
     };
-    alt.addCameraView = function (lay, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddCameraView(${width}\f${height}\f${options}`);
+    /** Creates and adds a CameraView to a Layout. */
+    alt.addCameraView = function (layout, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddCameraView(${width}\f${height}\f${options}`);
         if (ret) {
-            return new Cam(ret);
+            return new CameraView(ret);
         }
         else {
             return null;
         }
     };
-    alt.addCheckBox = function (lay, text, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddCheckBox(${text}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a CheckBox to a Layout. */
+    alt.addCheckBox = function (layout, text, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddCheckBox(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Chk(ret);
+            return new CheckBox(ret);
         }
         else {
             return null;
         }
     };
-    alt.addCodeEdit = function (lay, text, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddCodeEdit(\f${text}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a CodeEdit to a Layout. */
+    alt.addCodeEdit = function (layout, text, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddCodeEdit(\f${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Cde(ret);
+            return new CodeEdit(ret);
         }
         else {
             return null;
         }
     };
+    /** AddDrawer adds layout as drawer on a given side. */
     alt.addDrawer = function (layout, side, width, grabWidth) {
         prompt("#", `App.AddDrawer(\f${layout.id}\f${side}\f${width}\f${grabWidth}`);
     };
-    alt.addImage = function (lay, file, width, height, options, w, h) {
-        const ret = prompt(lay ? lay.id : null, `App.AddImage(${file}\f${width}\f${height}\f${options}\f${w}\f${h}`);
+    /** Creates and adds a Image to a Layout. */
+    alt.addImage = function (layout, file, width, height, options, w, h) {
+        const ret = prompt(layout ? layout.id : null, `App.AddImage(${file}\f${width}\f${height}\f${options}\f${w}\f${h}`);
         if (ret) {
-            return new Img(ret);
+            return new Image(ret);
         }
         else {
             return null;
         }
     };
+    /** AddLayout adds a layout to the screen so that it is visible (if not hidden with setVisibility) */
     alt.addLayout = function (layout, type, options) {
         if (!type) {
             prompt("#", `App.AddLayout(${layout.id}`);
@@ -113,97 +123,116 @@ export var alt;
         else {
             const ret = prompt(layout ? layout.id : null, `App.AddLayout(${type}\f${options}`);
             if (ret) {
-                return new Lay(ret);
+                return new Layout(ret);
             }
             else {
                 return null;
             }
         }
     };
-    alt.addList = function (lay, list, width, height, options, delim) {
-        const ret = prompt(lay ? lay.id : null, `App.AddList(\f${list}\f${width}\f${height}\f${options}\f${delim}`);
+    /** Creates and adds a List to a Layout. */
+    alt.addList = function (layout, list, width, height, options, delimiter) {
+        const ret = prompt(layout ? layout.id : null, `App.AddList(\f${list}\f${width}\f${height}\f${options}\f${delimiter}`);
         if (ret) {
-            return new Lst(ret);
+            return new List(ret);
         }
         else {
             return null;
         }
     };
-    alt.addScroller = function (lay, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddScroller(${width}\f${height}\f${options}`);
+    /** Creates and adds a Scroller to a Layout. */
+    alt.addScroller = function (layout, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddScroller(${width}\f${height}\f${options}`);
         if (ret) {
-            return new Scr(ret);
+            return new Scroller(ret);
         }
         else {
             return null;
         }
     };
-    alt.addSeekBar = function (lay, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddSeekBar(${width}\f${height}\f${options}`);
+    /** Creates and adds a SeekBar to a Layout. */
+    alt.addSeekBar = function (layout, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddSeekBar(${width}\f${height}\f${options}`);
         if (ret) {
-            return new Skb(ret);
+            return new Seekbar(ret);
         }
         else {
             return null;
         }
     };
-    alt.addSpinner = function (lay, list, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddSpinner(${list}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a Spinner to a Layout. */
+    alt.addSpinner = function (layout, list, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddSpinner(${list}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Spn(ret);
+            return new Spinner(ret);
         }
         else {
             return null;
         }
     };
-    alt.addText = function (lay, text, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddText(${text}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a Text to a Layout. */
+    alt.addText = function (layout, text, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddText(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Txt(ret);
+            return new Text(ret);
         }
         else {
             return null;
         }
     };
-    alt.addTextEdit = function (lay, text, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddTextEdit(${text}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a TextEdit to a Layout. */
+    alt.addTextEdit = function (layout, text, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddTextEdit(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Txe(ret);
+            return new TextEdit(ret);
         }
         else {
             return null;
         }
     };
-    alt.addToggle = function (lay, text, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddToggle(${text}\f${width}\f${height}\f${options}`);
+    /** Creates and adds a Toggle to a Layout. */
+    alt.addToggle = function (layout, text, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddToggle(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Tgl(ret);
+            return new Toggle(ret);
         }
         else {
             return null;
         }
     };
-    alt.addVideoView = function (lay, width, height, options) {
-        const ret = prompt(lay ? lay.id : null, `App.AddVideoView(\f${width}\f${height}\f${options}`);
+    /** Creates and adds a VideoView to a Layout. */
+    alt.addVideoView = function (layout, width, height, options) {
+        const ret = prompt(layout ? layout.id : null, `App.AddVideoView(\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Vid(ret);
+            return new VideoView(ret);
         }
         else {
             return null;
         }
     };
-    alt.addWebView = function (lay, width, height, options, zoom) {
-        const ret = prompt(lay ? lay.id : null, `App.AddWeb(\f${width}\f${height}\f${options}\f${zoom}`);
+    /** Creates and adds a WebView to a Layout. */
+    alt.addWebView = function (layout, width, height, options, zoom) {
+        const ret = prompt(layout ? layout.id : null, `App.AddWeb(\f${width}\f${height}\f${options}\f${zoom}`);
         if (ret) {
-            return new Web(ret);
+            return new WebView(ret);
         }
         else {
             return null;
         }
     };
+    /**
+     * Shows a simple text dialog with a colored title and a 'Ok' button to exit.
+     *
+     * If title was not given the dialog looks like a normal alert box.
+     *
+     * Without the `NoDim` option the background behind the dialog will be darkened.
+     */
     alt.alert = function (message, title, options, hue) {
         prompt("#", `App.Alert(\f${message}\f${title}\f${options}\f${hue}`);
     };
+    /** `animate` calls a function repeatedly like `setInterval()` but with the
+     * current time (`Date.getTime()`) and the difference to the last call in
+     * milliseconds as parameter. */
     alt.animate = function (callback, fps = 30) {
         _cbAnimate = callback;
         // eslint-disable-next-line
@@ -222,39 +251,75 @@ export var alt;
             requestAnimationFrame(_animate);
         }
     };
+    /** Used for broadcasting messages between DroidScript apps. */
     alt.broadcast = function (type, message) {
         prompt("#", `App.Broadcast(${type}\f${message}`);
     };
+    /**
+     * Send a broadcasting intent with a custom action.
+     * @param action The general action to be performed, such as ACTION_VIEW,
+     * ACTION_EDIT, ACTION_MAIN, etc.
+     * @param category Gives additional information about the action to execute.
+     * For example, CATEGORY_LAUNCHER means it should appear in the Launcher as a
+     * top-level application, while CATEGORY_ALTERNATIVE means it should be included
+     * in a list of alternative actions the user can perform on a piece of data.
+     * @param data The data to operate on, such as a person record in the contacts
+     * database, expressed as a Uri.
+     * @param type MIMETYPE of data
+     * @param extras This is a Bundle of any additional information. This can be
+     * used to provide extended information to the component. For example, if we
+     * have a action to send an e-mail message, we could also include extra pieces
+     * of data here to supply a subject, body, etc.
+     * @param options Comma seperated list.
+     */
     alt.broadcastIntent = function (action, category, data, type, extras, options) {
         prompt("#", `App.BroadcastIntent(\f${action}\f${category}\f${data}\f${type}\f${extras}\f${options}`);
     };
+    /** Call is used to call the given phone number. */
     alt.call = function (number) {
         prompt("#", `App.Call(\f${number}`);
     };
+    /** Checks if the app is licensed with Google Play. */
     alt.checkLicense = function (key) {
         prompt("#", `App.CheckLicense(\f${key}`);
     };
+    /** CheckPermission checks whether the permission of a particular component
+     * has been granted. */
     alt.checkPermission = function (type) {
         return prompt("#", `App.CheckPermission(\f${type}`);
     };
+    /** Opens an Android dialog and allows the user to select one of his
+     * registered Google/Gmail accounts or add one. */
     alt.chooseAccount = function (callback) {
         prompt("#", `App.ChooseAccount(\f${_Cbm(callback)}`);
     };
+    /** Opens the Contacts app so that the user can select the name and either the
+     * phone number or email address of a user. */
     alt.chooseContact = function (type, callback) {
         prompt("#", `App.ChooseContact(\f${type}\f${_Cbm(callback)}`);
     };
+    /**
+     * Opens a file picker for user to select a file.
+     * @param message Message to display.
+     * @param type Comma delimited list of mimetypes.
+     * @param callback Function to call with resulting path.
+     * @param folder Starting folder.
+     */
     alt.chooseFile = function (message, type, callback, folder) {
         prompt("#", `App.ChooseFile(\f${message}\f${type}\f${_Cbm(callback)}\f${folder}`);
     };
+    /**
+     * Opens the photo gallery for user to select an image.
+     * @param options Comma "," separated: "" or "internal" or "external".
+     * @param callback Function to call with resulting path.
+     */
     alt.chooseImage = function (options, callback) {
         prompt("#", `App.ChooseImage(\f${options}\f${_Cbm(callback)}`);
     };
-    /*
-                                                                                                              function chooseWifi(title1, title2, callback, options, extra) {
-                                                                                                                  var wifi = new _WifiScan(title1, title2, callback, options, extra);
-                                                                                                                  wifi.Select();
-                                                                                                              }
-                                                                                                          */
+    alt.chooseWifi = function (title1, title2, callback, options, extra) {
+        const wifi = new _WifiScan(title1, title2, callback, options, extra);
+        wifi.Select();
+    };
     alt.clearCookies = function (session) {
         prompt("#", `App.ClearCookies(\f${session}`);
     };
@@ -276,7 +341,7 @@ export var alt;
     alt.createAdView = function (unitId, testId, width, height, options) {
         const ret = prompt("#", `App.CreateAdView(\f#${unitId}\f${testId}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Adv(ret);
+            return new AdView(ret);
         }
         else {
             return null;
@@ -288,7 +353,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateAudioRecorder(`);
         if (ret) {
-            _rec = new Rec(ret);
+            _rec = new AudioRecorder(ret);
         }
         else {
             _rec = null;
@@ -301,7 +366,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateBluetoothList(${filter}`);
         if (ret) {
-            _btl = new Btl(ret);
+            _btl = new BluetoothList(ret);
         }
         else {
             _btl = null;
@@ -311,7 +376,7 @@ export var alt;
     alt.createBluetoothSerial = function (mode) {
         const ret = prompt("#", `App.CreateBluetoothSerial(\f${mode}`);
         if (ret) {
-            return new Bts(ret);
+            return new BluetoothSerial(ret);
         }
         else {
             return null;
@@ -320,7 +385,7 @@ export var alt;
     alt.createButton = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateButton(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Btn(ret);
+            return new Button(ret);
         }
         else {
             return null;
@@ -329,7 +394,7 @@ export var alt;
     alt.createCameraView = function (width, height, options) {
         const ret = prompt("#", `App.CreateCameraView(${width}\f${height}\f${options}`);
         if (ret) {
-            return new Cam(ret);
+            return new CameraView(ret);
         }
         else {
             return null;
@@ -338,17 +403,16 @@ export var alt;
     alt.createCheckBox = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateCheckBox(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Chk(ret);
+            return new CheckBox(ret);
         }
         else {
             return null;
         }
     };
-    /*X*/
     alt.createCloudStore = function (apiKey) {
         const ret = prompt("#", `App.CreateCloudStore(\f${apiKey}`);
         if (ret) {
-            return new Cld(ret);
+            return new CloudStore(ret);
         }
         else {
             return null;
@@ -357,7 +421,7 @@ export var alt;
     alt.createCodeEdit = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateCodeEdit(\f${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Cde(ret);
+            return new CodeEdit(ret);
         }
         else {
             return null;
@@ -369,7 +433,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateCrypt(\f${options}`);
         if (ret) {
-            _crp = new Crp(ret);
+            _crp = new Crypt(ret);
         }
         else {
             _crp = null;
@@ -382,7 +446,7 @@ export var alt;
     alt.createDialog = function (title, options) {
         const ret = prompt("#", `App.CreateDialog(\f${title}\f${options}`);
         if (ret) {
-            return new Dlg(ret);
+            return new Dialog(ret);
         }
         else {
             return null;
@@ -391,7 +455,7 @@ export var alt;
     alt.createDownloader = function (options) {
         const ret = prompt("#", `App.CreateDownloader(\f${options}`);
         if (ret) {
-            return new Dwn(ret);
+            return new Downloader(ret);
         }
         else {
             return null;
@@ -403,7 +467,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateEmail(${account}\f${password}`);
         if (ret) {
-            _eml = new EMAIL(ret);
+            _eml = new Email(ret);
         }
         else {
             _eml = null;
@@ -413,7 +477,7 @@ export var alt;
     alt.createFile = function (file, mode) {
         const ret = prompt("#", `App.CreateFile(\f${file}\f${mode}`);
         if (ret) {
-            return new Fil(ret);
+            return new File(ret);
         }
         else {
             return null;
@@ -458,7 +522,7 @@ export var alt;
     alt.createImage = function (file, width, height, options, w, h) {
         const ret = prompt("#", `App.CreateImage(${file}\f${width}\f${height}\f${options}\f${w}\f${h}`);
         if (ret) {
-            return new Img(ret);
+            return new Image(ret);
         }
         else {
             return null;
@@ -467,7 +531,7 @@ export var alt;
     alt.createLayout = function (type, options) {
         const ret = prompt("#", `App.CreateLayout(${type}\f${options}`);
         if (ret) {
-            return new Lay(ret);
+            return new Layout(ret);
         }
         else {
             return null;
@@ -476,7 +540,7 @@ export var alt;
     alt.createList = function (list, width, height, options, delim) {
         const ret = prompt("#", `App.CreateList(\f${list}\f${width}\f${height}\f${options}\f${delim}`);
         if (ret) {
-            return new Lst(ret);
+            return new List(ret);
         }
         else {
             return null;
@@ -488,7 +552,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateListDialog(\f${title}\f${list}\f${options}`);
         if (ret) {
-            _ldg = new Ldg(ret);
+            _ldg = new ListDialog(ret);
         }
         else {
             _ldg = null;
@@ -498,7 +562,7 @@ export var alt;
     alt.createLocator = function (type, options) {
         const ret = prompt("#", `App.CreateLocator(${type}\f${options}`);
         if (ret) {
-            return new Loc(ret);
+            return new Locator(ret);
         }
         else {
             return null;
@@ -507,7 +571,7 @@ export var alt;
     alt.createMediaPlayer = function () {
         const ret = prompt("#", `App.CreateMediaPlayer(`);
         if (ret) {
-            return new Aud(ret);
+            return new MediaPlayer(ret);
         }
         else {
             return null;
@@ -516,7 +580,7 @@ export var alt;
     alt.createMediaStore = function () {
         const ret = prompt("#", `App.CreateMediaStore(`);
         if (ret) {
-            return new Med(ret);
+            return new MediaStore(ret);
         }
         else {
             return null;
@@ -525,7 +589,7 @@ export var alt;
     alt.createNetClient = function (type) {
         const ret = prompt("#", `App.CreateNetClient(${type}`);
         if (ret) {
-            return new Net(ret);
+            return new NetClient(ret);
         }
         else {
             return null;
@@ -534,7 +598,7 @@ export var alt;
     alt.createNotification = function (options) {
         const ret = prompt("#", `App.CreateNotification(\f${options}`);
         if (ret) {
-            return new Not(ret);
+            return new Notification(ret);
         }
         else {
             return null;
@@ -564,7 +628,7 @@ export var alt;
     alt.createOverlay = function (options) {
         const ret = prompt("#", `App.CreateOverlay(\f${options}`);
         if (ret) {
-            return new Ovl(ret);
+            return new Overlay(ret);
         }
         else {
             return null;
@@ -586,7 +650,7 @@ export var alt;
     alt.createPlayStore = function () {
         const ret = prompt("#", `App.CreatePlayStore(`);
         if (ret) {
-            return new Ply(ret);
+            return new PlayStore(ret);
         }
         else {
             return null;
@@ -608,7 +672,7 @@ export var alt;
     alt.createScroller = function (width, height, options) {
         const ret = prompt("#", `App.CreateScroller(${width}\f${height}\f${options}`);
         if (ret) {
-            return new Scr(ret);
+            return new Scroller(ret);
         }
         else {
             return null;
@@ -617,7 +681,7 @@ export var alt;
     alt.createSeekBar = function (width, height, options) {
         const ret = prompt("#", `App.CreateSeekBar(${width}\f${height}\f${options}`);
         if (ret) {
-            return new Skb(ret);
+            return new Seekbar(ret);
         }
         else {
             return null;
@@ -626,7 +690,7 @@ export var alt;
     alt.createSensor = function (type, options) {
         const ret = prompt("#", `App.CreateSensor(${type}\f${options}`);
         if (ret) {
-            return new Sns(ret);
+            return new Sensor(ret);
         }
         else {
             return null;
@@ -635,7 +699,7 @@ export var alt;
     alt.createService = function (packageName, className, callback, options) {
         const ret = prompt("#", `App.CreateService(\f${packageName}\f${className}\f${options}\f${_Cbm(callback)}`);
         if (ret) {
-            return new Svc(ret);
+            return new Service(ret);
         }
         else {
             return null;
@@ -659,7 +723,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateSpeechRec(\f${options}`);
         if (ret) {
-            _spr = new Spr(ret);
+            _spr = new SpeechRec(ret);
         }
         else {
             _spr = null;
@@ -669,7 +733,7 @@ export var alt;
     alt.createSpinner = function (list, width, height, options) {
         const ret = prompt("#", `App.CreateSpinner(${list}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Spn(ret);
+            return new Spinner(ret);
         }
         else {
             return null;
@@ -678,7 +742,7 @@ export var alt;
     alt.createSynth = function (type) {
         const ret = prompt("#", `App.CreateSynth(${type}`);
         if (ret) {
-            return new Syn(ret);
+            return new Synth(ret);
         }
         else {
             return null;
@@ -687,7 +751,7 @@ export var alt;
     alt.createSysProc = function (cmd, env, dir, options) {
         const ret = prompt("#", `App.CreateSysProc(\f${cmd}\f${env}\f${dir}\f${options}`);
         if (ret) {
-            return new Sys(ret);
+            return new SysProc(ret);
         }
         else {
             return null;
@@ -701,7 +765,7 @@ export var alt;
     alt.createText = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateText(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Txt(ret);
+            return new Text(ret);
         }
         else {
             return null;
@@ -710,7 +774,7 @@ export var alt;
     alt.createTextEdit = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateTextEdit(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Txe(ret);
+            return new TextEdit(ret);
         }
         else {
             return null;
@@ -719,7 +783,7 @@ export var alt;
     alt.createTheme = function (baseTheme) {
         const ret = prompt("#", `App.CreateTheme(\f${baseTheme}`);
         if (ret) {
-            return new Thm(ret);
+            return new Theme(ret);
         }
         else {
             return null;
@@ -728,7 +792,7 @@ export var alt;
     alt.createToggle = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateToggle(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Tgl(ret);
+            return new Toggle(ret);
         }
         else {
             return null;
@@ -737,7 +801,7 @@ export var alt;
     alt.createUSBSerial = function (baudRate, dataBits, stopBits, parity, device) {
         const ret = prompt("#", `App.CreateUSBSerial(\f${baudRate}\f${dataBits}\f${stopBits}\f${parity}\f${device}`);
         if (ret) {
-            return new Usb(ret);
+            return new USBSerial(ret);
         }
         else {
             return null;
@@ -746,7 +810,7 @@ export var alt;
     alt.createVideoView = function (width, height, options) {
         const ret = prompt("#", `App.CreateVideoView(\f${width}\f${height}\f${options}`);
         if (ret) {
-            return new Vid(ret);
+            return new VideoView(ret);
         }
         else {
             return null;
@@ -758,7 +822,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateWallpaper(\f${options}`);
         if (ret) {
-            _wpr = new Wpr(ret);
+            _wpr = new Wallpaper(ret);
         }
         else {
             _wpr = null;
@@ -768,7 +832,7 @@ export var alt;
     alt.createWebServer = function (port, options) {
         const ret = prompt("#", `App.CreateWebServer(${port}\f${options}`);
         if (ret) {
-            return new Wbs(ret);
+            return new WebServer(ret);
         }
         else {
             return null;
@@ -780,7 +844,7 @@ export var alt;
     alt.createWebView = function (width, height, options, zoom) {
         const ret = prompt("#", `App.CreateWeb(\f${width}\f${height}\f${options}\f${zoom}`);
         if (ret) {
-            return new Web(ret);
+            return new WebView(ret);
         }
         else {
             return null;
@@ -796,7 +860,7 @@ export var alt;
         }
         const ret = prompt("#", `App.CreateYesNoDialog(\f${message}\f${options}`);
         if (ret) {
-            _ynd = new Ynd(ret);
+            _ynd = new YesNoDialog(ret);
         }
         else {
             _ynd = null;
@@ -806,7 +870,7 @@ export var alt;
     alt.createZipUtil = function (mode) {
         const ret = prompt("#", `App.CreateZipUtil(\f${mode}`);
         if (ret) {
-            return new Zip(ret);
+            return new ZipUtil(ret);
         }
         else {
             return null;

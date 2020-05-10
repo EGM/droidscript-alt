@@ -1,5 +1,6 @@
 export default class View {
     constructor(id) {
+        this.data = {};
         this.id = id;
         this._left = 0;
         this._top = 0;
