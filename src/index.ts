@@ -50,6 +50,7 @@ import { sqlitePlugin } from "./sql";
 import { Tabs } from "./tabs";
 import { Wizard } from "./wizard";
 import { CheckList } from "./checklist";
+import { cordova } from "./cordova-plugin";
 
 // Types
 export type ActivityType = { labelName; packageName; className };
