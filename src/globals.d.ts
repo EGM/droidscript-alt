@@ -19,6 +19,8 @@ declare function _PlaySound(str: string): void;
 declare function _LoadPlugin(str: string): void;
 declare function _ShowTextDialog(title?: string, deflt?: string, callback?: Function): void;
 declare function _ShowTip(msg?: string, left?: number, top?: number, timeOut?: number, options?: string): void;
+declare function _WifiScan(title1, title2, callback, options, extra): void;
+declare function _UseDbg(b): void;
 
 declare function prompt(s1?: string, s2?: string): string;
 declare function setInterval(fn: Function, ms: number): any;

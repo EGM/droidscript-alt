@@ -1,11 +1,12 @@
 import DSObject from "./dsobject";
 
 export default class View implements DSObject {
-  data: {};
+  // eslint-disable-next-line
+  data: any;
   id: string;
   _left: number;
   _top: number;
-  _parent: View;
+  _parent: DSObject;
   constructor(id: string) {
     this.data = {};
     this.id = id;
@@ -59,7 +60,8 @@ export default class View implements DSObject {
     return parseFloat(prompt(this.id, `Obj.GetLeft(\f${options}`));
   }
 
-  getParent() {
+  // eslint-disable-next-line
+  getParent(): any {
     return this._parent;
   }
 
@@ -115,12 +117,14 @@ export default class View implements DSObject {
     _map[this.id] = null;
   }
 
-  setBackAlpha(alpha: number) {
+  // eslint-disable-next-line
+  setBackAlpha(alpha: number): any {
     prompt(this.id, `Obj.SetBackAlpha(\f${alpha}`);
     return this;
   }
 
-  setBackColor(color: string) {
+  // eslint-disable-next-line
+  setBackColor(color: string): any {
     prompt(this.id, `Obj.SetBackColor(\f${color}`);
     return this;
   }
@@ -130,7 +134,8 @@ export default class View implements DSObject {
     color2?: string,
     color3?: string,
     options?: string
-  ) {
+    // eslint-disable-next-line
+  ): any {
     prompt(
       this.id,
       `Obj.SetBackGradient(Linear\f${color1}\f${color2}\f${color3}\f${options}\f${null}\f${null}\f${null}`
@@ -146,7 +151,8 @@ export default class View implements DSObject {
     color2?: number,
     color3?: number,
     options?: string
-  ) {
+    // eslint-disable-next-line
+  ): any {
     prompt(
       this.id,
       `Obj.SetBackGradient(Radial\f${x}\f${y}\f${radius}\f${color1}\f${color2}\f${color3}\f${options}`
@@ -154,17 +160,20 @@ export default class View implements DSObject {
     return this;
   }
 
-  setBackground(file: string, options?: string) {
+  // eslint-disable-next-line
+  setBackground(file: string, options?: string): any {
     prompt(this.id, `Obj.SetBackground(${file}\f${options}`);
     return this;
   }
 
-  setColorFilter(color: string, mode?: string) {
+  // eslint-disable-next-line
+  setColorFilter(color: string, mode?: string): any {
     prompt(this.id, `Obj.SetColorFilter(\f${color}\f${mode}`);
     return this;
   }
 
-  setEnabled(enable: boolean) {
+  // eslint-disable-next-line
+  setEnabled(enable: boolean): any {
     prompt(this.id, `Obj.SetEnabled(\f${enable}`);
     return this;
   }
@@ -175,7 +184,8 @@ export default class View implements DSObject {
     right: number,
     bottom: number,
     mode?: string
-  ) {
+    // eslint-disable-next-line
+  ): any {
     prompt(
       this.id,
       `Obj.SetMargins(\f${left}\f${top}\f${right}\f${bottom}\f${mode}`
@@ -189,7 +199,8 @@ export default class View implements DSObject {
     right: number,
     bottom: number,
     mode?: string
-  ) {
+    // eslint-disable-next-line
+  ): any {
     prompt(
       this.id,
       `Obj.SetPadding(\f${left}\f${top}\f${right}\f${bottom}\f${mode}`
@@ -203,7 +214,8 @@ export default class View implements DSObject {
     width?: number,
     height?: number,
     options?: string
-  ) {
+    // eslint-disable-next-line
+  ): any {
     prompt(
       this.id,
       `Obj.SetPosition(\f${left}\f${top}\f${width}\f${height}\f${options}`
@@ -213,17 +225,20 @@ export default class View implements DSObject {
     return this;
   }
 
-  setScale(x: number, y: number) {
+  // eslint-disable-next-line
+  setScale(x: number, y: number): any {
     prompt(this.id, `Obj.SetScale(\f${x}\f${y}`);
     return this;
   }
 
-  setSize(width: number, height: number, options?: string) {
+  // eslint-disable-next-line
+  setSize(width: number, height: number, options?: string): any {
     prompt(this.id, `Obj.SetSize(\f${width}\f${height}\f${options}`);
     return this;
   }
 
-  setVisibility(mode: string) {
+  // eslint-disable-next-line
+  setVisibility(mode: string): any {
     prompt(this.id, `Obj.SetVisibility(${mode}`);
     return this;
   }

@@ -45,6 +45,9 @@ import Wallpaper from "./wallpaper";
 import YesNoDialog from "./yesnodialog";
 import ZipUtil from "./ziputil";
 import DSObject from "./dsobject";
+import { Tabs } from "./tabs";
+import { Wizard } from "./wizard";
+import { CheckList } from "./checklist";
 export declare type ActivityType = {
     labelName: any;
     packageName: any;
@@ -89,9 +92,14 @@ export declare type RunningAppType = {
 export declare type SideType = "Left" | "Right";
 export declare type Permissions = "Camera" | "Storage" | "ExtSDcard" | "Network" | "Location" | "SMS" | "Calendar" | "Body" | "Contacts" | "Record" | "Phone" | "Accounts" | "License";
 export declare type ContactType = "Phone" | "Email";
-/** Namespace for DroidScript commands. */
+export declare type SensorType = "Accelerometer" | "MagneticField" | "Orientation" | "Light" | "Proximity" | "Temperature" | "GameRotation" | "GeomagneticRotation" | "Gravity" | "Gyroscope" | "HeartRate" | "Acceleration" | "Pressure" | "Humidity" | "RotationMotion" | "StepCounter" | "StepDetector";
+export declare type SensorOptionsType = "Fastest" | "Fast" | "Medium" | "Slow";
+/** DroidScript commands. */
 export declare namespace alt {
-    /** Creates and adds a AdView to a Layout. */
+    /** Creates and adds an AdView to a Layout.
+     * @requires Premium subscription.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateAdView.htm|Alex's Docs} for further information.
+     */
     const addAdView: (layout: Layout, unitId: string, testId: string, width?: number, height?: number, options?: string) => AdView;
     /** Creates and adds a Button to a Layout. */
     const addButton: (layout: Layout, text?: string, width?: number, height?: number, options?: string) => Button;
@@ -185,50 +193,271 @@ export declare namespace alt {
      */
     const chooseImage: (options?: string, callback?: Function) => void;
     const chooseWifi: (title1: any, title2: any, callback: any, options: any, extra: any) => void;
+    /** Clears the saved cookies for webviews or html apps. */
     const clearCookies: (session?: string) => void;
+    /**
+     * Deletes variables saved via alt.save*().
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     */
     const clearData: (file?: string) => void;
+    /**
+     * Deletes a variable saved via app.Save*().
+     * @param name value key
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     * @see saveText, SaveNumber, SaveBoolean
+     */
     const clearValue: (name: string, file?: string) => void;
+    /**
+     * Closes the drawer layout on the given side with slide animation.
+     * @param side "Left" or "Right"
+     */
     const closeDrawer: (side: SideType) => void;
-    const copyFile: (src: string, dest: string) => void;
-    const copyFolder: (src: string, dest: string, overwrite?: boolean, filter?: string) => void;
+    /**
+     * Copies a file to a given destination.
+     * @param source path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param destination path to file or folder ( “/absolute/...” or “relative/...” )
+     *
+     * The target must locate to the actual target file, not the folder. An existing file will be overridden.
+     */
+    const copyFile: (source: string, destination: string) => void;
+    /**
+     * Copies a folder to a given destination.
+     * @param source path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param destination path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param overwrite True to overwrite folder. If override is false and the folder already exists in the destination, it will not be copied.
+     * @param filter “pattern”
+     */
+    const copyFolder: (source: string, destination: string, overwrite?: boolean, filter?: string) => void;
+    /** Creates an AdView.
+     * @requires Premium subscription.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateAdView.htm|Alex's Docs} for further information.
+     */
     const createAdView: (unitId: string, testId: string, width?: string, height?: string, options?: string) => AdView;
+    /**
+     * Creates object that can be used to listen for sound and record it to a file.
+     */
     const createAudioRecorder: () => AudioRecorder;
+    /**
+     * Shows an Android dialog which allows the user to select a Bluetooth device from paired and discovered devices.
+     * @param filter
+     */
     const createBluetoothList: (filter?: string) => BluetoothList;
-    const createBluetoothSerial: (mode: string) => BluetoothSerial;
-    const createButton: (text?: string, width?: string, height?: string, options?: string) => Button;
+    /**
+     * Creates object used for communicating with other Bluetooth devices.
+     * @param mode  “Text” (default) or “Int” or “Hex”
+     */
+    const createBluetoothSerial: (mode?: string) => BluetoothSerial;
+    /**
+     * Creates user interface button.
+     * @param text Text to display on button.
+     * @param width decimal (0..1)
+     * @param height decimal (0..1)
+     * @param options comma “,” separated: “FontAwesome”, “Html”, “Monospace”, “Normal” or “Aluminium” or “Gray” or “Lego”, “SingleLine”, “Custom”, “NoPad”, “FillX/Y”, “NoSound”
+     */
+    const createButton: (text?: string, width?: number, height?: number, options?: string) => Button;
+    /**
+     * Used to access the device camera.
+     * @param width decimal (0..1)
+     * @param height decimal (0..1)
+     * @param options comma “,” separated: “Front”, “UseBitmap”, “UseABGR”, “NoRotate”, “CIF” or “QVGA” or “SVGA” or “VGA” or “XGA” or “UXGA”
+     */
     const createCameraView: (width?: number, height?: number, options?: string) => CameraView;
+    /**
+     * Creates user interface checkbox.
+     * @param text Text to display.
+     * @param width decimal (0..1)
+     * @param height decimal (0..1)
+     * @param options comma “,” separated: “FillX/Y”, “NoSound”
+     */
     const createCheckBox: (text?: string, width?: number, height?: number, options?: string) => CheckBox;
+    /**
+     * This component allows you to easily store and retrieve app data from the cloud.
+     * @requires Premium subscription.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateCloudStore.htm|Alex's Docs} for further information.
+     */
     const createCloudStore: (apiKey: string) => CloudStore;
+    /**
+     * Like TextEdit with premium features.
+     * @requires Premium subscription.
+     * @see TextEdit
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateCodeEdit.htm|Alex's Docs} for further information.
+     */
     const createCodeEdit: (text?: string, width?: number, height?: number, options?: string) => CodeEdit;
+    /**
+     * Used to encrypt or decrypt a string with a given key or to create a hash of it.
+     * @param options @todo Add options.
+     */
     const createCrypt: (options?: string) => Crypt;
+    /** Used to show the console as overlay above the app in order to see the debug logs. */
     const createDebug: () => void;
+    /**
+     * Creates customizable dialog.
+     * @param title Title to display.
+     * @param options comma “,” separated: “AutoCancel” or “NoCancel”, “NoTitle”, “NoFocus”, “NoDim”, “NoKeys”, “TouchModal”, “NoTouch”, “Modal”, “Kiosk”, “Old”
+     */
     const createDialog: (title?: string, options?: string) => Dialog;
+    /**
+     * Used to download a file straight from the internet to your phone or tablet's local storage.
+     * @param options comma “,” separated: “NoDialog” or “Light”
+     */
     const createDownloader: (options?: string) => Downloader;
+    /** Component to send and receive emails without user interaction. */
     const createEmail: (account: string, password: string) => Email;
+    /**
+     * Creates a File object.
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param mode “r” or “w” or “rw”
+     */
     const createFile: (file?: string, mode?: string) => File;
+    /**
+     * Used to display images such like png, jpg or gif.
+     * @param file path to file ( “/absolute/...” or “relative/...” ) or "null".
+     * @param width Decimal (0..1)
+     * @param height Decimal (0..1)
+     * @param options comma “,” separated: “fix”, “alias”, “px”, “Button”, “ScaleCenter”, “async”, “FontAwesome”, “Resize”, “TouchThrough”, “Icon”, “wallpaper”, “NoPlay”
+     * @param w Pixel width.
+     * @param h Pixel height.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateImage.htm|Alex's Docs} for more information.
+     */
     const createImage: (file?: string, width?: number, height?: number, options?: string, w?: string, h?: string) => Image;
+    /**
+     * Create container object used to visually organize graphical objects (controls).
+     * @param type “Linear” or “Absolute” or “Frame” or “Card”
+     * @param options comma “,” separated: “TouchThrough”, “TouchSpy”, “Left” or “Top” or “Right” or “Bottom” or “Center” or “H/VCenter”, “Wrap”, “Horizontal” or “Vertical”, “FillX/Y”
+     */
     const createLayout: (type: LayoutType, options?: string) => Layout;
+    /**
+     * Creates List control.
+     * @param options comma “,” separated: “bold” or “Expand”, “Menu”, “Horiz”, “html”, “FontAwesome”, “monospace”, “Normal”, “WhiteGrad” or “BlackGrad” or “AlumButton” or “GreenButton” or “OrangeButton”, “NoSound”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateList.htm|Alex's Docs} for more information.
+     */
     const createList: (list?: string, width?: number, height?: number, options?: string, delim?: string) => List;
+    /**
+     * Select one or more than one item from a dialog.
+     * @param options comma “,” separated: “Multi” or “?”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateListDialog.htm|Alex's Docs} for more information.
+     */
     const createListDialog: (title?: string, list?: string, options?: string) => ListDialog;
+    /**
+     * Used to find your latitude and longitude using your device's GPS or information from your network.
+     * @param type comma “,” separated: “GPS”, “Network”
+     * @param options @todo look this up
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateLocator.htm|Alex's Docs} for more information.
+     */
     const createLocator: (type: string, options?: string) => Locator;
+    /**
+     * Used to play sound files.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateMediaPlayer.htm|Alex's Docs} for more information.
+     */
     const createMediaPlayer: () => MediaPlayer;
+    /**
+     * Used to query audio information from the android provider or from the device in the “/sdcard/Music” folder.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateMediaStore.htm|Alex's Docs} for more information.
+     */
     const createMediaStore: () => MediaStore;
+    /**
+     * Used to communicate with servers on the web.
+     * @param type  “UDP” or “TCP”, “Raw”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateNetClient.htm|Alex's Docs} for more information.
+     */
     const createNetClient: (type: string) => NetClient;
+    /**
+     * Used to put messages in the notification drawer.
+     * @param options comma “,” separated: “Ongoing”, “AutoCancel”, “FullScreen”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateNotification.htm|Alex's Docs} for more information.
+     */
     const createNotification: (options?: string) => Notification;
     const createObject: (name: string, type: string) => DSObject;
+    /**
+     * Overlays are displayed above everything on the screen - even on the home screen or above other applications.
+     * @requires Premium Subscription
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateOverlay.htm|Alex's Docs} for more information.
+     */
     const createOverlay: (options?: string) => Overlay;
+    /**
+     * Detect phone state changes.
+     * @param types “CellLocation”, “DataConnection”, “DataActivity”, “CallState”, “ServiceState”, “SignalStrength”, “CallForwarding”, “MessageWaiting”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreatePhoneState.htm|Alex's Doc} for more information.
+     */
     const createPhoneState: (types: string) => Pst;
+    /**
+     * Creates a new PlayStore instance for retreiving informations or purchasing items.
+     * @requires Premium Subscription
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreatePlayStore.htm|Alex's Docs} for more information.
+     */
     const createPlayStore: () => PlayStore;
+    /**
+     * Object to send and retreive SMS messages.
+     * @requires DS X-Version
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSMS.htm|Alex's Docs} for more information.
+     */
     const createSMS: () => SMS;
+    /**
+     * Creates scrollable layout container.
+     * @param width Decimal (0..1)
+     * @param height Decimal (0..1)
+     * @param options comma “,” separated: “FillX” or “FillY” or “FillXY”, “Horizontal” or “Vertical”, “NoScrollBar”, “ScrollFade”
+     */
     const createScroller: (width?: number, height?: number, options?: string) => Scroller;
+    /**
+     * Create user input bars with a moveable pointer.
+     * @param width Decimal (0..1)
+     * @param height Decimal (0..1)
+     * @param options comma “,” separated: “FillX/Y”
+     * @see addSeekBar
+     */
     const createSeekBar: (width?: number, height?: number, options?: string) => Seekbar;
-    const createSensor: (type: string, options?: string) => Sensor;
+    /**
+     * Used to access numerous sensors of your device.
+     * @param type “Accelerometer” or “MagneticField” or “Orientation” or “Light” or “Proximity” or “Temperature” or “GameRotation” or “GeomagneticRotation” or “Gravity” or “Gyroscope” or “HeartRate” or “Acceleration” or “Pressure” or “Humidity” or “RotationMotion” or “StepCounter” or “StepDetector”
+     * @param options “Slow” or “Medium” or “Fast” or “Fastest”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSensor.htm|Alex's Docs} for more information.
+     */
+    const createSensor: (type: SensorType, options?: SensorOptionsType) => Sensor;
+    /**
+     * Services run in the background.
+     * @param packageName “this” or “<package>”
+     * @param className “this” or “<class>”
+     * @param options “Persist”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateService.htm|Alex's Docs} for more information.
+     */
     const createService: (packageName: string, className?: string, callback?: Function, options?: string) => Service;
+    /**
+     * Creates a shortcut of an app on your home screen - referencing to a js file runnable with DS.
+     * @param name Shortcut title.
+     * @param iconFile path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param options comma “,” separated: “Portrait” or “Landscape”, “Transparent”, “NoDom”, “Debug”, “Game” or “remote”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateShortcut.htm|Alex's Docs} for more information.
+     */
     const createShortcut: (name: string, iconFile: string, file: string, options?: string) => void;
+    /**
+     * Used to listen for and recognize speech.
+     * @param options comma “,” separated: “NoBeep”, “Partial”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSpeechRec.htm|Alex's Docs} for more information.
+     */
     const createSpeechRec: (options?: string) => SpeechRec;
-    const createSpinner: (list: any, width: any, height: any, options: any) => Spinner;
+    /**
+     * Creates a spinner (similar to dropdown list.)
+     * @param options comma “,” separated: “FillX/Y”, “NoSound”
+     */
+    const createSpinner: (list?: string, width?: number, height?: number, options?: string) => Spinner;
+    /**
+     * Returns a Synth object which can produces a variety of sounds, sound effects and music.
+     * @param type “Signal”, “VCA”, “VCF”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSynth.htm|Alex's Docs} for more information.
+     */
     const createSynth: (type: string) => Synth;
+    /**
+     * Creates a SystemProcedure of a command shell (ie. “sh”, “su” if root or “busybox” if installed) which can be reused throughout the program.
+     * @param cmd program name: “sh” or “su” or “busybox”
+     * @param env
+     * @param dir path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param options comma “,” separated: “combine” or “builder”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSysProc.htm|Alex's Docs} for more information.
+     */
     const createSysProc: (cmd: string, env?: string, dir?: string, options?: string) => SysProc;
+    const createTabs: (list: string, width?: number, height?: number, options?: string) => Tabs;
     const createText: (text?: string, width?: number, height?: number, options?: string) => Text;
     const createTextEdit: (text?: string, width?: number, height?: number, options?: string) => TextEdit;
     const createTheme: (baseTheme?: string) => Theme;
@@ -239,6 +468,7 @@ export declare namespace alt {
     const createWebServer: (port?: number, options?: number) => WebServer;
     const createWebSocket: (id: string, ip: string, port: number, options: string) => DSObject;
     const createWebView: (width?: number, height?: number, options?: string, zoom?: number) => WebView;
+    const createWizard: (title: string, width?: number, height?: number, callback?: Function, options?: string) => Wizard;
     const createYesNoDialog: (message?: string, options?: string) => YesNoDialog;
     const createZipUtil: (mode?: string) => ZipUtil;
     const debug: (message: string) => void;
@@ -259,6 +489,7 @@ export declare namespace alt {
     const extractPlugins: () => void;
     const fileExists: (file: string) => boolean;
     const folderExists: (folder: string) => boolean;
+    const gA: (cmd: any, ...args: any[]) => void;
     const getAccounts: () => string;
     const getActivities: () => ActivityType[];
     const getAppName: () => string;
@@ -403,6 +634,12 @@ export declare namespace alt {
     const saveBoolean: (name: string, value: boolean, file?: string) => void;
     const saveCookies: () => void;
     const saveNumber: (name: string, value: number, file?: string) => void;
+    /**
+     * Save a text value to remember variable values between multiple app starts.
+     * @param name
+     * @param value
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     */
     const saveText: (name: string, value: string, file?: string) => void;
     const scanFile: (file: string) => void;
     const screenShot: (fileName: string, quality?: string) => void;
@@ -456,14 +693,14 @@ export declare namespace alt {
     const setVolume: (stream: string, level: number, options?: string) => void;
     const setWifiApEnabled: (enable: boolean, ssid: string, key: string) => void;
     const setWifiEnabled: (enable: boolean) => void;
-    const showCheckList: (title?: string, list?: string, callback?: Function, width?: number, height?: number, options?: string) => DSObject;
+    const showCheckList: (title?: string, list?: string, callback?: Function, width?: number, height?: number, options?: string) => CheckList;
     const showDebug: (show: string) => void;
     const showKeyboard: (obj: DSObject) => boolean;
     const showMenu: () => void;
     const showPopup: (message: string, options?: string) => void;
     const showProgress: (msg: string, options?: string) => void;
     const showProgressBar: (title: string, percent: number, options?: string) => void;
-    const showTextDialog: (title?: string, deflt?: string, callback?: Function) => void;
+    const showTextDialog: (title: string, deflt: string, callback: Function) => void;
     const showTip: (message: string, left?: number, top?: number, timeOut?: number, options?: string) => void;
     const simulateDrag: (obj: DSObject, x1: number, y1: number, x2: number, y2: number, step?: number, pause?: number) => void;
     const simulateKey: (obj: DSObject, keyName: string, modifiers?: string, pause?: number) => void;

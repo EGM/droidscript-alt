@@ -26,7 +26,7 @@ export default class List extends View {
     return parseInt(prompt(this.id, "Lst.GetLength("));
   }
 
-  getList(delimiter: string): Item[] {
+  getList(delimiter?: string): Item[] {
     return JSON.parse(prompt(this.id, `Lst.GetList(${delimiter}`));
   }
 

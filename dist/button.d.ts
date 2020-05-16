@@ -13,5 +13,5 @@ export default class Button extends View {
     setText(text: string): Button;
     setTextColor(clr: string): Button;
     setTextShadow(radius: string, dx: number, dy: number, color: string): Button;
-    setTextSize(size: string, mode?: string): Button;
+    setTextSize(size: number, mode?: string): Button;
 }

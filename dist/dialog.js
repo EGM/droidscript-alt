@@ -2,9 +2,11 @@ import View from "./view";
 export default class Dialog extends View {
     constructor(id) {
         super(id);
+        this._tm = null;
     }
     addLayout(layout) {
         prompt(this.id, `Dlg.AddLayout(${layout.id}`);
+        return this;
     }
     dismiss() {
         prompt(this.id, "Dlg.Dismiss(");

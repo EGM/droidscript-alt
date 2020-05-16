@@ -72,7 +72,7 @@ export default class Button extends View {
     return this;
   }
 
-  setTextSize(size: string, mode?: string): Button {
+  setTextSize(size: number, mode?: string): Button {
     prompt(this.id, `Btn.SetTextSize(\f${size}\f${mode}`);
     return this;
   }

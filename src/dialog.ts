@@ -2,12 +2,15 @@ import View from "./view";
 import Layout from "./layout";
 
 export default class Dialog extends View {
+  _tm: number;
   constructor(id: string) {
     super(id);
+    this._tm = null;
   }
 
-  addLayout(layout: Layout): void {
+  addLayout(layout: Layout): Dialog {
     prompt(this.id, `Dlg.AddLayout(${layout.id}`);
+    return this;
   }
 
   dismiss(): void {

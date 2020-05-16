@@ -34,6 +34,7 @@ export default class View {
     getLeft(options) {
         return parseFloat(prompt(this.id, `Obj.GetLeft(\f${options}`));
     }
+    // eslint-disable-next-line
     getParent() {
         return this._parent;
     }
@@ -69,56 +70,74 @@ export default class View {
         prompt(this.id, `Obj.Release(`);
         _map[this.id] = null;
     }
+    // eslint-disable-next-line
     setBackAlpha(alpha) {
         prompt(this.id, `Obj.SetBackAlpha(\f${alpha}`);
         return this;
     }
+    // eslint-disable-next-line
     setBackColor(color) {
         prompt(this.id, `Obj.SetBackColor(\f${color}`);
         return this;
     }
-    setBackGradient(color1, color2, color3, options) {
+    setBackGradient(color1, color2, color3, options
+    // eslint-disable-next-line
+    ) {
         prompt(this.id, `Obj.SetBackGradient(Linear\f${color1}\f${color2}\f${color3}\f${options}\f${null}\f${null}\f${null}`);
         return this;
     }
-    setBackGradientRadial(x, y, radius, color1, color2, color3, options) {
+    setBackGradientRadial(x, y, radius, color1, color2, color3, options
+    // eslint-disable-next-line
+    ) {
         prompt(this.id, `Obj.SetBackGradient(Radial\f${x}\f${y}\f${radius}\f${color1}\f${color2}\f${color3}\f${options}`);
         return this;
     }
+    // eslint-disable-next-line
     setBackground(file, options) {
         prompt(this.id, `Obj.SetBackground(${file}\f${options}`);
         return this;
     }
+    // eslint-disable-next-line
     setColorFilter(color, mode) {
         prompt(this.id, `Obj.SetColorFilter(\f${color}\f${mode}`);
         return this;
     }
+    // eslint-disable-next-line
     setEnabled(enable) {
         prompt(this.id, `Obj.SetEnabled(\f${enable}`);
         return this;
     }
-    setMargins(left, top, right, bottom, mode) {
+    setMargins(left, top, right, bottom, mode
+    // eslint-disable-next-line
+    ) {
         prompt(this.id, `Obj.SetMargins(\f${left}\f${top}\f${right}\f${bottom}\f${mode}`);
         return this;
     }
-    setPadding(left, top, right, bottom, mode) {
+    setPadding(left, top, right, bottom, mode
+    // eslint-disable-next-line
+    ) {
         prompt(this.id, `Obj.SetPadding(\f${left}\f${top}\f${right}\f${bottom}\f${mode}`);
         return this;
     }
-    setPosition(left, top, width, height, options) {
+    setPosition(left, top, width, height, options
+    // eslint-disable-next-line
+    ) {
         prompt(this.id, `Obj.SetPosition(\f${left}\f${top}\f${width}\f${height}\f${options}`);
         this._left = left;
         this._top = top;
         return this;
     }
+    // eslint-disable-next-line
     setScale(x, y) {
         prompt(this.id, `Obj.SetScale(\f${x}\f${y}`);
         return this;
     }
+    // eslint-disable-next-line
     setSize(width, height, options) {
         prompt(this.id, `Obj.SetSize(\f${width}\f${height}\f${options}`);
         return this;
     }
+    // eslint-disable-next-line
     setVisibility(mode) {
         prompt(this.id, `Obj.SetVisibility(${mode}`);
         return this;

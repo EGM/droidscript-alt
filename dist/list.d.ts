@@ -6,11 +6,11 @@ declare type Item = {
 };
 export default class List extends View {
     constructor(id: string);
-    addItem(title: string, body: string, image: string): List;
+    addItem(title: string, body?: string, image?: string): List;
     getItem(title: string): Item;
     getItemByIndex(index: number): Item;
     getLength(): number;
-    getList(delimiter: string): Item[];
+    getList(delimiter?: string): Item[];
     getTextSize(mode?: string): number;
     getType(): string;
     insertItem(index: number, title: string, body?: string, image?: string): void;

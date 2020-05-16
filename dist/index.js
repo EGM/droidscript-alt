@@ -42,16 +42,21 @@ import VideoView from "./videoview";
 import WebServer from "./webserver";
 import WebView from "./webview";
 import Wallpaper from "./wallpaper";
-import { _WifiScan } from "./wifiscan";
 import YesNoDialog from "./yesnodialog";
 import ZipUtil from "./ziputil";
 import Component from "./component";
 import { sqlitePlugin } from "./sql";
-/** Namespace for DroidScript commands. */
+import { Tabs } from "./tabs";
+import { Wizard } from "./wizard";
+import { CheckList } from "./checklist";
+/** DroidScript commands. */
 // eslint-disable-next-line
 export var alt;
 (function (alt) {
-    /** Creates and adds a AdView to a Layout. */
+    /** Creates and adds an AdView to a Layout.
+     * @requires Premium subscription.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateAdView.htm|Alex's Docs} for further information.
+     */
     alt.addAdView = function (layout, unitId, testId, width, height, options) {
         const ret = prompt(layout ? layout.id : null, `App.AddAdView(\f${unitId}\f${testId}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -320,24 +325,57 @@ export var alt;
         const wifi = new _WifiScan(title1, title2, callback, options, extra);
         wifi.Select();
     };
+    /** Clears the saved cookies for webviews or html apps. */
     alt.clearCookies = function (session) {
         prompt("#", `App.ClearCookies(\f${session}`);
     };
+    /**
+     * Deletes variables saved via alt.save*().
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     */
     alt.clearData = function (file) {
         prompt("#", `App.ClearData(\f${file}`);
     };
+    /**
+     * Deletes a variable saved via app.Save*().
+     * @param name value key
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     * @see saveText, SaveNumber, SaveBoolean
+     */
     alt.clearValue = function (name, file) {
         prompt("#", `App.ClearValue(\f${name}\f${file}`);
     };
+    /**
+     * Closes the drawer layout on the given side with slide animation.
+     * @param side "Left" or "Right"
+     */
     alt.closeDrawer = function (side) {
         prompt("#", `App.CloseDrawer(\f${side}`);
     };
-    alt.copyFile = function (src, dest) {
-        prompt("#", `App.CopyFile(${src}\f${dest}`);
+    /**
+     * Copies a file to a given destination.
+     * @param source path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param destination path to file or folder ( “/absolute/...” or “relative/...” )
+     *
+     * The target must locate to the actual target file, not the folder. An existing file will be overridden.
+     */
+    alt.copyFile = function (source, destination) {
+        prompt("#", `App.CopyFile(${source}\f${destination}`);
     };
-    alt.copyFolder = function (src, dest, overwrite, filter) {
-        prompt("#", `App.CopyFolder(\f${src}\f${dest}\f${overwrite}\f${filter}`);
+    /**
+     * Copies a folder to a given destination.
+     * @param source path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param destination path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param overwrite True to overwrite folder. If override is false and the folder already exists in the destination, it will not be copied.
+     * @param filter “pattern”
+     */
+    alt.copyFolder = function (source, destination, overwrite, filter) {
+        prompt("#", `App.CopyFolder(\f${source}\f${destination}\f${overwrite}\f${filter}`);
     };
+    /** Creates an AdView.
+     * @requires Premium subscription.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateAdView.htm|Alex's Docs} for further information.
+     */
     alt.createAdView = function (unitId, testId, width, height, options) {
         const ret = prompt("#", `App.CreateAdView(\f#${unitId}\f${testId}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -347,6 +385,9 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Creates object that can be used to listen for sound and record it to a file.
+     */
     alt.createAudioRecorder = function () {
         if (_rec) {
             _rec.Release();
@@ -360,6 +401,10 @@ export var alt;
             return _rec;
         }
     };
+    /**
+     * Shows an Android dialog which allows the user to select a Bluetooth device from paired and discovered devices.
+     * @param filter
+     */
     alt.createBluetoothList = function (filter) {
         if (_btl) {
             _btl.Release();
@@ -373,7 +418,11 @@ export var alt;
             return _btl;
         }
     };
-    alt.createBluetoothSerial = function (mode) {
+    /**
+     * Creates object used for communicating with other Bluetooth devices.
+     * @param mode  “Text” (default) or “Int” or “Hex”
+     */
+    alt.createBluetoothSerial = function (mode = "Text") {
         const ret = prompt("#", `App.CreateBluetoothSerial(\f${mode}`);
         if (ret) {
             return new BluetoothSerial(ret);
@@ -382,6 +431,13 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Creates user interface button.
+     * @param text Text to display on button.
+     * @param width decimal (0..1)
+     * @param height decimal (0..1)
+     * @param options comma “,” separated: “FontAwesome”, “Html”, “Monospace”, “Normal” or “Aluminium” or “Gray” or “Lego”, “SingleLine”, “Custom”, “NoPad”, “FillX/Y”, “NoSound”
+     */
     alt.createButton = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateButton(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -391,6 +447,12 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to access the device camera.
+     * @param width decimal (0..1)
+     * @param height decimal (0..1)
+     * @param options comma “,” separated: “Front”, “UseBitmap”, “UseABGR”, “NoRotate”, “CIF” or “QVGA” or “SVGA” or “VGA” or “XGA” or “UXGA”
+     */
     alt.createCameraView = function (width, height, options) {
         const ret = prompt("#", `App.CreateCameraView(${width}\f${height}\f${options}`);
         if (ret) {
@@ -400,6 +462,13 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Creates user interface checkbox.
+     * @param text Text to display.
+     * @param width decimal (0..1)
+     * @param height decimal (0..1)
+     * @param options comma “,” separated: “FillX/Y”, “NoSound”
+     */
     alt.createCheckBox = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateCheckBox(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -409,6 +478,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * This component allows you to easily store and retrieve app data from the cloud.
+     * @requires Premium subscription.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateCloudStore.htm|Alex's Docs} for further information.
+     */
     alt.createCloudStore = function (apiKey) {
         const ret = prompt("#", `App.CreateCloudStore(\f${apiKey}`);
         if (ret) {
@@ -418,6 +492,12 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Like TextEdit with premium features.
+     * @requires Premium subscription.
+     * @see TextEdit
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateCodeEdit.htm|Alex's Docs} for further information.
+     */
     alt.createCodeEdit = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateCodeEdit(\f${text}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -427,6 +507,10 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to encrypt or decrypt a string with a given key or to create a hash of it.
+     * @param options @todo Add options.
+     */
     alt.createCrypt = function (options) {
         if (_crp) {
             _crp.Release();
@@ -440,9 +524,15 @@ export var alt;
         }
         return _crp;
     };
+    /** Used to show the console as overlay above the app in order to see the debug logs. */
     alt.createDebug = function () {
         prompt("#", `App.CreateDebug(`);
     };
+    /**
+     * Creates customizable dialog.
+     * @param title Title to display.
+     * @param options comma “,” separated: “AutoCancel” or “NoCancel”, “NoTitle”, “NoFocus”, “NoDim”, “NoKeys”, “TouchModal”, “NoTouch”, “Modal”, “Kiosk”, “Old”
+     */
     alt.createDialog = function (title, options) {
         const ret = prompt("#", `App.CreateDialog(\f${title}\f${options}`);
         if (ret) {
@@ -452,6 +542,10 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to download a file straight from the internet to your phone or tablet's local storage.
+     * @param options comma “,” separated: “NoDialog” or “Light”
+     */
     alt.createDownloader = function (options) {
         const ret = prompt("#", `App.CreateDownloader(\f${options}`);
         if (ret) {
@@ -461,6 +555,7 @@ export var alt;
             return null;
         }
     };
+    /** Component to send and receive emails without user interaction. */
     alt.createEmail = function (account, password) {
         if (_eml) {
             _eml.Release();
@@ -474,6 +569,11 @@ export var alt;
         }
         return _eml;
     };
+    /**
+     * Creates a File object.
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param mode “r” or “w” or “rw”
+     */
     alt.createFile = function (file, mode) {
         const ret = prompt("#", `App.CreateFile(\f${file}\f${mode}`);
         if (ret) {
@@ -519,6 +619,16 @@ export var alt;
               }
           */
     /*~~~~~X*/
+    /**
+     * Used to display images such like png, jpg or gif.
+     * @param file path to file ( “/absolute/...” or “relative/...” ) or "null".
+     * @param width Decimal (0..1)
+     * @param height Decimal (0..1)
+     * @param options comma “,” separated: “fix”, “alias”, “px”, “Button”, “ScaleCenter”, “async”, “FontAwesome”, “Resize”, “TouchThrough”, “Icon”, “wallpaper”, “NoPlay”
+     * @param w Pixel width.
+     * @param h Pixel height.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateImage.htm|Alex's Docs} for more information.
+     */
     alt.createImage = function (file, width, height, options, w, h) {
         const ret = prompt("#", `App.CreateImage(${file}\f${width}\f${height}\f${options}\f${w}\f${h}`);
         if (ret) {
@@ -528,6 +638,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Create container object used to visually organize graphical objects (controls).
+     * @param type “Linear” or “Absolute” or “Frame” or “Card”
+     * @param options comma “,” separated: “TouchThrough”, “TouchSpy”, “Left” or “Top” or “Right” or “Bottom” or “Center” or “H/VCenter”, “Wrap”, “Horizontal” or “Vertical”, “FillX/Y”
+     */
     alt.createLayout = function (type, options) {
         const ret = prompt("#", `App.CreateLayout(${type}\f${options}`);
         if (ret) {
@@ -537,6 +652,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Creates List control.
+     * @param options comma “,” separated: “bold” or “Expand”, “Menu”, “Horiz”, “html”, “FontAwesome”, “monospace”, “Normal”, “WhiteGrad” or “BlackGrad” or “AlumButton” or “GreenButton” or “OrangeButton”, “NoSound”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateList.htm|Alex's Docs} for more information.
+     */
     alt.createList = function (list, width, height, options, delim) {
         const ret = prompt("#", `App.CreateList(\f${list}\f${width}\f${height}\f${options}\f${delim}`);
         if (ret) {
@@ -546,6 +666,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Select one or more than one item from a dialog.
+     * @param options comma “,” separated: “Multi” or “?”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateListDialog.htm|Alex's Docs} for more information.
+     */
     alt.createListDialog = function (title, list, options) {
         if (_ldg) {
             _ldg.Release();
@@ -559,6 +684,12 @@ export var alt;
         }
         return _ldg;
     };
+    /**
+     * Used to find your latitude and longitude using your device's GPS or information from your network.
+     * @param type comma “,” separated: “GPS”, “Network”
+     * @param options @todo look this up
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateLocator.htm|Alex's Docs} for more information.
+     */
     alt.createLocator = function (type, options) {
         const ret = prompt("#", `App.CreateLocator(${type}\f${options}`);
         if (ret) {
@@ -568,6 +699,10 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to play sound files.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateMediaPlayer.htm|Alex's Docs} for more information.
+     */
     alt.createMediaPlayer = function () {
         const ret = prompt("#", `App.CreateMediaPlayer(`);
         if (ret) {
@@ -577,6 +712,10 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to query audio information from the android provider or from the device in the “/sdcard/Music” folder.
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateMediaStore.htm|Alex's Docs} for more information.
+     */
     alt.createMediaStore = function () {
         const ret = prompt("#", `App.CreateMediaStore(`);
         if (ret) {
@@ -586,6 +725,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to communicate with servers on the web.
+     * @param type  “UDP” or “TCP”, “Raw”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateNetClient.htm|Alex's Docs} for more information.
+     */
     alt.createNetClient = function (type) {
         const ret = prompt("#", `App.CreateNetClient(${type}`);
         if (ret) {
@@ -595,6 +739,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Used to put messages in the notification drawer.
+     * @param options comma “,” separated: “Ongoing”, “AutoCancel”, “FullScreen”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateNotification.htm|Alex's Docs} for more information.
+     */
     alt.createNotification = function (options) {
         const ret = prompt("#", `App.CreateNotification(\f${options}`);
         if (ret) {
@@ -625,6 +774,11 @@ export var alt;
             }
         }
     };
+    /**
+     * Overlays are displayed above everything on the screen - even on the home screen or above other applications.
+     * @requires Premium Subscription
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateOverlay.htm|Alex's Docs} for more information.
+     */
     alt.createOverlay = function (options) {
         const ret = prompt("#", `App.CreateOverlay(\f${options}`);
         if (ret) {
@@ -634,6 +788,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Detect phone state changes.
+     * @param types “CellLocation”, “DataConnection”, “DataActivity”, “CallState”, “ServiceState”, “SignalStrength”, “CallForwarding”, “MessageWaiting”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreatePhoneState.htm|Alex's Doc} for more information.
+     */
     alt.createPhoneState = function (types) {
         if (_pst) {
             _pst.Release();
@@ -647,6 +806,11 @@ export var alt;
         }
         return _pst;
     };
+    /**
+     * Creates a new PlayStore instance for retreiving informations or purchasing items.
+     * @requires Premium Subscription
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreatePlayStore.htm|Alex's Docs} for more information.
+     */
     alt.createPlayStore = function () {
         const ret = prompt("#", `App.CreatePlayStore(`);
         if (ret) {
@@ -656,6 +820,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Object to send and retreive SMS messages.
+     * @requires DS X-Version
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSMS.htm|Alex's Docs} for more information.
+     */
     alt.createSMS = function () {
         if (_sms) {
             _sms.Release();
@@ -669,6 +838,12 @@ export var alt;
         }
         return _sms;
     };
+    /**
+     * Creates scrollable layout container.
+     * @param width Decimal (0..1)
+     * @param height Decimal (0..1)
+     * @param options comma “,” separated: “FillX” or “FillY” or “FillXY”, “Horizontal” or “Vertical”, “NoScrollBar”, “ScrollFade”
+     */
     alt.createScroller = function (width, height, options) {
         const ret = prompt("#", `App.CreateScroller(${width}\f${height}\f${options}`);
         if (ret) {
@@ -678,6 +853,13 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Create user input bars with a moveable pointer.
+     * @param width Decimal (0..1)
+     * @param height Decimal (0..1)
+     * @param options comma “,” separated: “FillX/Y”
+     * @see addSeekBar
+     */
     alt.createSeekBar = function (width, height, options) {
         const ret = prompt("#", `App.CreateSeekBar(${width}\f${height}\f${options}`);
         if (ret) {
@@ -687,7 +869,13 @@ export var alt;
             return null;
         }
     };
-    alt.createSensor = function (type, options) {
+    /**
+     * Used to access numerous sensors of your device.
+     * @param type “Accelerometer” or “MagneticField” or “Orientation” or “Light” or “Proximity” or “Temperature” or “GameRotation” or “GeomagneticRotation” or “Gravity” or “Gyroscope” or “HeartRate” or “Acceleration” or “Pressure” or “Humidity” or “RotationMotion” or “StepCounter” or “StepDetector”
+     * @param options “Slow” or “Medium” or “Fast” or “Fastest”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSensor.htm|Alex's Docs} for more information.
+     */
+    alt.createSensor = function (type, options = "Slow") {
         const ret = prompt("#", `App.CreateSensor(${type}\f${options}`);
         if (ret) {
             return new Sensor(ret);
@@ -696,6 +884,13 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Services run in the background.
+     * @param packageName “this” or “<package>”
+     * @param className “this” or “<class>”
+     * @param options “Persist”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateService.htm|Alex's Docs} for more information.
+     */
     alt.createService = function (packageName, className, callback, options) {
         const ret = prompt("#", `App.CreateService(\f${packageName}\f${className}\f${options}\f${_Cbm(callback)}`);
         if (ret) {
@@ -705,18 +900,31 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Creates a shortcut of an app on your home screen - referencing to a js file runnable with DS.
+     * @param name Shortcut title.
+     * @param iconFile path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param options comma “,” separated: “Portrait” or “Landscape”, “Transparent”, “NoDom”, “Debug”, “Game” or “remote”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateShortcut.htm|Alex's Docs} for more information.
+     */
     alt.createShortcut = function (name, iconFile, file, options) {
         prompt("#", `App.CreateShortcut(\f${name}\f${iconFile}\f${file}\f${options}`);
     };
     /*
-                                              function createSmartWatch(type) {
-                                                  if (_smw) _smw.Release();
-                                                  const ret = prompt("#", `App.CreateSmartWatch(\f${type);
-                                                  if (ret) _smw = new SMW(ret);
-                                                  else _smw = null;
-                                                  return _smw;
-                                              }
-                                              */
+      function createSmartWatch(type) {
+      if (_smw) _smw.Release();
+      const ret = prompt("#", `App.CreateSmartWatch(\f${type);
+      if (ret) _smw = new SMW(ret);
+      else _smw = null;
+      return _smw;
+    }
+    */
+    /**
+     * Used to listen for and recognize speech.
+     * @param options comma “,” separated: “NoBeep”, “Partial”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSpeechRec.htm|Alex's Docs} for more information.
+     */
     alt.createSpeechRec = function (options) {
         if (_spr) {
             _spr.Release();
@@ -730,6 +938,10 @@ export var alt;
         }
         return _spr;
     };
+    /**
+     * Creates a spinner (similar to dropdown list.)
+     * @param options comma “,” separated: “FillX/Y”, “NoSound”
+     */
     alt.createSpinner = function (list, width, height, options) {
         const ret = prompt("#", `App.CreateSpinner(${list}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -739,6 +951,11 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Returns a Synth object which can produces a variety of sounds, sound effects and music.
+     * @param type “Signal”, “VCA”, “VCF”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSynth.htm|Alex's Docs} for more information.
+     */
     alt.createSynth = function (type) {
         const ret = prompt("#", `App.CreateSynth(${type}`);
         if (ret) {
@@ -748,6 +965,14 @@ export var alt;
             return null;
         }
     };
+    /**
+     * Creates a SystemProcedure of a command shell (ie. “sh”, “su” if root or “busybox” if installed) which can be reused throughout the program.
+     * @param cmd program name: “sh” or “su” or “busybox”
+     * @param env
+     * @param dir path to file or folder ( “/absolute/...” or “relative/...” )
+     * @param options comma “,” separated: “combine” or “builder”
+     * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSysProc.htm|Alex's Docs} for more information.
+     */
     alt.createSysProc = function (cmd, env, dir, options) {
         const ret = prompt("#", `App.CreateSysProc(\f${cmd}\f${env}\f${dir}\f${options}`);
         if (ret) {
@@ -757,11 +982,9 @@ export var alt;
             return null;
         }
     };
-    /*
-                                                function createTabs(list, width, height, options) {
-                                                  return new _Tabs(list, width, height, options);
-                                                }
-                                              */
+    alt.createTabs = function (list, width = 1, height = -1, options) {
+        return new Tabs(list, width, height, options);
+    };
     alt.createText = function (text, width, height, options) {
         const ret = prompt("#", `App.CreateText(${text}\f${width}\f${height}\f${options}`);
         if (ret) {
@@ -850,10 +1073,9 @@ export var alt;
             return null;
         }
     };
-    /*X*/
-    /*
-                                                function createWizard(title, width, height, callback, options) { return new _Wizard(title, width, height, callback, options) }
-                                                */
+    alt.createWizard = function (title, width, height, callback, options) {
+        return new Wizard(title, width, height, callback, options);
+    };
     alt.createYesNoDialog = function (message, options) {
         if (_ynd) {
             _ynd.Release();
@@ -931,24 +1153,36 @@ export var alt;
         return prompt("#", `App.FolderExists(${folder}`) === "true";
     };
     /*X*/
-    /*
-                                                function gA(cmd) {
-                                                    try {
-                                                        var dbg = _dbg; _UseDbg(false);
-                                                        if (fileExists("/Sys/ga.js")) {
-                                                            if (cmd.toLowerCase() == 'create') {
-                                                                _LoadScriptSync("/Sys/ga.js`);
-                                                                window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
-                                                                ga('create', arguments[1], { 'storage': 'none', 'clientId': app.GetDeviceId() });
-                                                                ga('set', { checkProtocolTask: null, checkStorageTask: null });
-                                                            }
-                                                            else ga.apply(this, arguments);
-                                                        }
-                                                        _UseDbg(dbg);
-                                                    }
-                                                    catch (e) { }
-                                                }
-                                                */
+    alt.gA = function (cmd, ...args) {
+        try {
+            const dbg = _dbg;
+            _UseDbg(false);
+            const ga = null;
+            if (alt.fileExists("/Sys/ga.js")) {
+                if (cmd.toLowerCase() === "create") {
+                    _LoadScriptSync("/Sys/ga.js");
+                    window.ga =
+                        window.ga ||
+                            function () {
+                                (ga.q = ga.q || []).push(args);
+                            };
+                    ga.l = +new Date();
+                    ga("create", args[1], {
+                        storage: "none",
+                        clientId: alt.getDeviceId(),
+                    });
+                    ga("set", { checkProtocolTask: null, checkStorageTask: null });
+                }
+                else {
+                    ga.apply(this, args);
+                }
+            }
+            _UseDbg(dbg);
+        }
+        catch (e) {
+            // Do nothing.
+        }
+    };
     alt.getAccounts = function () {
         return prompt("#", `App.GetAccounts(`);
     };
@@ -1452,6 +1686,12 @@ export var alt;
     alt.saveNumber = function (name, value, file) {
         prompt("#", `App.SaveNumber(${name}\f${value}\f${file}`);
     };
+    /**
+     * Save a text value to remember variable values between multiple app starts.
+     * @param name
+     * @param value
+     * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+     */
     alt.saveText = function (name, value, file) {
         prompt("#", `App.SaveText(${name}\f${value}\f${file}`);
     };
@@ -1616,7 +1856,7 @@ export var alt;
         prompt("#", `App.SetWifiEnabled(\f${enable}`);
     };
     alt.showCheckList = function (title, list, callback, width, height, options) {
-        return new _CheckList(title, list, callback, width, height, options);
+        return new CheckList(title, list, callback, width, height, options);
     };
     alt.showDebug = function (show) {
         prompt("#", `App.ShowDebug(${show}`);
@@ -1636,11 +1876,65 @@ export var alt;
     alt.showProgressBar = function (title, percent, options) {
         prompt("#", `App.ShowProgressBar(\f${title}\f${percent}\f${options}`);
     };
+    //Generic text input dialog function.
     alt.showTextDialog = function (title, deflt, callback) {
-        _ShowTextDialog(title, deflt, callback);
+        const orientation = alt.getOrientation();
+        const width = {
+            text: orientation === "Portrait" ? 0.8 : 0.5,
+            button: orientation === "Portrait" ? 0.4 : 0.25,
+        };
+        const textDialog = alt.createDialog(title);
+        const background = alt
+            .createLayout("Linear", "vertical,fillxy")
+            .setPadding(0.04, 0.02, 0.04, 0);
+        const text = alt.addTextEdit(background, deflt, width.text, -1, "Left");
+        const buttons = alt
+            .createLayout("Linear", "horizontal,fillxy,center")
+            .setMargins(0, 0.02, 0, 0.01);
+        alt.addButton(buttons, "Cancel", width.button).setOnTouch(function () {
+            textDialog.dismiss();
+        });
+        alt.addButton(buttons, "OK", width.button).setOnTouch(function () {
+            textDialog.dismiss();
+            const txt = text.getText();
+            if (txt) {
+                callback(txt);
+            }
+        });
+        background.addChild(buttons);
+        textDialog.addLayout(background).show();
     };
-    alt.showTip = function (message, left, top, timeOut, options) {
-        _ShowTip(message, left, top, timeOut, options);
+    let _dlgTip = null;
+    alt.showTip = function (message, left, top, timeOut, options = "") {
+        // Remove old tip if still showing.
+        if (_dlgTip) {
+            _dlgTip.dismiss();
+            window.clearTimeout(_dlgTip._tm);
+        }
+        // Create dialog window.
+        _dlgTip = alt
+            .createDialog(null, "AutoCancel,NoDim," + options)
+            .setBackColor("#00000000")
+            .setPosition(left, top);
+        const tipLayout = alt.createLayout("Linear", "vertical,fillxy");
+        //const tipText =
+        alt
+            .addText(tipLayout, message, -1, -1, "MultiLine,left,Html")
+            .setTextSize(22, "ps")
+            .setOnTouch(function () {
+            _dlgTip.dismiss();
+        })
+            .setBackground(`/Res/drawable/tooltip_${/up/i.test(options) ? "up" : "down"}`);
+        // Add dialog layout and show dialog.
+        _dlgTip.addLayout(tipLayout).show();
+        if (timeOut) {
+            _dlgTip._tm = window.setTimeout(function () {
+                if (_dlgTip) {
+                    _dlgTip.dismiss();
+                }
+                _dlgTip = null;
+            }, timeOut);
+        }
     };
     alt.simulateDrag = function (obj, x1, y1, x2, y2, step, pause) {
         prompt("#", `App.SimulateDrag(\f${obj.id}\f${x1}\f${y1}\f${x2}\f${y2}\f${step}\f${pause}`);

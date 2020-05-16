@@ -42,12 +42,14 @@ import VideoView from "./videoview";
 import WebServer from "./webserver";
 import WebView from "./webview";
 import Wallpaper from "./wallpaper";
-import { _WifiScan } from "./wifiscan";
 import YesNoDialog from "./yesnodialog";
 import ZipUtil from "./ziputil";
 import DSObject from "./dsobject";
 import Component from "./component";
 import { sqlitePlugin } from "./sql";
+import { Tabs } from "./tabs";
+import { Wizard } from "./wizard";
+import { CheckList } from "./checklist";
 
 // Types
 export type ActivityType = { labelName; packageName; className };
@@ -84,6 +86,25 @@ export type Permissions =
   | "Accounts"
   | "License";
 export type ContactType = "Phone" | "Email";
+export type SensorType =
+  | "Accelerometer"
+  | "MagneticField"
+  | "Orientation"
+  | "Light"
+  | "Proximity"
+  | "Temperature"
+  | "GameRotation"
+  | "GeomagneticRotation"
+  | "Gravity"
+  | "Gyroscope"
+  | "HeartRate"
+  | "Acceleration"
+  | "Pressure"
+  | "Humidity"
+  | "RotationMotion"
+  | "StepCounter"
+  | "StepDetector";
+export type SensorOptionsType = "Fastest" | "Fast" | "Medium" | "Slow";
 
 /** DroidScript commands. */
 // eslint-disable-next-line
@@ -610,7 +631,10 @@ export namespace alt {
     overwrite?: boolean,
     filter?: string
   ): void {
-    prompt("#", `App.CopyFolder(\f${source}\f${destination}\f${overwrite}\f${filter}`);
+    prompt(
+      "#",
+      `App.CopyFolder(\f${source}\f${destination}\f${overwrite}\f${filter}`
+    );
   };
 
   /** Creates an AdView.
@@ -673,7 +697,7 @@ export namespace alt {
    * @param mode  “Text” (default) or “Int” or “Hex”
    */
   export const createBluetoothSerial = function (
-    mode: string = "Text"
+    mode = "Text"
   ): BluetoothSerial {
     const ret = prompt("#", `App.CreateBluetoothSerial(\f${mode}`);
     if (ret) {
@@ -692,8 +716,8 @@ export namespace alt {
    */
   export const createButton = function (
     text?: string,
-    width?: string,
-    height?: string,
+    width?: number,
+    height?: number,
     options?: string
   ): Button {
     const ret = prompt(
@@ -1185,8 +1209,8 @@ export namespace alt {
 
   /**
    * Create user input bars with a moveable pointer.
-   * @param width
-   * @param height
+   * @param width Decimal (0..1)
+   * @param height Decimal (0..1)
    * @param options comma “,” separated: “FillX/Y”
    * @see addSeekBar
    */
@@ -1206,9 +1230,15 @@ export namespace alt {
     }
   };
 
+  /**
+   * Used to access numerous sensors of your device.
+   * @param type “Accelerometer” or “MagneticField” or “Orientation” or “Light” or “Proximity” or “Temperature” or “GameRotation” or “GeomagneticRotation” or “Gravity” or “Gyroscope” or “HeartRate” or “Acceleration” or “Pressure” or “Humidity” or “RotationMotion” or “StepCounter” or “StepDetector”
+   * @param options “Slow” or “Medium” or “Fast” or “Fastest”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSensor.htm|Alex's Docs} for more information.
+   */
   export const createSensor = function (
-    type: string,
-    options?: string
+    type: SensorType,
+    options: SensorOptionsType = "Slow"
   ): Sensor {
     const ret = prompt("#", `App.CreateSensor(${type}\f${options}`);
     if (ret) {
@@ -1218,6 +1248,13 @@ export namespace alt {
     }
   };
 
+  /**
+   * Services run in the background.
+   * @param packageName “this” or “<package>”
+   * @param className “this” or “<class>”
+   * @param options “Persist”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateService.htm|Alex's Docs} for more information.
+   */
   export const createService = function (
     packageName: string,
     className?: string,
@@ -1237,6 +1274,14 @@ export namespace alt {
     }
   };
 
+  /**
+   * Creates a shortcut of an app on your home screen - referencing to a js file runnable with DS.
+   * @param name Shortcut title.
+   * @param iconFile path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param file path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param options comma “,” separated: “Portrait” or “Landscape”, “Transparent”, “NoDom”, “Debug”, “Game” or “remote”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateShortcut.htm|Alex's Docs} for more information.
+   */
   export const createShortcut = function (
     name: string,
     iconFile: string,
@@ -1250,15 +1295,20 @@ export namespace alt {
   };
 
   /*
-											function createSmartWatch(type) {
-												if (_smw) _smw.Release();
-												const ret = prompt("#", `App.CreateSmartWatch(\f${type);
-												if (ret) _smw = new SMW(ret);
-												else _smw = null;
-												return _smw;
-											}
-											*/
+	function createSmartWatch(type) {
+    if (_smw) _smw.Release();
+    const ret = prompt("#", `App.CreateSmartWatch(\f${type);
+    if (ret) _smw = new SMW(ret);
+    else _smw = null;
+    return _smw;
+  }
+  */
 
+  /**
+   * Used to listen for and recognize speech.
+   * @param options comma “,” separated: “NoBeep”, “Partial”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSpeechRec.htm|Alex's Docs} for more information.
+   */
   export const createSpeechRec = function (options?: string): SpeechRec {
     if (_spr) {
       _spr.Release();
@@ -1272,11 +1322,15 @@ export namespace alt {
     return _spr;
   };
 
+  /**
+   * Creates a spinner (similar to dropdown list.)
+   * @param options comma “,” separated: “FillX/Y”, “NoSound”
+   */
   export const createSpinner = function (
-    list,
-    width,
-    height,
-    options
+    list?: string,
+    width?: number,
+    height?: number,
+    options?: string
   ): Spinner {
     const ret = prompt(
       "#",
@@ -1289,6 +1343,11 @@ export namespace alt {
     }
   };
 
+  /**
+   * Returns a Synth object which can produces a variety of sounds, sound effects and music.
+   * @param type “Signal”, “VCA”, “VCF”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSynth.htm|Alex's Docs} for more information.
+   */
   export const createSynth = function (type: string): Synth {
     const ret = prompt("#", `App.CreateSynth(${type}`);
     if (ret) {
@@ -1298,6 +1357,14 @@ export namespace alt {
     }
   };
 
+  /**
+   * Creates a SystemProcedure of a command shell (ie. “sh”, “su” if root or “busybox” if installed) which can be reused throughout the program.
+   * @param cmd program name: “sh” or “su” or “busybox”
+   * @param env
+   * @param dir path to file or folder ( “/absolute/...” or “relative/...” )
+   * @param options comma “,” separated: “combine” or “builder”
+   * @see {@link https://alex-symbroson.github.io/Docs/docs/app/CreateSysProc.htm|Alex's Docs} for more information.
+   */
   export const createSysProc = function (
     cmd: string,
     env?: string,
@@ -1314,11 +1381,16 @@ export namespace alt {
       return null;
     }
   };
-  /*
-											  function createTabs(list, width, height, options) {
-												return new _Tabs(list, width, height, options);
-											  }
-											*/
+
+  export const createTabs = function (
+    list: string,
+    width = 1,
+    height = -1,
+    options?: string
+  ): Tabs {
+    return new Tabs(list, width, height, options);
+  };
+
   export const createText = function (
     text?: string,
     width?: number,
@@ -1464,10 +1536,15 @@ export namespace alt {
     }
   };
 
-  /*X*/
-  /*
-											  function createWizard(title, width, height, callback, options) { return new _Wizard(title, width, height, callback, options) }
-											  */
+  export const createWizard = function (
+    title: string,
+    width?: number,
+    height?: number,
+    callback?: Function,
+    options?: string
+  ): Wizard {
+    return new Wizard(title, width, height, callback, options);
+  };
 
   export const createYesNoDialog = function (
     message?: string,
@@ -1601,24 +1678,35 @@ export namespace alt {
   };
 
   /*X*/
-  /*
-											  function gA(cmd) {
-												  try {
-													  var dbg = _dbg; _UseDbg(false);
-													  if (fileExists("/Sys/ga.js")) {
-														  if (cmd.toLowerCase() == 'create') {
-															  _LoadScriptSync("/Sys/ga.js`);
-															  window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
-															  ga('create', arguments[1], { 'storage': 'none', 'clientId': app.GetDeviceId() });
-															  ga('set', { checkProtocolTask: null, checkStorageTask: null });
-														  }
-														  else ga.apply(this, arguments);
-													  }
-													  _UseDbg(dbg);
-												  }
-												  catch (e) { }
-											  }
-											  */
+
+  export const gA = function (cmd, ...args): void {
+    try {
+      const dbg = _dbg;
+      _UseDbg(false);
+      const ga = null;
+      if (fileExists("/Sys/ga.js")) {
+        if (cmd.toLowerCase() === "create") {
+          _LoadScriptSync("/Sys/ga.js");
+          window.ga =
+            window.ga ||
+            function (): void {
+              (ga.q = ga.q || []).push(args);
+            };
+          ga.l = +new Date();
+          ga("create", args[1], {
+            storage: "none",
+            clientId: alt.getDeviceId(),
+          });
+          ga("set", { checkProtocolTask: null, checkStorageTask: null });
+        } else {
+          ga.apply(this, args);
+        }
+      }
+      _UseDbg(dbg);
+    } catch (e) {
+      // Do nothing.
+    }
+  };
 
   export const getAccounts = function (): string {
     return prompt("#", `App.GetAccounts(`);
@@ -2672,8 +2760,8 @@ export namespace alt {
     width?: number,
     height?: number,
     options?: string
-  ): DSObject {
-    return new _CheckList(title, list, callback, width, height, options);
+  ): CheckList {
+    return new CheckList(title, list, callback, width, height, options);
   };
 
   export const showDebug = function (show: string): void {
@@ -2704,22 +2792,81 @@ export namespace alt {
     prompt("#", `App.ShowProgressBar(\f${title}\f${percent}\f${options}`);
   };
 
+  //Generic text input dialog function.
   export const showTextDialog = function (
-    title?: string,
-    deflt?: string,
-    callback?: Function
+    title: string,
+    deflt: string,
+    callback: Function
   ): void {
-    _ShowTextDialog(title, deflt, callback);
+    const orientation = alt.getOrientation();
+    const width = {
+      text: orientation === "Portrait" ? 0.8 : 0.5,
+      button: orientation === "Portrait" ? 0.4 : 0.25,
+    };
+
+    const textDialog = alt.createDialog(title);
+    const background = alt
+      .createLayout("Linear", "vertical,fillxy")
+      .setPadding(0.04, 0.02, 0.04, 0);
+    const text = alt.addTextEdit(background, deflt, width.text, -1, "Left");
+    const buttons = alt
+      .createLayout("Linear", "horizontal,fillxy,center")
+      .setMargins(0, 0.02, 0, 0.01);
+    alt.addButton(buttons, "Cancel", width.button).setOnTouch(function () {
+      textDialog.dismiss();
+    });
+    alt.addButton(buttons, "OK", width.button).setOnTouch(function () {
+      textDialog.dismiss();
+      const txt = text.getText();
+      if (txt) {
+        callback(txt);
+      }
+    });
+    background.addChild(buttons);
+    textDialog.addLayout(background).show();
   };
 
+  let _dlgTip: Dialog = null;
   export const showTip = function (
     message: string,
     left?: number,
     top?: number,
     timeOut?: number,
-    options?: string
+    options = ""
   ): void {
-    _ShowTip(message, left, top, timeOut, options);
+    // Remove old tip if still showing.
+    if (_dlgTip) {
+      _dlgTip.dismiss();
+      window.clearTimeout(_dlgTip._tm);
+    }
+
+    // Create dialog window.
+    _dlgTip = alt
+      .createDialog(null, "AutoCancel,NoDim," + options)
+      .setBackColor("#00000000")
+      .setPosition(left, top);
+    const tipLayout = alt.createLayout("Linear", "vertical,fillxy");
+    //const tipText =
+    alt
+      .addText(tipLayout, message, -1, -1, "MultiLine,left,Html")
+      .setTextSize(22, "ps")
+      .setOnTouch(function () {
+        _dlgTip.dismiss();
+      })
+      .setBackground(
+        `/Res/drawable/tooltip_${/up/i.test(options) ? "up" : "down"}`
+      );
+
+    // Add dialog layout and show dialog.
+    _dlgTip.addLayout(tipLayout).show();
+    if (timeOut) {
+      _dlgTip._tm = window.setTimeout(function () {
+        if (_dlgTip) {
+          _dlgTip.dismiss();
+        }
+        _dlgTip = null;
+      }, timeOut);
+    }
   };
 
   export const simulateDrag = function (

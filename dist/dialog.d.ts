@@ -1,8 +1,9 @@
 import View from "./view";
 import Layout from "./layout";
 export default class Dialog extends View {
+    _tm: number;
     constructor(id: string);
-    addLayout(layout: Layout): void;
+    addLayout(layout: Layout): Dialog;
     dismiss(): void;
     enableBackKey(enable: boolean): void;
     getType(): string;
